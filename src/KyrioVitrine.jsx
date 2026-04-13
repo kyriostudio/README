@@ -411,6 +411,7 @@ export default function KyrioVitrine() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [dark, setDark] = useState(false);
+  const [isMobileNav, setIsMobileNav] = useState(() => typeof window !== 'undefined' && window.matchMedia('(max-width: 768px)').matches);
 
   useEffect(() => {
     document.title = 'Kyrio — Des sites qui claquent (et convertissent)';
@@ -443,6 +444,14 @@ export default function KyrioVitrine() {
     const onChange = () => { if (mq.matches) setMenuOpen(false); };
     mq.addEventListener('change', onChange);
     return () => mq.removeEventListener('change', onChange);
+  }, []);
+
+  useEffect(() => {
+    const mq = window.matchMedia('(max-width: 768px)');
+    const sync = () => setIsMobileNav(mq.matches);
+    sync();
+    mq.addEventListener('change', sync);
+    return () => mq.removeEventListener('change', sync);
   }, []);
 
   return (
@@ -523,12 +532,16 @@ export default function KyrioVitrine() {
         .theme-toggle:hover { background:rgba(255,255,255,.15); border-color:rgba(255,255,255,.25); transform:rotate(15deg); }
 
         .nav-logo-wrap { display: flex; align-items: center; flex-shrink: 0; }
-        .nav-hamburger { display: none; flex-direction: column; align-items: center; justify-content: center; gap: 4px; width: 38px; height: 38px; padding: 0; border-radius: 10px; background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.12); cursor: pointer; color: #fff; flex-shrink: 0; transition: background .2s, border-color .2s; -webkit-tap-highlight-color: transparent; touch-action: manipulation; }
+        .nav-hamburger { display: none; align-items: center; justify-content: center; width: 38px; height: 38px; padding: 0; border-radius: 10px; background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.12); cursor: pointer; color: #fff; flex-shrink: 0; transition: background .2s, border-color .2s; -webkit-tap-highlight-color: transparent; touch-action: manipulation; }
         .nav-hamburger:hover { background: rgba(255,255,255,.14); border-color: rgba(255,255,255,.22); }
-        .nav-hamburger-bar { display: block; width: 18px; height: 2px; border-radius: 1px; background: #fff; flex-shrink: 0; transition: transform .22s ease, opacity .18s; transform-origin: center; }
-        .nav-hamburger.is-open .nav-hamburger-bar:nth-child(1) { transform: translateY(6px) rotate(45deg); }
-        .nav-hamburger.is-open .nav-hamburger-bar:nth-child(2) { opacity: 0; transform: scaleX(0); }
-        .nav-hamburger.is-open .nav-hamburger-bar:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+        .nav-hamburger-icon { position: relative; width: 18px; height: 14px; display: block; flex-shrink: 0; }
+        .nav-hamburger-line { position: absolute; left: 0; width: 18px; height: 2px; background: #fff; border-radius: 1px; transition: transform .22s ease, opacity .18s; }
+        .nav-hamburger-line:nth-child(1) { top: 0; }
+        .nav-hamburger-line:nth-child(2) { top: 6px; }
+        .nav-hamburger-line:nth-child(3) { top: 12px; }
+        .nav-hamburger.is-open .nav-hamburger-line:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+        .nav-hamburger.is-open .nav-hamburger-line:nth-child(2) { opacity: 0; transform: scaleX(0); }
+        .nav-hamburger.is-open .nav-hamburger-line:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
         .mobile-nav-backdrop { position: fixed; inset: 0; background: rgba(0,0,0,.55); backdrop-filter: blur(6px); z-index: 198; animation: mobileNavFade .2s ease; }
         .mobile-nav-panel { position: fixed; top: 0; right: 0; bottom: 0; width: min(100vw - 48px, 320px); max-width: 100%; background: linear-gradient(180deg, #12121a 0%, #0a0a0f 100%); border-left: 1px solid rgba(255,255,255,.08); z-index: 199; padding: max(56px, env(safe-area-inset-top)) 18px 24px max(18px, env(safe-area-inset-right)); box-shadow: -16px 0 48px rgba(0,0,0,.45); animation: mobileNavSlide .28s cubic-bezier(.22,1,.36,1); overflow-y: auto; -webkit-overflow-scrolling: touch; }
         .mobile-nav-label { font-size: 11px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: rgba(255,255,255,.35); margin-bottom: 16px; }
@@ -584,11 +597,14 @@ export default function KyrioVitrine() {
           .nav-logo-wrap { transform: scale(0.82); transform-origin: left center; }
           .nav-actions { gap: 6px !important; }
           .nav-actions .theme-toggle { width: 34px !important; height: 34px !important; min-width: 34px !important; }
-          .nav-desktop-cta { display: none !important; }
-          .nav-hamburger { display: flex !important; width: 36px !important; height: 36px !important; gap: 3px !important; border-radius: 9px !important; }
-          .nav-hamburger .nav-hamburger-bar { width: 16px !important; }
-          .nav-hamburger.is-open .nav-hamburger-bar:nth-child(1) { transform: translateY(5px) rotate(45deg) !important; }
-          .nav-hamburger.is-open .nav-hamburger-bar:nth-child(3) { transform: translateY(-5px) rotate(-45deg) !important; }
+          .nav-bar .nav-actions > button.kyrio-btn-dark.nav-desktop-cta { display: none !important; visibility: hidden !important; width: 0 !important; height: 0 !important; padding: 0 !important; margin: 0 !important; overflow: hidden !important; position: absolute !important; clip: rect(0,0,0,0) !important; border: 0 !important; }
+          .nav-hamburger { display: flex !important; width: 36px !important; height: 36px !important; border-radius: 9px !important; }
+          .nav-hamburger .nav-hamburger-icon { width: 16px !important; height: 12px !important; }
+          .nav-hamburger .nav-hamburger-line { width: 16px !important; }
+          .nav-hamburger-line:nth-child(2) { top: 5px !important; }
+          .nav-hamburger-line:nth-child(3) { top: 10px !important; }
+          .nav-hamburger.is-open .nav-hamburger-line:nth-child(1) { transform: translateY(5px) rotate(45deg) !important; }
+          .nav-hamburger.is-open .nav-hamburger-line:nth-child(3) { transform: translateY(-5px) rotate(-45deg) !important; }
           .hide-mobile { display: none !important; }
         }
         @media (max-width: 380px) {
@@ -627,16 +643,20 @@ export default function KyrioVitrine() {
             aria-controls="kyrio-mobile-nav"
             aria-label={menuOpen ? 'Fermer le menu' : 'Ouvrir le menu'}
           >
-            <span className="nav-hamburger-bar" />
-            <span className="nav-hamburger-bar" />
-            <span className="nav-hamburger-bar" />
+            <span className="nav-hamburger-icon" aria-hidden>
+              <span className="nav-hamburger-line" />
+              <span className="nav-hamburger-line" />
+              <span className="nav-hamburger-line" />
+            </span>
           </button>
           <button className="theme-toggle" onClick={() => setDark(d => !d)} title={dark ? 'Mode clair' : 'Mode sombre'}>
             <KIcon name={dark ? 'sun' : 'moon'} size={16} color={dark ? '#6366f1' : 'rgba(255,255,255,.8)'} />
           </button>
+          {!isMobileNav && (
           <button onClick={() => scrollTo('contact')} className="kyrio-btn-dark nav-cta nav-desktop-cta" style={{ padding: '10px 22px', fontSize: 13 }}>
             Demander un devis
           </button>
+          )}
         </div>
       </nav>
 
