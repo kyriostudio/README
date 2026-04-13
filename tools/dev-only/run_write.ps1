@@ -1,0 +1,1 @@
+ = @'\n<!DOCTYPE html>\n<html><body>ok</body></html>\n'@\n[System.IO.File]::WriteAllText('C:/crm-web-demos/public/logo-orbite-variants.html', , [System.Text.Encoding]::UTF8)\n

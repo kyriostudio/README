@@ -1,0 +1,204 @@
+{
+  "carentan": {
+    "slug": "carentan",
+    "order": 2,
+    "template": "carentan",
+    "name": "Mairie de Carentan-les-Marais",
+    "tagline": "Commune de Normandie — Manche (50)",
+    "primaryColor": "#0d3c6e",
+    "sector": "Collectivité territoriale",
+    "phone": "02 33 42 00 55",
+    "address": "Place de la République — 50500 Carentan",
+    "siteUrl": "https://carentanlesmarais.fr",
+    "heroImage": "https://images.unsplash.com/photo-1523731407965-2430cd12f5e4?w=800&q=80"
+  },
+  "design-contemporain": {
+    "slug": "design-contemporain",
+    "order": 1,
+    "template": "design-contemporain",
+    "name": "Design Contemporain",
+    "tagline": "Mobilier haut de gamme — Showroom à Caen",
+    "primaryColor": "#b8915a",
+    "sector": "Mobilier Design",
+    "phone": "02 31 74 76 90",
+    "address": "173, rue Saint Jean — 14000 Caen",
+    "siteUrl": "https://www.design-contemporain.fr",
+    "heroImage": "https://images.unsplash.com/photo-1618220252344-8ec99ec624b1?w=800&q=80"
+  },
+  "arc-en-ciel-proprete": {
+    "slug": "arc-en-ciel-proprete",
+    "order": 0,
+    "template": "arcenciel",
+    "name": "Arc en ciel propreté",
+    "nameLine1": "Arc en ciel",
+    "nameLine2": "propreté",
+    "heroTitle": "Entreprise de nettoyage à Caen – fiable et réactive",
+    "heroSubtitle": "Des prestations sur-mesure pour bureaux, copropriétés et locaux professionnels",
+    "heroCta": "Demandez votre devis gratuit sous 24h",
+    "tagline": "Entreprise spécialisée dans le nettoyage à Caen et ses alentours",
+    "phone": "02 31 84 54 82",
+    "email": "arc.en.ciel.proprete@orange.fr",
+    "sector": "Propreté / Nettoyage",
+    "siteUrl": "https://arcencielproprete.fr",
+    "intro": "Depuis plus de 15 ans, Arc en Ciel Propreté est un acteur incontournable du secteur de la propreté à Caen et ses alentours. Forts d'une expérience solide et d'un savoir-faire reconnu, nous sommes à même de répondre aux besoins les plus divers des professionnels, qu'il s'agisse de nettoyage de bureaux, d'entretien d'espaces verts ou encore de nettoyage après sinistre.",
+    "intro2": "Nous accordons une importance particulière à la qualité de nos prestations, qui est pour nous la garantie d'une satisfaction totale de nos clients. Pour cela, nous avons mis en place une organisation rigoureuse, avec des collaborateurs compétents et impliqués, régulièrement formés aux dernières techniques de nettoyage.",
+    "intro3": "En plus des professionnels de tous secteurs d'activité même du médical, nous intervenons chez les particuliers et au sein des collectivités comme les mairies, écoles et crèches.",
+    "servicesCategories": [
+      {
+        "title": "Nettoyage professionnel",
+        "icon": "🏢",
+        "items": [
+          "Bureaux & open spaces",
+          "Commerces & boutiques",
+          "Cabinets médicaux",
+          "Parties communes"
+        ],
+        "seo": "nettoyage bureaux Caen"
+      },
+      {
+        "title": "Nettoyage spécialisé",
+        "icon": "🔬",
+        "items": [
+          "Nettoyage industriel",
+          "Nettoyage après chantier",
+          "Nettoyage après sinistre",
+          "Désinfection & décontamination"
+        ],
+        "seo": "nettoyage industriel Caen"
+      },
+      {
+        "title": "Remise en état",
+        "icon": "🏠",
+        "items": [
+          "Logements & appartements",
+          "Locaux professionnels",
+          "Biens locatifs",
+          "Nettoyage en profondeur"
+        ],
+        "seo": "remise en état logement Caen"
+      },
+      {
+        "title": "Services complémentaires",
+        "icon": "✨",
+        "items": [
+          "Vitrerie",
+          "Sols (moquette, parquet, décapage)",
+          "Débarras & espaces verts",
+          "Syndrome de Diogène"
+        ],
+        "seo": "nettoyage vitres Caen"
+      }
+    ],
+    "servicesCibles": [
+      {
+        "title": "Collectivités",
+        "description": "Mairies, écoles, crèches",
+        "image": "/images/arcenciel/illus-collectivites.png"
+      },
+      {
+        "title": "Copropriétés",
+        "description": "Entretien des parties communes",
+        "image": "/images/arcenciel/illus-coproprietes.png"
+      },
+      {
+        "title": "Professionnels",
+        "description": "Bureaux, commerces, locaux industriels et médicaux",
+        "image": "/images/arcenciel/illus-professionnels.png"
+      },
+      {
+        "title": "Particuliers",
+        "description": "Maisons, appartements, villas",
+        "image": "/images/arcenciel/illus-particuliers.png"
+      }
+    ],
+    "equipeTitle": "Des collaborateurs engagés",
+    "equipeText": "Notre équipe est composée de plus de 20 agents d'entretien, tous expérimentés et formés à la méthode d'Arc en Ciel Propreté. Nous attachons une grande importance à la valorisation de nos salariés, car nous sommes convaincus que c'est la clé d'un service de qualité.",
+    "zoneTitle": "Notre zone d'intervention",
+    "zoneText": "Nous intervenons sur le secteur de Caen et sa périphérie : Mondeville, Hérouville-Saint-Clair, Colombelles, Ifs, Fleury-sur-Orne, Carpiquet et alentours.",
+    "avantages": [
+      {
+        "title": "Bienveillance et expérience significative",
+        "icon": "🤝",
+        "text": "Plus de 15 ans d'expertise au service de la propreté"
+      },
+      {
+        "title": "Nettoyage et produits écolabellisés",
+        "icon": "🌿",
+        "text": "Respect de l'environnement et de votre santé"
+      },
+      {
+        "title": "Un service sur-mesure",
+        "icon": "⚡",
+        "text": "Réactivité et solutions adaptées à vos besoins"
+      }
+    ],
+    "articleText": "Notre entreprise, Arc en Ciel Propreté, a fait l'objet d'un article publié dans Capital. Nous sommes ravis de partager avec vous notre expertise et notre engagement en matière de propreté et d'environnement.",
+    "articlePdf": "https://arcencielproprete.fr/wp-content/uploads/2023/03/ARC-EN-CIEL-PROPRETE-FICHIER-PDF-1.pdf",
+    "horaires": "Du lundi au vendredi, de 8h à 12h et de 14h à 17h",
+    "chiffres": [
+      {
+        "value": "15+",
+        "label": "années d'expérience"
+      },
+      {
+        "value": "20+",
+        "label": "agents qualifiés"
+      },
+      {
+        "value": "24h",
+        "label": "réponse devis"
+      },
+      {
+        "value": "100%",
+        "label": "satisfaction client"
+      }
+    ],
+    "logo": "/images/arcenciel/logo.png",
+    "heroImage": "/images/arcenciel/hero.png",
+    "photoServices": "/images/arcenciel/photo-services.png",
+    "carteImg": "/images/arcenciel/carte-caen.png",
+    "galerieAvantApres": [
+      {
+        "src": "/images/arcenciel/avap-toilettes.png",
+        "label": "Sanitaires"
+      },
+      {
+        "src": "/images/arcenciel/avap-plaque.png",
+        "label": "Plaque de cuisson"
+      },
+      {
+        "src": "/images/arcenciel/avap-mur.png",
+        "label": "Mur & revêtement"
+      },
+      {
+        "src": "/images/arcenciel/avap-evier.png",
+        "label": "Évier"
+      },
+      {
+        "src": "/images/arcenciel/avap-cour.png",
+        "label": "Cour extérieure"
+      },
+      {
+        "src": "/images/arcenciel/avap-terrain.png",
+        "label": "Terrain"
+      },
+      {
+        "src": "/images/arcenciel/avap-lavabo.png",
+        "label": "Lavabo"
+      }
+    ]
+  },
+  "site-vitrine": {
+    "slug": "site-vitrine",
+    "order": 3,
+    "template": "site-vitrine",
+    "name": "Site Vitrine Demo",
+    "tagline": "Template de site vitrine professionnel",
+    "primaryColor": "#2563eb",
+    "sector": "Template Demo",
+    "phone": "01 23 45 67 89",
+    "address": "123 Rue de la Demo ? 75001 Paris",
+    "siteUrl": "#",
+    "heroImage": "https://images.unsplash.com/photo-1497366216548-37526070297c?w=1200&q=80"
+  }
+}

@@ -1,0 +1,176 @@
+﻿<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kyrio — Propositions de logo</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --violet: #6366f1;
+      --indigo: #4f46e5;
+      --blue: #3b82f6;
+      --cyan: #06b6d4;
+      --lime: #84cc16;
+      --text: #1e293b;
+      --muted: #64748b;
+      --card-border: rgba(99, 102, 241, 0.12);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: "Inter", system-ui, -apple-system, sans-serif;
+      font-weight: 400;
+      color: var(--text);
+      background: #ffffff;
+      line-height: 1.5;
+    }
+    .page { max-width: 1200px; margin: 0 auto; padding: 3rem 1.5rem 4rem; }
+    header { text-align: center; margin-bottom: 2.75rem; }
+    header h1 {
+      font-weight: 900;
+      font-size: clamp(1.75rem, 4vw, 2.25rem);
+      letter-spacing: -0.03em;
+      margin: 0 0 0.5rem;
+      background: linear-gradient(135deg, var(--indigo), var(--violet), var(--cyan));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    header p { margin: 0; color: var(--muted); font-size: 1rem; }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+      align-items: stretch;
+    }
+    .card {
+      position: relative;
+      background: #fff;
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      padding: 1.75rem 1.5rem 1.5rem;
+      box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04), 0 8px 24px rgba(79, 70, 229, 0.08);
+      transition: transform 0.22s ease, box-shadow 0.22s ease;
+    }
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 4px 12px rgba(15, 23, 42, 0.06), 0 16px 40px rgba(79, 70, 229, 0.12);
+    }
+    .badge {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      width: 28px;
+      height: 28px;
+      border-radius: 8px;
+      background: linear-gradient(145deg, var(--violet), var(--indigo));
+      color: #fff;
+      font-weight: 700;
+      font-size: 0.8125rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 2px 8px rgba(79, 70, 229, 0.35);
+    }
+    .logo-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1rem;
+      padding-top: 0.25rem;
+    }
+    .logo-wrap svg { width: 80px; height: 80px; display: block; }
+    .wordmark { font-weight: 700; font-size: 1.25rem; letter-spacing: -0.02em; }
+    .wordmark .rest { color: var(--text); }
+    .card h2 { font-weight: 700; font-size: 1.0625rem; margin: 0 0 0.5rem; color: var(--text); }
+    .card p { margin: 0; font-size: 0.9375rem; color: var(--muted); }
+    footer { text-align: center; margin-top: 3rem; font-size: 0.8125rem; color: var(--muted); }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header>
+      <h1>Kyrio</h1>
+      <p>Propositions de logo — agence web · style géométrique &amp; coloré</p>
+    </header>
+    <div class="grid">
+      <article class="card">
+        <span class="badge">1</span>
+        <div class="logo-wrap">
+          <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <polygon points="50,50 8,50 50,8" fill="#4f46e5" />
+            <polygon points="50,50 50,8 92,50" fill="#6366f1" />
+            <polygon points="50,50 92,50 50,92" fill="#06b6d4" />
+          </svg>
+          <div class="wordmark"><span style="color:#4f46e5">K</span><span class="rest">yrio</span><span style="color:#84cc16">.</span></div>
+        </div>
+        <h2>Le Prisme</h2>
+        <p>Un losange aux trois facettes indigo, violet et cyan — clarté, profondeur et une identité digitale lumineuse.</p>
+      </article>
+      <article class="card">
+        <span class="badge">2</span>
+        <div class="logo-wrap">
+          <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <rect x="8" y="8" width="38" height="38" rx="10" fill="#6366f1" />
+            <rect x="54" y="8" width="38" height="38" rx="10" fill="#4f46e5" />
+            <rect x="8" y="54" width="38" height="38" rx="10" fill="#3b82f6" />
+            <g transform="rotate(6 73 73)">
+              <rect x="54" y="54" width="38" height="38" rx="10" fill="#84cc16" />
+            </g>
+          </svg>
+          <div class="wordmark"><span style="color:#6366f1">K</span><span class="rest">yrio</span><span style="color:#84cc16">.</span></div>
+        </div>
+        <h2>Le Pixel Vivant</h2>
+        <p>Quatre modules arrondis en grille 2×2 ; une touche lime légèrement pivotée pour l'énergie et le côté humain.</p>
+      </article>
+      <article class="card">
+        <span class="badge">3</span>
+        <div class="logo-wrap">
+          <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <g transform="rotate(-30 50 50)">
+              <circle cx="50" cy="50" r="38" fill="none" stroke="#4f46e5" stroke-width="10" stroke-linecap="round" stroke-dasharray="210 30" />
+              <circle cx="85.5" cy="36.5" r="10" fill="#84cc16" />
+            </g>
+          </svg>
+          <div class="wordmark"><span style="color:#4f46e5">K</span><span class="rest">yrio</span><span style="color:#84cc16">.</span></div>
+        </div>
+        <h2>L'Orbite</h2>
+        <p>Un anneau ouvert en indigo, dynamique ; le point lime marque le passage, l'idée ou le lancement.</p>
+      </article>
+      <article class="card">
+        <span class="badge">4</span>
+        <div class="logo-wrap">
+          <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <rect x="18" y="18" width="20" height="64" rx="2" fill="#6366f1" />
+            <polygon points="42,18 82,18 42,52" fill="#4f46e5" />
+            <polygon points="42,48 82,82 42,82" fill="#06b6d4" />
+            <polygon points="44,42 54,50 44,58 34,50" fill="#84cc16" />
+          </svg>
+          <div class="wordmark"><span style="color:#6366f1">K</span><span class="rest">yrio</span><span style="color:#84cc16">.</span></div>
+        </div>
+        <h2>Le K Origami</h2>
+        <p>Lettre K construite en plis : structure, précision artisanale et une touche de fraîcheur au carrefour des formes.</p>
+      </article>
+      <article class="card">
+        <span class="badge">5</span>
+        <div class="logo-wrap">
+          <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <rect x="12" y="58" width="52" height="28" rx="8" fill="#6366f1" />
+            <rect x="28" y="36" width="52" height="28" rx="8" fill="#3b82f6" />
+            <rect x="44" y="14" width="44" height="28" rx="8" fill="#84cc16" />
+          </svg>
+          <div class="wordmark"><span style="color:#6366f1">K</span><span class="rest">yrio</span><span style="color:#84cc16">.</span></div>
+        </div>
+        <h2>Les Blocs</h2>
+        <p>Trois blocs arrondis en escalier — progression, livrables empilés et montée en puissance pour vos projets web.</p>
+      </article>
+    </div>
+    <footer>Kyrio — démo de propositions logo (SVG, autonome)</footer>
+  </div>
+</body>
+</html>

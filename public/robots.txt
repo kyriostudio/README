@@ -1,0 +1,4 @@
+﻿User-agent: *
+Allow: /
+
+# Sitemap optionnel: ajoutez sitemap.xml plus tard si besoin
