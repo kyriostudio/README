@@ -133,7 +133,7 @@ const OFFRES = [
     nom: 'Essentiel',
     prix: 990,
     delai: '7 jours',
-    desc: "Vous n'existez pas sur Google ? Kyrio règle ça — proprement, en une semaine.",
+    desc: "Google vous zappe ? Vous êtes page 7 ? On remonte la file — en une semaine, sans mégaphone ni PowerPoint de 90 slides.",
     color: '#6366f1',
     features: [
       '5 pages (Accueil, Services, À propos, Galerie, Contact)',
@@ -144,14 +144,14 @@ const OFFRES = [
       'Mise en ligne incluse',
       'Google Search Console configurée',
     ],
-    cta: "C'est parti",
+    cta: "Allez, on y va",
     popular: false,
   },
   {
     nom: 'Pro',
     prix: 1490,
     delai: '14 jours',
-    desc: "L'offre Kyrio que 7 clients sur 10 choisissent. Le huitième hésite encore — on l'attend.",
+    desc: "L'offre que 7 clients sur 10 choisissent. Le 8ᵉ est encore en train de lire notre tableau comparatif — on l'attend, café compris.",
     color: '#06b6d4',
     features: [
       '10 pages sur-mesure',
@@ -170,7 +170,7 @@ const OFFRES = [
     nom: 'Signature',
     prix: 2490,
     delai: '21 jours',
-    desc: "Le projet Kyrio complet. Pour ceux qui veulent un site qui rapporte autant qu'un bon commercial.",
+    desc: "Le projet XXL. Un site qui claque autant qu'un bon commercial — mais sans la pause clope ni le blabla.",
     color: '#f59e0b',
     features: [
       'Pages illimitées',
@@ -182,31 +182,31 @@ const OFFRES = [
       'Hébergement 1 an offert',
       'Priorité absolue & accès direct',
     ],
-    cta: 'On en parle',
+    cta: "On en parle autour d'un café",
     popular: false,
   },
 ];
 
 const MAINTENANCE = [
-  { nom: 'Kyrio Gardien',   prix: 49,  desc: "Kyrio surveille votre site 24h/24. Les hackers ne font pas de pauses — nous non plus.",                                                           features: ['Mises à jour CMS & plugins', 'Sauvegardes quotidiennes', 'Surveillance sécurité 24h/24', 'Certificat SSL maintenu'],                                color: '#10b981', icon: 'guardian' },
-  { nom: 'Kyrio Croissance', prix: 89,  desc: "Un site qui stagne recule. Kyrio s'occupe de l'entretien et du SEO — Google remarque la différence.",                                           features: ['Tout le Gardien inclus', '2h de modifications/mois', 'Rapport SEO mensuel', 'Fiche Google Business suivi'],                                       color: '#06b6d4', icon: 'growth'   },
-  { nom: 'Kyrio Partenaire', prix: 179, desc: "Votre département digital externalisé. L'équipe Kyrio à plein temps — sans les charges sociales.",                                              features: ['Tout Croissance inclus', '4h création contenu/mois', 'Gestion Google Ads', 'Réunion mensuelle bilan'],                                            color: '#f59e0b', icon: 'partner'  },
+  { nom: 'Kyrio Gardien',   prix: 49,  desc: "On veille comme un chat sur un clavier — sauf qu'on met à jour vos plugins, pas les vidéos de moustaches.",                                                           features: ['Mises à jour CMS & plugins', 'Sauvegardes quotidiennes', 'Surveillance sécurité 24h/24', 'Certificat SSL maintenu'],                                color: '#10b981', icon: 'guardian' },
+  { nom: 'Kyrio Croissance', prix: 89,  desc: "Un site qui ne bouge pas, c'est du patrimoine. Sauf que Google ne collectionne pas les antiquités.",                                           features: ['Tout le Gardien inclus', '2h de modifications/mois', 'Rapport SEO mensuel', 'Fiche Google Business suivi'],                                       color: '#06b6d4', icon: 'growth'   },
+  { nom: 'Kyrio Partenaire', prix: 179, desc: "Votre équipe marketing, sans les frais de plantes au bureau. Stratégie, contenu, ads — sans recruter.",                                              features: ['Tout Croissance inclus', '4h création contenu/mois', 'Gestion Google Ads', 'Réunion mensuelle bilan'],                                            color: '#f59e0b', icon: 'partner'  },
 ];
 
 const STEPS = [
-  { num: '01', titre: 'Échange & brief', desc: "Un appel de 30 min. Kyrio pose les vraies questions — pas celles d'un formulaire conçu pour décourager.", icon: 'brief' },
-  { num: '02', titre: 'Devis Kyrio sous 24h', desc: "Votre devis détaillé dès le lendemain. Complet, sans ligne en petit. On démarre dès que vous validez.", icon: 'devis' },
-  { num: '03', titre: 'Création & retours', desc: "Première version en 72h. Deux rounds de retours inclus — pas dix. C'est suffisant quand le travail est bien fait.", icon: 'creation' },
-  { num: '04', titre: 'Mise en ligne Kyrio', desc: "Lancement soigné, formation rapide. Kyrio ne disparaît pas après la livraison — contrairement à certains.", icon: 'launch' },
+  { num: '01', titre: 'Brief & caféine', desc: "30 minutes. Les vraies questions — pas celles d'un PDF de 48 pages pensé pour vous faire fuir.", icon: 'brief' },
+  { num: '02', titre: 'Devis sous 24 h', desc: "Prix, délais, périmètre : en grand sur la page 1. Pas de « sur devis » mystique planqué en page 12.", icon: 'devis' },
+  { num: '03', titre: 'Création & retours', desc: "Première version en 72 h. Deux tours de retours — parce qu'on préfère bien faire que faire douze fois.", icon: 'creation' },
+  { num: '04', titre: 'Mise en ligne', desc: "Go-live, tests, mini-formation. Après ? On ne disparaît pas — contrairement à votre ex-agence.", icon: 'launch' },
 ];
 
 const WHY = [
-  { titre: 'Kyrio livre vite. Vraiment.', desc: "7 à 21 jours. Le temps que d'autres agences finalisent leur brief, votre site Kyrio est déjà en ligne.", icon: 'speed' },
-  { titre: 'Un site Kyrio qui rapporte', desc: "Beau et rentable. Étonnamment rare dans le milieu — chez Kyrio, les deux vont de pair.", icon: 'target' },
-  { titre: 'SEO Kyrio dès le jour 1', desc: "Google est votre meilleur commercial. Kyrio l'active dès le départ — pas vendu en option six mois plus tard.", icon: 'seo' },
-  { titre: 'Chez Kyrio : un humain, pas un ticket', desc: "Vous avez le numéro direct. Pas de chatbot, pas de délai de 5 jours. Kyrio répond.", icon: 'person' },
-  { titre: 'Les tarifs Kyrio, affichés', desc: "Ce que vous signez avec Kyrio, c'est ce que vous payez. Rien de plus. Jamais.", icon: 'shield' },
-  { titre: 'Les résultats Kyrio, mesurés', desc: "Tableau de bord, Analytics, rapport mensuel. Kyrio vous montre ce que ça rapporte — même quand c'est à améliorer.", icon: 'chart' },
+  { titre: 'Vite. Vraiment vite.', desc: "Sept à vingt-et-un jours. Pendant qu'ailleurs on peaufine encore le brief, votre site est déjà en ligne — on n'a pas la machine à voyager dans le temps, juste un bon process.", icon: 'speed' },
+  { titre: 'Beau comme tout. Utile comme jamais.', desc: "Design qui plaît aux humains, structure qui plaît à Google. Les deux dès le départ — pas de « on verra le SEO plus tard ».", icon: 'target' },
+  { titre: 'SEO dès le jour 1', desc: "Référencement inclus, pas vendu en option six mois plus tard comme un dessert qu'on vous cache sous le napperon.", icon: 'seo' },
+  { titre: 'Un humain au bout du fil.', desc: "Pas de ticket #38492. Pas de bot qui vous demande si vous êtes un robot. Une vraie personne — promis.", icon: 'person' },
+  { titre: 'Tarifs affichés. Fin de la blague.', desc: "Ce que vous signez, c'est ce que vous payez. Pas de ligne « ajustement créatif » en taille 6.", icon: 'shield' },
+  { titre: 'Des chiffres. Même quand ça pique.', desc: "Stats, rapports, courbes — on vous montre ce qui marche. Et ce qui devrait prendre sa retraite.", icon: 'chart' },
 ];
 
 const PACK_LANCEMENT = {
@@ -236,6 +236,7 @@ function AvantApres() {
   return (
     <div
       ref={ref}
+      className="avant-apres-comparator"
       style={{ position: 'relative', borderRadius: 20, overflow: 'hidden', userSelect: 'none', width: '100%', height: 520, boxShadow: '0 32px 80px rgba(0,0,0,.22)', border: '1px solid rgba(0,0,0,.1)', cursor: 'col-resize' }}
       onMouseMove={e => dragging && update(e.clientX)}
       onMouseUp={() => setDragging(false)}
@@ -412,16 +413,37 @@ export default function KyrioVitrine() {
   const [dark, setDark] = useState(false);
 
   useEffect(() => {
-    document.title = 'Kyrio — Création de sites web professionnels';
+    document.title = 'Kyrio — Des sites qui claquent (et convertissent)';
     const onScroll = () => setScrolled(window.scrollY > 40);
     window.addEventListener('scroll', onScroll);
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
+  const NAV_LINKS = [['offres', 'Offres'], ['maintenance', 'Maintenance'], ['processus', 'Processus'], ['avant-apres', 'Avant/Après'], ['demos', 'Réalisations']];
+
   const scrollTo = (id) => {
     document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
     setMenuOpen(false);
   };
+
+  useEffect(() => {
+    if (!menuOpen) return undefined;
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    const onKey = (e) => { if (e.key === 'Escape') setMenuOpen(false); };
+    window.addEventListener('keydown', onKey);
+    return () => {
+      document.body.style.overflow = prev;
+      window.removeEventListener('keydown', onKey);
+    };
+  }, [menuOpen]);
+
+  useEffect(() => {
+    const mq = window.matchMedia('(min-width: 769px)');
+    const onChange = () => { if (mq.matches) setMenuOpen(false); };
+    mq.addEventListener('change', onChange);
+    return () => mq.removeEventListener('change', onChange);
+  }, []);
 
   return (
     <div className={dark ? 'kr-root kr-dark' : 'kr-root'} style={{ fontFamily: "'DM Sans', system-ui, sans-serif", color: '#111', background: dark ? '#0d0d0d' : '#fff', overflowX: 'hidden', transition: 'background .35s, color .35s' }}>
@@ -500,19 +522,74 @@ export default function KyrioVitrine() {
         .theme-toggle { display:flex; align-items:center; justify-content:center; width:36px; height:36px; border-radius:50%; background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.12); cursor:pointer; transition:all .2s; color:#fff; }
         .theme-toggle:hover { background:rgba(255,255,255,.15); border-color:rgba(255,255,255,.25); transform:rotate(15deg); }
 
+        .nav-hamburger { display: none; align-items: center; justify-content: center; width: 44px; height: 44px; border-radius: 12px; background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.12); cursor: pointer; color: #fff; flex-shrink: 0; transition: background .2s, border-color .2s; }
+        .nav-hamburger:hover { background: rgba(255,255,255,.14); border-color: rgba(255,255,255,.22); }
+        .nav-hamburger-bar { display: block; width: 20px; height: 2px; border-radius: 1px; background: #fff; transition: transform .25s ease, opacity .2s; }
+        .nav-hamburger-bar + .nav-hamburger-bar { margin-top: 5px; }
+        .nav-hamburger.is-open .nav-hamburger-bar:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+        .nav-hamburger.is-open .nav-hamburger-bar:nth-child(2) { opacity: 0; transform: scaleX(0); }
+        .nav-hamburger.is-open .nav-hamburger-bar:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+        .mobile-nav-backdrop { position: fixed; inset: 0; background: rgba(0,0,0,.55); backdrop-filter: blur(6px); z-index: 198; animation: mobileNavFade .2s ease; }
+        .mobile-nav-panel { position: fixed; top: 0; right: 0; bottom: 0; width: min(100vw - 48px, 320px); max-width: 100%; background: linear-gradient(180deg, #12121a 0%, #0a0a0f 100%); border-left: 1px solid rgba(255,255,255,.08); z-index: 199; padding: max(72px, env(safe-area-inset-top)) 20px 28px max(20px, env(safe-area-inset-right)); box-shadow: -16px 0 48px rgba(0,0,0,.45); animation: mobileNavSlide .28s cubic-bezier(.22,1,.36,1); overflow-y: auto; -webkit-overflow-scrolling: touch; }
+        .mobile-nav-label { font-size: 11px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: rgba(255,255,255,.35); margin-bottom: 16px; }
+        .mobile-nav-link { display: block; width: 100%; text-align: left; background: transparent; border: none; color: rgba(255,255,255,.88); font-size: 17px; font-weight: 600; padding: 14px 4px; cursor: pointer; font-family: inherit; border-radius: 10px; transition: background .15s, color .15s; }
+        .mobile-nav-link:hover, .mobile-nav-link:focus-visible { background: rgba(99,102,241,.12); color: #fff; outline: none; }
+        .mobile-nav-link + .mobile-nav-link { border-top: 1px solid rgba(255,255,255,.06); }
+        @keyframes mobileNavSlide { from { transform: translateX(100%); opacity: .6; } to { transform: none; opacity: 1; } }
+        @keyframes mobileNavFade { from { opacity: 0; } to { opacity: 1; } }
+        @media (min-width: 769px) {
+          .mobile-nav-root { display: none !important; }
+        }
+
+
         @media (max-width: 768px) {
-          .hero-title { font-size: clamp(36px, 10vw, 72px) !important; }
-          .offers-grid { grid-template-columns: 1fr !important; }
-          .why-grid { grid-template-columns: 1fr 1fr !important; }
-          .steps-grid { grid-template-columns: 1fr 1fr !important; }
-          .maintenance-grid { grid-template-columns: 1fr !important; }
+          .hero-title { font-size: clamp(32px, 9vw, 56px) !important; line-height: 1.08 !important; letter-spacing: -0.025em !important; }
+          .hero-section { min-height: auto !important; padding: 88px max(16px, env(safe-area-inset-left)) 56px max(16px, env(safe-area-inset-right)) !important; }
+          .hero-orbit { width: min(100vw, 420px) !important; height: min(100vw, 420px) !important; opacity: 0.75; }
+          .hero-badge { font-size: 10px !important; letter-spacing: 0.05em !important; padding: 8px 14px !important; margin-bottom: 22px !important; max-width: 100%; line-height: 1.45 !important; }
+          .hero-sub { font-size: 16px !important; line-height: 1.65 !important; margin-bottom: 28px !important; padding: 0 2px; }
+          .hero-cta { flex-direction: column !important; width: 100%; max-width: 360px; margin-left: auto; margin-right: auto; gap: 10px !important; }
+          .hero-cta button { width: 100%; justify-content: center; }
+          .hero-stats { flex-direction: column !important; align-items: stretch !important; gap: 20px !important; margin-top: 44px !important; padding-top: 28px !important; }
+          .hero-stats > div { padding: 0 8px !important; border-right: none !important; border-bottom: 1px solid rgba(255,255,255,.07); padding-bottom: 20px !important; }
+          .hero-stats > div:last-child { border-bottom: none !important; padding-bottom: 0 !important; }
+          .hero-stats > div > div:last-child { font-size: 13px !important; line-height: 1.5 !important; max-width: 280px; margin-left: auto !important; margin-right: auto !important; }
+          .section-pad { padding: 64px max(16px, env(safe-area-inset-left)) 64px max(16px, env(safe-area-inset-right)) !important; }
+          .section-head { margin-bottom: 40px !important; }
+          .section-head h2 { margin-bottom: 14px !important; }
+          .section-head p { font-size: 16px !important; }
+          .offers-grid { grid-template-columns: 1fr !important; gap: 16px !important; }
+          .offer-card { border-radius: 22px !important; padding: 28px 20px 24px !important; }
+          .offer-card.popular { padding-top: 44px !important; }
+          .pack-kyrio { padding: 24px 18px !important; flex-direction: column !important; align-items: stretch !important; text-align: center; gap: 20px !important; }
+          .pack-kyrio h3 { font-size: 20px !important; }
+          .maintenance-grid { grid-template-columns: 1fr !important; gap: 14px !important; }
+          .maint-card { padding: 24px 18px !important; border-radius: 18px !important; }
+          .steps-grid { grid-template-columns: 1fr !important; gap: 0 !important; }
+          .steps-grid > div { border-right: none !important; border-bottom: 1px solid var(--sbdr) !important; padding: 28px 16px 32px !important; }
+          .steps-grid > div:last-child { border-bottom: none !important; }
+          .why-grid { grid-template-columns: 1fr !important; gap: 0 !important; }
+          .why-grid > div { border-right: none !important; padding: 28px 18px !important; border-bottom: 1px solid rgba(255,255,255,.06) !important; }
+          .portfolio-grid { grid-template-columns: 1fr !important; gap: 14px !important; margin-top: 40px !important; }
+          .avant-apres-comparator { height: min(52vh, 400px) !important; min-height: 260px; border-radius: 16px !important; }
+          .contact-section { padding: 64px max(16px, env(safe-area-inset-left)) 64px max(16px, env(safe-area-inset-right)) !important; }
+          .contact-form-inner { padding: 28px 18px !important; border-radius: 20px !important; }
+          .contact-form-grid { grid-template-columns: 1fr !important; gap: 12px !important; margin-bottom: 12px !important; }
+          .footer-kyrio { padding: 36px max(18px, env(safe-area-inset-left)) 40px max(18px, env(safe-area-inset-right)) !important; flex-direction: column !important; text-align: center; gap: 24px !important; align-items: center !important; }
+          .footer-kyrio > div { flex-wrap: wrap; justify-content: center; gap: 16px 20px !important; }
+          .nav-bar { padding: 0 max(14px, env(safe-area-inset-left)) 0 max(14px, env(safe-area-inset-right)) !important; height: 56px !important; }
+          .nav-cta { padding: 9px 16px !important; font-size: 12px !important; white-space: nowrap; }
+          .nav-hamburger { display: flex !important; }
           .hide-mobile { display: none !important; }
+        }
+        @media (max-width: 380px) {
+          .hero-title { font-size: clamp(28px, 8.5vw, 44px) !important; }
         }
       `}</style>
 
       {/* ══ NAV ══ */}
-      <nav style={{
-        position: 'fixed', top: 0, left: 0, right: 0, zIndex: 100,
+      <nav className="nav-bar" style={{
+        position: 'fixed', top: 0, left: 0, right: 0, zIndex: 200,
         background: scrolled ? 'rgba(10,10,10,.96)' : 'transparent',
         backdropFilter: scrolled ? 'blur(20px)' : 'none',
         borderBottom: scrolled ? '1px solid rgba(255,255,255,.06)' : 'none',
@@ -522,7 +599,7 @@ export default function KyrioVitrine() {
       }}>
         <KyrioMark size={42} dark />
         <div className="hide-mobile" style={{ display: 'flex', gap: 4, alignItems: 'center' }}>
-          {[['offres', 'Offres'], ['maintenance', 'Maintenance'], ['processus', 'Processus'], ['avant-apres', 'Avant/Après'], ['demos', 'Réalisations']].map(([id, label]) => (
+          {NAV_LINKS.map(([id, label]) => (
             <button key={id} onClick={() => scrollTo(id)} style={{ background: 'transparent', border: 'none', color: 'rgba(255,255,255,.65)', fontSize: 14, fontWeight: 500, padding: '8px 14px', cursor: 'pointer', fontFamily: 'inherit', borderRadius: 8, transition: 'color .2s' }}
               onMouseEnter={e => e.target.style.color = '#fff'}
               onMouseLeave={e => e.target.style.color = 'rgba(255,255,255,.65)'}>
@@ -531,19 +608,60 @@ export default function KyrioVitrine() {
           ))}
         </div>
         <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+          <button
+            type="button"
+            className={'nav-hamburger' + (menuOpen ? ' is-open' : '')}
+            onClick={() => setMenuOpen(o => !o)}
+            aria-expanded={menuOpen}
+            aria-controls="kyrio-mobile-nav"
+            aria-label={menuOpen ? 'Fermer le menu' : 'Ouvrir le menu'}
+          >
+            <span className="nav-hamburger-bar" />
+            <span className="nav-hamburger-bar" />
+            <span className="nav-hamburger-bar" />
+          </button>
           <button className="theme-toggle" onClick={() => setDark(d => !d)} title={dark ? 'Mode clair' : 'Mode sombre'}>
             <KIcon name={dark ? 'sun' : 'moon'} size={16} color={dark ? '#6366f1' : 'rgba(255,255,255,.8)'} />
           </button>
-          <button onClick={() => scrollTo('contact')} className="kyrio-btn-dark" style={{ padding: '10px 22px', fontSize: 13 }}>
+          <button onClick={() => scrollTo('contact')} className="kyrio-btn-dark nav-cta" style={{ padding: '10px 22px', fontSize: 13 }}>
             Demander un devis
           </button>
         </div>
       </nav>
 
+      {menuOpen && (
+        <div className="mobile-nav-root" style={{ position: 'fixed', inset: 0, zIndex: 198, pointerEvents: 'auto' }}>
+          <div className="mobile-nav-backdrop" onClick={() => setMenuOpen(false)} aria-hidden="true" />
+          <div
+            id="kyrio-mobile-nav"
+            className="mobile-nav-panel"
+            role="dialog"
+            aria-modal="true"
+            aria-label="Menu de navigation"
+            onClick={e => e.stopPropagation()}
+          >
+            <div className="mobile-nav-label">Navigation</div>
+            {NAV_LINKS.map(([id, label]) => (
+              <button key={id} type="button" className="mobile-nav-link" onClick={() => scrollTo(id)}>
+                {label}
+              </button>
+            ))}
+            <button
+              type="button"
+              className="mobile-nav-link"
+              style={{ marginTop: 8, background: 'linear-gradient(135deg, rgba(99,102,241,.2), rgba(6,182,212,.15))', border: '1px solid rgba(99,102,241,.35)', color: '#fff' }}
+              onClick={() => scrollTo('contact')}
+            >
+              Demander un devis
+            </button>
+          </div>
+        </div>
+      )}
+
       {/* ══ HERO ══ */}
-      <section style={{ minHeight: '100vh', background: 'linear-gradient(160deg, #0a0a0a 0%, #111 50%, #0d0d1a 100%)', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center', padding: '120px 24px 80px', position: 'relative', overflow: 'hidden' }}>
+      <section className="hero-section" style={{ minHeight: '100vh', background: 'linear-gradient(160deg, #0a0a0a 0%, #111 50%, #0d0d1a 100%)', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center', padding: '120px 24px 80px', position: 'relative', overflow: 'hidden' }}>
         {/* 3D Orbital rings */}
-        <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', width: 600, height: 600, pointerEvents: 'none' }}>
+        <div className="hero-orbit" style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', width: 600, height: 600, pointerEvents: 'none' }}>
           <div style={{ position: 'absolute', inset: 0, borderRadius: '50%', border: '1.5px solid rgba(99,102,241,.2)', animation: 'orbit3d-1 20s linear infinite' }} />
           <div style={{ position: 'absolute', inset: '10%', borderRadius: '50%', border: '1px solid rgba(6,182,212,.15)', animation: 'orbit3d-2 28s linear infinite' }} />
           <div style={{ position: 'absolute', inset: '25%', borderRadius: '50%', border: '1px solid rgba(236,72,153,.12)', animation: 'orbit3d-3 15s linear infinite' }} />
@@ -558,22 +676,22 @@ export default function KyrioVitrine() {
         <div className="spin-slow" style={{ position: 'absolute', top: '10%', right: '12%', width: 80, height: 80, borderRadius: '50%', border: '1px dashed rgba(99,102,241,.2)', pointerEvents: 'none' }} />
         <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: 1, background: 'linear-gradient(90deg, transparent, rgba(255,255,255,.06), transparent)' }} />
 
-        <div className="fade-up badge-pulse" style={{ display: 'inline-flex', alignItems: 'center', gap: 8, background: 'rgba(99,102,241,.12)', border: '1px solid rgba(99,102,241,.3)', borderRadius: 50, padding: '7px 18px', fontSize: 12, fontWeight: 700, color: '#6366f1', letterSpacing: '.06em', textTransform: 'uppercase', marginBottom: 32 }}>
+        <div className="fade-up badge-pulse hero-badge" style={{ display: 'inline-flex', alignItems: 'center', gap: 8, background: 'rgba(99,102,241,.12)', border: '1px solid rgba(99,102,241,.3)', borderRadius: 50, padding: '7px 18px', fontSize: 12, fontWeight: 700, color: '#6366f1', letterSpacing: '.06em', textTransform: 'uppercase', marginBottom: 32 }}>
           <span style={{ width: 7, height: 7, borderRadius: '50%', background: '#6366f1', display: 'inline-block', boxShadow: '0 0 6px #6366f1' }} />
-          Kyrio — Votre site pro, livré en 7 jours
+          Kyrio — Site pro en 7 jours. Promis, sans unicorn ni blockchain.
         </div>
 
         <h1 className="fade-up-2 hero-title" style={{ fontSize: 'clamp(48px, 7vw, 88px)', fontWeight: 900, color: '#fff', lineHeight: 1.05, letterSpacing: '-0.03em', maxWidth: 900, marginBottom: 28 }}>
           Votre site web.<br />
           <span className="squiggle" style={{ color: '#6366f1' }}>Livré en 7 jours.</span><br />
-          Sans vous prendre la tête.
+          Sans vous prendre la tête — trop.
         </h1>
 
-        <p className="fade-up-3" style={{ fontSize: 'clamp(16px, 2vw, 20px)', color: 'rgba(255,255,255,.5)', maxWidth: 580, lineHeight: 1.7, marginBottom: 48 }}>
-          Kyrio crée des sites qui travaillent pour vous — pas des vitrines qui prennent la poussière. SEO intégré, résultats mesurables, et on répond encore au téléphone après la livraison.
+        <p className="fade-up-3 hero-sub" style={{ fontSize: 'clamp(16px, 2vw, 20px)', color: 'rgba(255,255,255,.5)', maxWidth: 580, lineHeight: 1.7, marginBottom: 48 }}>
+          Des sites qui bossent pour vous — pas des vitrines qui accumulent la poussière numérique. SEO inclus, résultats visibles, et on décroche encore le téléphone après la livraison (oui, c'est fou).
         </p>
 
-        <div className="fade-up-3" style={{ display: 'flex', gap: 14, flexWrap: 'wrap', justifyContent: 'center' }}>
+        <div className="fade-up-3 hero-cta" style={{ display: 'flex', gap: 14, flexWrap: 'wrap', justifyContent: 'center' }}>
           <button onClick={() => scrollTo('offres')} className="kyrio-btn-dark" style={{ fontSize: 16, padding: '16px 36px' }}>
             Voir les offres
           </button>
@@ -585,12 +703,12 @@ export default function KyrioVitrine() {
         </div>
 
         {/* Stats */}
-        <div style={{ display: 'flex', gap: 0, marginTop: 80, borderTop: '1px solid rgba(255,255,255,.07)', paddingTop: 48, flexWrap: 'wrap', justifyContent: 'center' }}>
+        <div className="hero-stats" style={{ display: 'flex', gap: 0, marginTop: 80, borderTop: '1px solid rgba(255,255,255,.07)', paddingTop: 48, flexWrap: 'wrap', justifyContent: 'center' }}>
           {[
-            { val: '7j', label: 'Délai moyen (oui, vraiment)', icon: 'clock', color: '#6366f1' },
-            { val: '100%', label: 'Clients qui reviennent nous voir', icon: 'check', color: '#10b981' },
-            { val: '3 ans', label: "Dans les tranchées du digital", icon: 'lock', color: '#f59e0b' },
-            { val: 'SEO', label: "Offert. Toujours. Sans négocier.", icon: 'search', color: '#ec4899' },
+            { val: '7j', label: 'Délai moyen (oui, on tient nos promesses)', icon: 'clock', color: '#6366f1' },
+            { val: '100%', label: 'Clients qui reviennent (on ne les a pas ligotés)', icon: 'check', color: '#10b981' },
+            { val: '3 ans', label: 'Dans les tranchées du web (café : illimité)', icon: 'lock', color: '#f59e0b' },
+            { val: 'SEO', label: 'Toujours inclus. Même le lundi.', icon: 'search', color: '#ec4899' },
           ].map((s, i) => (
             <div key={s.label} style={{ padding: '0 40px', textAlign: 'center', borderRight: i < 3 ? '1px solid rgba(255,255,255,.06)' : 'none' }}>
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, marginBottom: 6 }}>
@@ -604,16 +722,16 @@ export default function KyrioVitrine() {
       </section>
 
       {/* ══ OFFRES ══ */}
-      <section id="offres" style={{ padding: '160px 24px', background: 'var(--sb)', transition: 'background .35s' }}>
+      <section id="offres" className="section-pad" style={{ padding: '160px 24px', background: 'var(--sb)', transition: 'background .35s' }}>
         <div style={{ maxWidth: 1100, margin: '0 auto' }}>
           <Reveal>
-            <div style={{ textAlign: 'center', marginBottom: 72 }}>
+            <div className="section-head" style={{ textAlign: 'center', marginBottom: 72 }}>
               <div style={{ fontSize: 12, fontWeight: 700, letterSpacing: '.1em', textTransform: 'uppercase', color: 'var(--sf3)', marginBottom: 14 }}>Les offres Kyrio</div>
               <h2 style={{ fontSize: 'clamp(32px, 5vw, 52px)', fontWeight: 900, color: 'var(--sf)', letterSpacing: '-0.02em', lineHeight: 1.1, marginBottom: 18 }}>
                 Pas de surprise.<br />Juste le bon forfait.
               </h2>
               <p style={{ fontSize: 17, color: 'var(--sf2)', maxWidth: 500, margin: '0 auto', lineHeight: 1.7 }}>
-                Chez Kyrio, les tarifs sont affichés. Vous choisissez votre niveau d&apos;ambition — on s&apos;occupe du reste.
+                Chez Kyrio, les tarifs sont affichés. Vous choisissez votre niveau d&apos;ambition — on s&apos;occupe du reste (et du café).
               </p>
             </div>
           </Reveal>
@@ -621,7 +739,7 @@ export default function KyrioVitrine() {
           <div className="offers-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 20, alignItems: 'start' }}>
             {OFFRES.map((o, i) => (
               <Reveal key={o.nom} delay={i * 0.1}>
-                <div className="card-hover" style={{ position: 'relative', background: o.popular ? '#0a0a0a' : 'var(--scard)', border: o.popular ? 'none' : '1px solid var(--scbdr)', borderRadius: 28, padding: o.popular ? '52px 32px 36px' : '36px 32px', display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
+                <div className={"card-hover offer-card" + (o.popular ? " popular" : "")} style={{ position: 'relative', background: o.popular ? '#0a0a0a' : 'var(--scard)', border: o.popular ? 'none' : '1px solid var(--scbdr)', borderRadius: 28, padding: o.popular ? '52px 32px 36px' : '36px 32px', display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
                   {o.popular && (
                     <div style={{ position: 'absolute', top: 16, left: 0, right: 0, textAlign: 'center', zIndex: 2, pointerEvents: 'none' }}>
                       <span style={{ background: 'linear-gradient(135deg, #6366f1, #06b6d4)', color: '#fff', borderRadius: 50, padding: '6px 18px', fontSize: 12, fontWeight: 800, letterSpacing: '.04em', whiteSpace: 'nowrap', display: 'inline-flex', alignItems: 'center', gap: 6 }}>
@@ -662,11 +780,11 @@ export default function KyrioVitrine() {
 
           {/* Pack Lancement */}
           <Reveal delay={0.2}>
-            <div style={{ marginTop: 40, background: 'linear-gradient(135deg, #0a0a0a, #141428)', borderRadius: 24, padding: '36px 40px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 32, flexWrap: 'wrap' }}>
+            <div className="pack-kyrio" style={{ marginTop: 40, background: 'linear-gradient(135deg, #0a0a0a, #141428)', borderRadius: 24, padding: '36px 40px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 32, flexWrap: 'wrap' }}>
               <div>
                 <div style={{ fontSize: 12, fontWeight: 700, color: '#6366f1', letterSpacing: '.08em', textTransform: 'uppercase', marginBottom: 10 }}>Le Pack Kyrio</div>
                 <h3 style={{ fontSize: 24, fontWeight: 800, color: '#fff', marginBottom: 8 }}>Pack Lancement — {eur(PACK_LANCEMENT.prix)}</h3>
-                <p style={{ fontSize: 14, color: 'rgba(255,255,255,.5)', marginBottom: 0 }}>Tout ce qu&apos;il faut pour que Kyrio vous lance fort — dès le premier jour.</p>
+                <p style={{ fontSize: 14, color: 'rgba(255,255,255,.5)', marginBottom: 0 }}>Logo, Google Business, réseaux, photos retouchées — le starter pack du pro qui assume (oui, même le lundi).</p>
               </div>
               <div style={{ display: 'flex', gap: 20, flexWrap: 'wrap' }}>
                 {[
@@ -690,19 +808,19 @@ export default function KyrioVitrine() {
       </section>
 
       {/* ══ MAINTENANCE ══ */}
-      <section id="maintenance" style={{ padding: '160px 24px', background: '#0a0a0a', position: 'relative', overflow: 'hidden' }}>
+      <section id="maintenance" className="section-pad" style={{ padding: '160px 24px', background: '#0a0a0a', position: 'relative', overflow: 'hidden' }}>
         <div className="float" style={{ position: 'absolute', top: '10%', right: '-5%', width: 400, height: 400, background: 'radial-gradient(circle, rgba(99,102,241,.1) 0%, transparent 70%)', pointerEvents: 'none' }} />
         <div className="float-b" style={{ position: 'absolute', bottom: '10%', left: '-5%', width: 350, height: 350, background: 'radial-gradient(circle, rgba(245,158,11,.07) 0%, transparent 70%)', pointerEvents: 'none' }} />
         <div style={{ maxWidth: 1100, margin: '0 auto' }}>
           <Reveal>
-            <div style={{ textAlign: 'center', marginBottom: 72 }}>
+            <div className="section-head" style={{ textAlign: 'center', marginBottom: 72 }}>
               <div style={{ fontSize: 12, fontWeight: 700, letterSpacing: '.1em', textTransform: 'uppercase', color: 'rgba(255,255,255,.3)', marginBottom: 14 }}>Après le lancement</div>
               <h2 style={{ fontSize: 'clamp(32px, 5vw, 52px)', fontWeight: 900, color: '#fff', letterSpacing: '-0.02em', lineHeight: 1.1, marginBottom: 18 }}>
                 Les formules Kyrio.<br />
                 <span className="squiggle-cyan" style={{ color: '#6366f1' }}>Votre site ne se gère pas tout seul.</span>
               </h2>
               <p style={{ fontSize: 17, color: 'rgba(255,255,255,.4)', maxWidth: 520, margin: '0 auto', lineHeight: 1.7 }}>
-                Un site laissé sans entretien ralentit, vieillit et disparaît de Google. Kyrio s&apos;en charge — vous, vous gérez votre métier.
+                Un site laissé sans entretien ralentit, vieillit et disparaît de Google. Kyrio s&apos;en charge — vous, vous gérez votre métier (et vos clients).
               </p>
             </div>
           </Reveal>
@@ -710,7 +828,7 @@ export default function KyrioVitrine() {
           <div className="maintenance-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 16 }}>
             {MAINTENANCE.map((m, i) => (
               <Reveal key={m.nom} delay={i * 0.1}>
-                <div className="card-hover" style={{ background: '#111', border: '1px solid rgba(255,255,255,.06)', borderRadius: 20, padding: '32px', height: '100%', display: 'flex', flexDirection: 'column' }}>
+                <div className="card-hover maint-card" style={{ background: '#111', border: '1px solid rgba(255,255,255,.06)', borderRadius: 20, padding: '32px', height: '100%', display: 'flex', flexDirection: 'column' }}>
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 20 }}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
                       <div style={{ width: 40, height: 40, borderRadius: 12, background: m.color + '18', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
@@ -744,15 +862,15 @@ export default function KyrioVitrine() {
       </section>
 
       {/* ══ PROCESSUS ══ */}
-      <section id="processus" style={{ padding: '160px 24px', background: 'var(--sb)', transition: 'background .35s' }}>
+      <section id="processus" className="section-pad" style={{ padding: '160px 24px', background: 'var(--sb)', transition: 'background .35s' }}>
         <div style={{ maxWidth: 1100, margin: '0 auto' }}>
           <Reveal>
-            <div style={{ textAlign: 'center', marginBottom: 80 }}>
+            <div className="section-head" style={{ textAlign: 'center', marginBottom: 80 }}>
               <div style={{ fontSize: 12, fontWeight: 700, letterSpacing: '.1em', textTransform: 'uppercase', color: 'var(--sf3)', marginBottom: 14 }}>Notre méthode</div>
               <h2 style={{ fontSize: 'clamp(32px, 5vw, 52px)', fontWeight: 900, color: 'var(--sf)', letterSpacing: '-0.02em', lineHeight: 1.1 }}>
                 La méthode Kyrio<br />en 4 étapes.
               </h2>
-              <p style={{ fontSize: 17, color: 'var(--sf2)', maxWidth: 460, margin: '18px auto 0', lineHeight: 1.7 }}>La cinquième aurait été superflue.</p>
+              <p style={{ fontSize: 17, color: 'var(--sf2)', maxWidth: 460, margin: '18px auto 0', lineHeight: 1.7 }}>La cinquième aurait été superflue — on n&apos;est pas une série Netflix.</p>
             </div>
           </Reveal>
           <div className="steps-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 2 }}>
@@ -781,16 +899,16 @@ export default function KyrioVitrine() {
       </section>
 
       {/* ══ AVANT / APRÈS ══ */}
-      <section id="avant-apres" style={{ padding: '160px 24px', background: 'var(--sb2)', transition: 'background .35s' }}>
+      <section id="avant-apres" className="section-pad" style={{ padding: '160px 24px', background: 'var(--sb2)', transition: 'background .35s' }}>
         <div style={{ maxWidth: 1000, margin: '0 auto' }}>
           <Reveal>
-            <div style={{ textAlign: 'center', marginBottom: 56 }}>
+            <div className="section-head" style={{ textAlign: 'center', marginBottom: 56 }}>
               <div style={{ fontSize: 12, fontWeight: 700, letterSpacing: '.1em', textTransform: 'uppercase', color: 'var(--sf3)', marginBottom: 14 }}>Transformation</div>
               <h2 style={{ fontSize: 'clamp(30px, 4.5vw, 50px)', fontWeight: 900, color: 'var(--sf)', letterSpacing: '-0.02em', lineHeight: 1.1, marginBottom: 18 }}>
                 Glissez. Vous allez voir.
               </h2>
               <p style={{ fontSize: 16, color: 'var(--sf2)', maxWidth: 480, margin: '0 auto', lineHeight: 1.7 }}>
-                Le restaurant de droite a investi dans son site. Celui de gauche... pas encore. La différence se voit. Et Google aussi la voit.
+                Le restaurant de droite a investi dans son site. Celui de gauche... pas encore. La différence se voit. Et Google aussi la voit (il est un peu voyeur, Google).
               </p>
             </div>
           </Reveal>
@@ -815,15 +933,15 @@ export default function KyrioVitrine() {
       </section>
 
       {/* ══ POURQUOI ══ */}
-      <section style={{ padding: '160px 24px', background: '#0a0a0a' }}>
+      <section className="section-pad" style={{ padding: '160px 24px', background: '#0a0a0a' }}>
         <div style={{ maxWidth: 1100, margin: '0 auto' }}>
           <Reveal>
-            <div style={{ marginBottom: 72 }}>
+            <div className="section-head" style={{ marginBottom: 72 }}>
               <div style={{ fontSize: 12, fontWeight: 700, letterSpacing: '.1em', textTransform: 'uppercase', color: 'rgba(255,255,255,.3)', marginBottom: 14 }}>Pourquoi Kyrio</div>
               <h2 style={{ fontSize: 'clamp(32px, 5vw, 52px)', fontWeight: 900, color: '#fff', letterSpacing: '-0.02em', lineHeight: 1.1, maxWidth: 600 }}>
                 Pourquoi Kyrio<br />et pas l&apos;autre agence ?
               </h2>
-              <p style={{ fontSize: 17, color: 'rgba(255,255,255,.35)', maxWidth: 440, marginTop: 16, lineHeight: 1.7 }}>Bonne question. Voici les vraies réponses de Kyrio — sans slides ni langue de bois.</p>
+              <p style={{ fontSize: 17, color: 'rgba(255,255,255,.35)', maxWidth: 440, marginTop: 16, lineHeight: 1.7 }}>Bonne question. Voici les vraies réponses — sans slides, sans langue de bois, sans violon.</p>
             </div>
           </Reveal>
           <div className="why-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 2 }}>
@@ -848,7 +966,7 @@ export default function KyrioVitrine() {
       </section>
 
       {/* ══ RÉALISATIONS ══ */}
-      <section id="demos" style={{ padding: '160px 24px', background: 'var(--sb2)', transition: 'background .35s' }}>
+      <section id="demos" className="section-pad" style={{ padding: '160px 24px', background: 'var(--sb2)', transition: 'background .35s' }}>
         <div style={{ maxWidth: 1100, margin: '0 auto', textAlign: 'center' }}>
           <Reveal>
             <div style={{ fontSize: 12, fontWeight: 700, letterSpacing: '.1em', textTransform: 'uppercase', color: 'var(--sf3)', marginBottom: 14 }}>Portfolio</div>
@@ -856,7 +974,7 @@ export default function KyrioVitrine() {
               Des sites vrais,<br />pour des clients réels.
             </h2>
             <p style={{ fontSize: 17, color: 'var(--sf2)', maxWidth: 480, margin: '0 auto 48px', lineHeight: 1.7 }}>
-              Pas des mockups Dribbble jamais livrés. De vraies réalisations, pour de vraies entreprises, avec de vrais résultats.
+              Pas des mockups Dribbble jamais livrés. De vraies réalisations — avec de vrais bugs écrasés avant la mise en ligne (on déconne, il n&apos;y en a presque pas).
             </p>
             <Link to="/demos">
               <button className="kyrio-btn-dark" style={{ fontSize: 16, padding: '16px 36px' }}>
@@ -866,7 +984,7 @@ export default function KyrioVitrine() {
           </Reveal>
 
           <Reveal delay={0.15}>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 16, marginTop: 64 }}>
+            <div className="portfolio-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 16, marginTop: 64 }}>
               {[
                 {
                   nom: 'Arc en Ciel Propreté',
@@ -948,7 +1066,7 @@ export default function KyrioVitrine() {
       </section>
 
       {/* ══ CTA CONTACT ══ */}
-      <section id="contact" style={{ padding: '160px 24px', background: '#0a0a0a', textAlign: 'center', position: 'relative', overflow: 'hidden' }}>
+      <section id="contact" className="section-pad contact-section" style={{ padding: '160px 24px', background: '#0a0a0a', textAlign: 'center', position: 'relative', overflow: 'hidden' }}>
         <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', width: 800, height: 800, background: 'radial-gradient(circle, rgba(99,102,241,.08) 0%, transparent 70%)', pointerEvents: 'none' }} />
         <div className="float" style={{ position: 'absolute', top: '15%', left: '5%', width: 200, height: 200, background: 'radial-gradient(circle, rgba(6,182,212,.12) 0%, transparent 70%)', pointerEvents: 'none' }} />
         <div className="float-b" style={{ position: 'absolute', bottom: '20%', right: '5%', width: 180, height: 180, background: 'radial-gradient(circle, rgba(236,72,153,.1) 0%, transparent 70%)', pointerEvents: 'none' }} />
@@ -961,8 +1079,8 @@ export default function KyrioVitrine() {
               <span className="squiggle" style={{ color: '#6366f1', display: 'inline-block' }}>trouvable.</span>
             </h2>
             <p style={{ fontSize: 18, color: 'rgba(255,255,255,.45)', marginBottom: 52, lineHeight: 1.65 }}>
-              30 min d&apos;échange avec Kyrio, devis sous 24h, site en ligne en 7 jours.<br />
-              <span style={{ fontSize: 14, color: 'rgba(255,255,255,.25)' }}>On n&apos;est pas des commerciaux — juste une agence qui fait bien son travail.</span>
+              30 min d&apos;échange, devis sous 24 h, site en ligne en 7 jours.<br />
+              <span style={{ fontSize: 14, color: 'rgba(255,255,255,.25)' }}>On n&apos;est pas des commerciaux en costume trois-pièces — juste une équipe qui aime le travail bien fait (et les croissants).</span>
             </p>
 
             <ContactForm />
@@ -971,7 +1089,7 @@ export default function KyrioVitrine() {
       </section>
 
       {/* ══ FOOTER ══ */}
-      <footer style={{ background: '#050505', borderTop: '1px solid rgba(255,255,255,.06)', padding: '48px 40px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 20 }}>
+      <footer className="footer-kyrio" style={{ background: '#050505', borderTop: '1px solid rgba(255,255,255,.06)', padding: '48px 40px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 20 }}>
         <KyrioMark size={24} dark opacity={0.6} />
         <div style={{ display: 'flex', gap: 28 }}>
           {[['offres', 'Offres'], ['maintenance', 'Maintenance'], ['processus', 'Processus']].map(([id, label]) => (
@@ -1042,7 +1160,7 @@ function ContactForm() {
       </div>
       <h3 style={{ fontSize: 24, fontWeight: 800, color: '#fff', marginBottom: 12, letterSpacing: '-.01em' }}>Demande envoyée ✦</h3>
       <p style={{ color: 'rgba(255,255,255,.45)', fontSize: 15, lineHeight: 1.7, maxWidth: 360, margin: '0 auto 28px' }}>
-        Votre message est bien arrivé. Kyrio vous répond sous <strong style={{ color: '#6366f1' }}>24h</strong> — souvent bien avant.
+        Votre message est bien arrivé. Kyrio vous répond sous <strong style={{ color: '#6366f1' }}>24 h</strong> — souvent avant, parce qu'on est comme ça.
       </p>
       <button onClick={() => { setStatus('idle'); setForm({ nom:'', email:'', telephone:'', message:'', offre:'' }); }}
         style={{ background: 'transparent', border: '1px solid rgba(255,255,255,.12)', color: 'rgba(255,255,255,.4)', borderRadius: 50, padding: '10px 28px', cursor: 'pointer', fontFamily: 'inherit', fontSize: 13, transition: 'all .2s' }}
@@ -1055,15 +1173,15 @@ function ContactForm() {
 
   if (status === 'error') return (
     <div style={{ background: 'rgba(239,68,68,.05)', border: '1px solid rgba(239,68,68,.2)', borderRadius: 20, padding: '48px 40px', textAlign: 'center' }}>
-      <p style={{ color: '#f87171', fontSize: 16, fontWeight: 700, marginBottom: 8 }}>Une erreur est survenue</p>
-      <p style={{ color: 'rgba(255,255,255,.4)', fontSize: 14, marginBottom: 24 }}>Vérifiez vos clés EmailJS ou contactez directement : <a href="mailto:contact@kyrio.fr" style={{ color: '#6366f1' }}>contact@kyrio.fr</a></p>
+      <p style={{ color: '#f87171', fontSize: 16, fontWeight: 700, marginBottom: 8 }}>Oups — le message n'est pas parti</p>
+      <p style={{ color: 'rgba(255,255,255,.4)', fontSize: 14, marginBottom: 24 }}>Souvent c'est un souci de config EmailJS. Sinon, écrivez-nous directement : <a href="mailto:contact@kyrio.fr" style={{ color: '#6366f1' }}>contact@kyrio.fr</a> — on lit tout, promis.</p>
       <button onClick={() => setStatus('idle')} style={{ background: 'transparent', border: '1px solid rgba(255,255,255,.12)', color: 'rgba(255,255,255,.4)', borderRadius: 50, padding: '10px 28px', cursor: 'pointer', fontFamily: 'inherit', fontSize: 13 }}>Réessayer</button>
     </div>
   );
 
   return (
-    <form onSubmit={handleSubmit} style={{ background: 'rgba(255,255,255,.04)', border: '1px solid rgba(255,255,255,.08)', borderRadius: 24, padding: '40px 36px', textAlign: 'left' }}>
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14, marginBottom: 14 }}>
+    <form onSubmit={handleSubmit} className="contact-form-inner" style={{ background: 'rgba(255,255,255,.04)', border: '1px solid rgba(255,255,255,.08)', borderRadius: 24, padding: '40px 36px', textAlign: 'left' }}>
+      <div className="contact-form-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14, marginBottom: 14 }}>
         <div>
           <label style={lbl}>Nom *</label>
           <input required value={form.nom} onChange={e => setForm(f => ({ ...f, nom: e.target.value }))} placeholder="Jean Dupont" style={inp} onFocus={focus} onBlur={blur} />
@@ -1073,7 +1191,7 @@ function ContactForm() {
           <input required type="email" value={form.email} onChange={e => setForm(f => ({ ...f, email: e.target.value }))} placeholder="jean@exemple.fr" style={inp} onFocus={focus} onBlur={blur} />
         </div>
       </div>
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14, marginBottom: 14 }}>
+      <div className="contact-form-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14, marginBottom: 14 }}>
         <div>
           <label style={lbl}>Téléphone</label>
           <input value={form.telephone} onChange={e => setForm(f => ({ ...f, telephone: e.target.value }))} placeholder="06 12 34 56 78" style={inp} onFocus={focus} onBlur={blur} />
@@ -1093,7 +1211,7 @@ function ContactForm() {
       </div>
       <div style={{ marginBottom: 24 }}>
         <label style={lbl}>Parlez-nous de votre projet *</label>
-        <textarea required value={form.message} onChange={e => setForm(f => ({ ...f, message: e.target.value }))} placeholder="Mon activité, ce que je vends, mon site actuel (si j'en ai un), mes objectifs…" rows={4} style={{ ...inp, resize: 'vertical' }} onFocus={focus} onBlur={blur} />
+        <textarea required value={form.message} onChange={e => setForm(f => ({ ...f, message: e.target.value }))} placeholder="Votre super activité, ce que vous vendez, votre site actuel (même s'il fait un peu peur), vos objectifs…" rows={4} style={{ ...inp, resize: 'vertical' }} onFocus={focus} onBlur={blur} />
       </div>
       <button type="submit" disabled={status === 'sending'} className="kyrio-btn-dark"
         style={{ width: '100%', justifyContent: 'center', fontSize: 16, padding: '16px', display: 'flex', alignItems: 'center', gap: 10, opacity: status === 'sending' ? .7 : 1, cursor: status === 'sending' ? 'wait' : 'pointer' }}>
@@ -1105,12 +1223,12 @@ function ContactForm() {
         ) : (
           <>
             <KIcon name="brief" size={18} color="#fff" />
-            Envoyer ma demande — Réponse sous 24h
+            Envoyer ma demande — réponse sous 24 h
           </>
         )}
       </button>
       <p style={{ textAlign: 'center', fontSize: 12, color: 'rgba(255,255,255,.18)', marginTop: 14 }}>
-        Aucun démarchage · Réponse humaine garantie sous 24h
+        Pas de harcèlement téléphonique · Réponse humaine garantie sous 24 h
       </p>
     </form>
   );
