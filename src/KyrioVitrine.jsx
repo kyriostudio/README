@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 
 /* ── Intersection observer hook ── */
@@ -419,6 +419,30 @@ export default function KyrioVitrine() {
     window.addEventListener('scroll', onScroll);
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
+
+  const [demoClients, setDemoClients] = useState(null);
+
+  useEffect(() => {
+    fetch('/clients.json')
+      .then((r) => (r.ok ? r.json() : {}))
+      .then(setDemoClients)
+      .catch(() => setDemoClients({}));
+  }, []);
+
+  const portfolioList = useMemo(() => {
+    if (!demoClients) return null;
+    return Object.values(demoClients)
+      .filter((c) => c.slug)
+      .sort((a, b) => (a.order ?? 99) - (b.order ?? 99));
+  }, [demoClients]);
+
+  const PORTFOLIO_FALLBACK = [
+    { nom: 'Arc en Ciel Propreté', secteur: 'Nettoyage professionnel', couleur: '#C5007F', slug: 'arc-en-ciel-proprete', img: '/images/arcenciel/hero.png' },
+    { nom: 'Design Contemporain', secteur: 'Mobilier haut de gamme', couleur: '#b8915a', slug: 'design-contemporain', img: 'https://images.unsplash.com/photo-1618220252344-8ec99ec624b1?w=600&q=75' },
+    { nom: 'À venir', secteur: 'Votre secteur', couleur: '#6366f1', slug: null, img: null },
+  ];
+
+  const portfolioRows = portfolioList && portfolioList.length > 0 ? portfolioList : PORTFOLIO_FALLBACK;
 
   const NAV_LINKS = [['offres', 'Offres'], ['maintenance', 'Maintenance'], ['processus', 'Processus'], ['avant-apres', 'Avant/Après'], ['demos', 'Réalisations']];
 
@@ -1010,61 +1034,46 @@ export default function KyrioVitrine() {
           </Reveal>
 
           <Reveal delay={0.15}>
-            <div className="portfolio-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 16, marginTop: 64 }}>
-              {[
-                {
-                  nom: 'Arc en Ciel Propreté',
-                  secteur: 'Nettoyage professionnel',
-                  couleur: '#C5007F',
-                  slug: 'arc-en-ciel-proprete',
-                  img: '/images/arcenciel/hero.png',
-                },
-                {
-                  nom: 'Design Contemporain',
-                  secteur: 'Mobilier haut de gamme',
-                  couleur: '#b8915a',
-                  slug: 'design-contemporain',
-                  img: 'https://images.unsplash.com/photo-1618220252344-8ec99ec624b1?w=600&q=75',
-                },
-                {
-                  nom: 'À venir',
-                  secteur: 'Votre secteur',
-                  couleur: '#6366f1',
-                  slug: null,
-                  img: null,
-                },
-              ].map((r, i) => (
-                <div key={i} className="card-hover" style={{ borderRadius: 20, overflow: 'hidden', background: 'var(--scard)', border: '1px solid var(--scbdr)', opacity: r.slug ? 1 : 0.35 }}>
+            <div className="portfolio-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: 16, marginTop: 64 }}>
+              {portfolioRows.map((raw, i) => {
+                const nom = raw.name ?? raw.nom;
+                const secteur = raw.sector ?? raw.secteur;
+                const couleur = raw.primaryColor ?? raw.couleur ?? '#6366f1';
+                const slug = raw.slug;
+                const img = raw.heroImage ?? raw.img ?? null;
+                const key = slug ?? `pf-${i}`;
+                return (
+                <div key={key} className="card-hover" style={{ borderRadius: 20, overflow: 'hidden', background: 'var(--scard)', border: '1px solid var(--scbdr)', opacity: slug ? 1 : 0.35 }}>
                   {/* Thumbnail */}
-                  <div style={{ height: 160, overflow: 'hidden', position: 'relative', background: `linear-gradient(135deg, ${r.couleur}22, ${r.couleur}44)` }}>
-                    {r.img ? (
+                  <div style={{ height: 160, overflow: 'hidden', position: 'relative', background: `linear-gradient(135deg, ${couleur}22, ${couleur}44)` }}>
+                    {img ? (
                       <img
-                        src={r.img}
-                        alt={r.nom}
+                        src={img}
+                        alt=""
                         style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block', transition: 'transform .5s ease' }}
                         onMouseEnter={e => e.currentTarget.style.transform = 'scale(1.05)'}
                         onMouseLeave={e => e.currentTarget.style.transform = 'scale(1)'}
                       />
                     ) : (
                       <div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                        <div style={{ width: 56, height: 56, background: r.couleur, borderRadius: 16, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 22, color: '#fff', fontWeight: 800 }}>
-                          {r.nom[0]}
+                        <div style={{ width: 56, height: 56, background: couleur, borderRadius: 16, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 22, color: '#fff', fontWeight: 800 }}>
+                          {nom[0]}
                         </div>
                       </div>
                     )}
                     {/* Badge secteur */}
-                    {r.slug && (
+                    {slug && (
                       <div style={{
                         position: 'absolute', top: 10, left: 10,
                         background: 'rgba(0,0,0,.55)', backdropFilter: 'blur(6px)',
                         borderRadius: 5, padding: '3px 9px',
                         fontSize: 10, fontWeight: 600, color: 'rgba(255,255,255,.8)', letterSpacing: '.05em', textTransform: 'uppercase',
                       }}>
-                        {r.secteur}
+                        {secteur}
                       </div>
                     )}
                     {/* Dot live */}
-                    {r.slug && (
+                    {slug && (
                       <span style={{
                         position: 'absolute', top: 12, right: 12,
                         width: 8, height: 8, borderRadius: '50%',
@@ -1073,19 +1082,19 @@ export default function KyrioVitrine() {
                     )}
                   </div>
                   <div style={{ padding: '18px 22px' }}>
-                    <div style={{ fontWeight: 700, fontSize: 15, color: 'var(--sf)', marginBottom: 4 }}>{r.nom}</div>
-                    {!r.slug && <div style={{ fontSize: 12, color: 'var(--sf3)' }}>{r.secteur}</div>}
-                    {r.slug && (
-                      <Link to={`/demos/${r.slug}`} style={{ textDecoration: 'none' }}>
-                        <span style={{ fontSize: 13, fontWeight: 600, color: r.couleur, display: 'inline-flex', alignItems: 'center', gap: 4 }}>
+                    <div style={{ fontWeight: 700, fontSize: 15, color: 'var(--sf)', marginBottom: 4 }}>{nom}</div>
+                    {!slug && <div style={{ fontSize: 12, color: 'var(--sf3)' }}>{secteur}</div>}
+                    {slug && (
+                      <Link to={`/demos/${slug}`} style={{ textDecoration: 'none' }}>
+                        <span style={{ fontSize: 13, fontWeight: 600, color: couleur, display: 'inline-flex', alignItems: 'center', gap: 4 }}>
                           Voir le site
-                          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke={r.couleur} strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
+                          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke={couleur} strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
                         </span>
                       </Link>
                     )}
                   </div>
                 </div>
-              ))}
+              );})}
             </div>
           </Reveal>
         </div>
