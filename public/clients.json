@@ -5,12 +5,12 @@
     "template": "carentan",
     "name": "Mairie de Carentan-les-Marais",
     "tagline": "Commune nouvelle du Cotentin — Manche (50)",
-    "primaryColor": "#0d3c6e",
+    "primaryColor": "#005A70",
     "sector": "Collectivité territoriale",
     "phone": "02 33 42 00 55",
     "address": "Place de la République — 50500 Carentan-les-Marais",
     "siteUrl": "https://carentanlesmarais.fr",
-    "heroImage": "https://carentanlesmarais.fr/wp-content/uploads/2026/01/SLIDE-LAVANDIERE.jpg"
+    "heroImage": "/carentan/hero-place-republique.webp"
   },
   "design-contemporain": {
     "slug": "design-contemporain",
