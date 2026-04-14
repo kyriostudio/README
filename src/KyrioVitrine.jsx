@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useMemo } from 'react';
+﻿import { useState, useEffect, useRef, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 
 /* ── Intersection observer hook ── */
@@ -439,7 +439,7 @@ export default function KyrioVitrine() {
   const PORTFOLIO_FALLBACK = [
     { nom: 'Arc en Ciel Propreté', secteur: 'Nettoyage professionnel', couleur: '#C5007F', slug: 'arc-en-ciel-proprete', img: '/images/arcenciel/hero.png' },
     { nom: 'Design Contemporain', secteur: 'Mobilier haut de gamme', couleur: '#b8915a', slug: 'design-contemporain', img: 'https://images.unsplash.com/photo-1618220252344-8ec99ec624b1?w=600&q=75' },
-    { nom: 'À venir', secteur: 'Votre secteur', couleur: '#6366f1', slug: null, img: null },
+    { nom: 'Mairie de Carentan-les-Marais', secteur: 'Collectivité territoriale', couleur: '#005A70', slug: 'carentan', img: '/carentan/hero-place-republique.webp' },
   ];
 
   const portfolioRows = portfolioList && portfolioList.length > 0 ? portfolioList : PORTFOLIO_FALLBACK;
@@ -741,7 +741,7 @@ export default function KyrioVitrine() {
           Des sites qui bossent pour vous — pas des vitrines qui accumulent la poussière numérique. SEO inclus, résultats visibles, et on décroche encore le téléphone après la livraison (oui, c'est fou).
         </p>
 
-        <div className="fade-up-3 hero-cta" style={{ display: 'flex', gap: 14, flexWrap: 'wrap', justifyContent: 'center' }}>
+        <div className="fade-up-3 hero-cta" style={{ display: 'flex', gap: 14, flexWrap: 'wrap', justifyContent: 'center', alignItems: 'center' }}>
           <button onClick={() => scrollTo('offres')} className="kyrio-btn-dark" style={{ fontSize: 16, padding: '16px 36px' }}>
             Voir les offres
           </button>
@@ -749,6 +749,13 @@ export default function KyrioVitrine() {
             <button className="kyrio-btn-ghost" style={{ fontSize: 16, padding: '16px 32px' }}>
               Voir les réalisations →
             </button>
+          </Link>
+          <Link to="/demos/carentan" style={{ width: '100%', textAlign: 'center', marginTop: 4 }}>
+            <span style={{ fontSize: 14, fontWeight: 600, color: 'rgba(255,255,255,.42)', letterSpacing: '.02em', textDecoration: 'none', borderBottom: '1px solid rgba(255,255,255,.2)', paddingBottom: 2, transition: 'color .2s, border-color .2s' }}
+              onMouseEnter={(e) => { e.currentTarget.style.color = '#22d3ee'; e.currentTarget.style.borderBottomColor = '#22d3ee'; }}
+              onMouseLeave={(e) => { e.currentTarget.style.color = 'rgba(255,255,255,.42)'; e.currentTarget.style.borderBottomColor = 'rgba(255,255,255,.2)'; }}>
+              Démo site mairie — Carentan-les-Marais →
+            </span>
           </Link>
         </div>
 

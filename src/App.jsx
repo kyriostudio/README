@@ -1,4 +1,4 @@
-import { Routes, Route, Link, useParams } from 'react-router-dom';
+﻿import { Routes, Route, Link, useParams } from 'react-router-dom';
 import { useState, useEffect, useRef } from 'react';
 import ArcencielVitrine from './ArcencielVitrine.jsx';
 import KyrioVitrine from './KyrioVitrine.jsx';
@@ -514,7 +514,7 @@ function DemoSite({ clients }) {
         <p style={{ color: '#64748b', fontSize: 15 }}>
           Le site <code style={{ background: '#f1f5f9', padding: '2px 8px', borderRadius: 6 }}>{slug}</code> n'existe pas.
         </p>
-        <Link to="/" style={{
+        <Link to="/demos" style={{
           marginTop: 12, padding: '12px 28px', background: '#6366f1', color: '#fff',
           borderRadius: 10, fontSize: 14, fontWeight: 600,
           transition: 'transform .2s',
@@ -564,7 +564,7 @@ function VitrineGenerique({ client }) {
             {logo && <img src={logo} alt="" style={{ height: 32, borderRadius: 6 }} />}
             <span style={{ fontWeight: 700, fontSize: 16 }}>{name}</span>
           </div>
-          <Link to="/" style={{ fontSize: 13, fontWeight: 600, color: primaryColor }}>← Toutes les démos</Link>
+          <Link to="/demos" style={{ fontSize: 13, fontWeight: 600, color: primaryColor }}>← Toutes les démos</Link>
         </div>
       </nav>
 
@@ -638,7 +638,7 @@ function VitrineGenerique({ client }) {
         borderTop: '1px solid #e2e8f0',
       }}>
         {name} — Site de démonstration ·{' '}
-        <Link to="/" style={{ color: primaryColor, fontWeight: 600 }}>Retour aux démos</Link>
+        <Link to="/demos" style={{ color: primaryColor, fontWeight: 600 }}>Retour aux démos</Link>
       </footer>
     </div>
   );
