@@ -1,0 +1,7 @@
+---
+description: Utiliser le skill frontend-design pour les interfaces web (maquettes, composants)
+globs: src/**/*.jsx
+alwaysApply: false
+---
+
+Pour tout travail de design ou de refonte UI dans ce dépôt (notamment `CarentanVitrine.jsx`), lire et appliquer les principes définis dans `.cursor/skills/frontend-design/SKILL.md` : direction esthétique claire, typo et couleurs non génériques, motion pertinent, composition et détails visuels.
