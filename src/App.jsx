@@ -1,10 +1,25 @@
 ﻿import { Routes, Route, Link, useParams } from 'react-router-dom';
-import { useState, useEffect, useRef } from 'react';
-import ArcencielVitrine from './ArcencielVitrine.jsx';
+import { useState, useEffect, useRef, lazy, Suspense } from 'react';
 import KyrioVitrine from './KyrioVitrine.jsx';
-import DesignContemporainVitrine from './DesignContemporainVitrine.jsx';
-import CarentanVitrine from './CarentanVitrine.jsx';
-import SiteVitrine from './SiteVitrine.jsx';
+
+// Vitrines démos : chargement différé — le bundle initial n'embarque pas
+// le code des 4 sites clients tant qu'un visiteur n'ouvre pas /demos/:slug.
+const ArcencielVitrine          = lazy(() => import('./ArcencielVitrine.jsx'));
+const DesignContemporainVitrine = lazy(() => import('./DesignContemporainVitrine.jsx'));
+const CarentanVitrine           = lazy(() => import('./CarentanVitrine.jsx'));
+const SiteVitrine               = lazy(() => import('./SiteVitrine.jsx'));
+
+function DemoLoading() {
+  return (
+    <div style={{
+      minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center',
+      background: '#08090f', color: 'rgba(240,240,248,.55)',
+      fontFamily: "'Inter', system-ui, sans-serif", fontSize: 14, letterSpacing: '.06em',
+    }}>
+      Chargement…
+    </div>
+  );
+}
 
 /* ─────────────────────────────────────────────
    App : charge les clients et gère le routing
@@ -23,7 +38,14 @@ export default function App() {
     <Routes>
       <Route path="/" element={<KyrioVitrine />} />
       <Route path="/demos" element={<Showcase clients={clients} />} />
-      <Route path="/demos/:slug" element={<DemoSite clients={clients} />} />
+      <Route
+        path="/demos/:slug"
+        element={
+          <Suspense fallback={<DemoLoading />}>
+            <DemoSite clients={clients} />
+          </Suspense>
+        }
+      />
     </Routes>
   );
 }
