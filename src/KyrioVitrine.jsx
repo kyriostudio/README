@@ -521,6 +521,7 @@ export default function KyrioVitrine() {
     { nom: 'Arc en Ciel Propreté', secteur: 'Nettoyage professionnel', couleur: '#C5007F', slug: 'arc-en-ciel-proprete', img: '/images/arcenciel/hero.png' },
     { nom: 'Design Contemporain', secteur: 'Mobilier haut de gamme', couleur: '#b8915a', slug: 'design-contemporain', img: 'https://images.unsplash.com/photo-1618220252344-8ec99ec624b1?w=600&q=75' },
     { nom: 'Mairie de Carentan-les-Marais', secteur: 'Collectivité territoriale', couleur: '#005A70', slug: 'carentan', img: '/carentan/hero-place-republique.webp' },
+    { nom: 'Difamex', secteur: 'Aménagement extérieur', couleur: '#6B8E5A', slug: 'difamex', img: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=600&q=75' },
   ];
 
   const portfolioRows = portfolioList && portfolioList.length > 0 ? portfolioList : PORTFOLIO_FALLBACK;
@@ -831,13 +832,22 @@ export default function KyrioVitrine() {
               Voir les réalisations →
             </button>
           </Link>
-          <Link to="/demos/carentan" style={{ width: '100%', textAlign: 'center', marginTop: 4 }}>
-            <span style={{ fontSize: 14, fontWeight: 600, color: 'rgba(255,255,255,.42)', letterSpacing: '.02em', textDecoration: 'none', borderBottom: '1px solid rgba(255,255,255,.2)', paddingBottom: 2, transition: 'color .2s, border-color .2s' }}
-              onMouseEnter={(e) => { e.currentTarget.style.color = '#22d3ee'; e.currentTarget.style.borderBottomColor = '#22d3ee'; }}
-              onMouseLeave={(e) => { e.currentTarget.style.color = 'rgba(255,255,255,.42)'; e.currentTarget.style.borderBottomColor = 'rgba(255,255,255,.2)'; }}>
-              Démo site mairie — Carentan-les-Marais →
-            </span>
-          </Link>
+          <div style={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 10, marginTop: 4 }}>
+            <Link to="/demos/carentan" style={{ textAlign: 'center' }}>
+              <span style={{ fontSize: 14, fontWeight: 600, color: 'rgba(255,255,255,.42)', letterSpacing: '.02em', textDecoration: 'none', borderBottom: '1px solid rgba(255,255,255,.2)', paddingBottom: 2, transition: 'color .2s, border-color .2s' }}
+                onMouseEnter={(e) => { e.currentTarget.style.color = '#22d3ee'; e.currentTarget.style.borderBottomColor = '#22d3ee'; }}
+                onMouseLeave={(e) => { e.currentTarget.style.color = 'rgba(255,255,255,.42)'; e.currentTarget.style.borderBottomColor = 'rgba(255,255,255,.2)'; }}>
+                Démo site mairie — Carentan-les-Marais →
+              </span>
+            </Link>
+            <Link to="/demos/difamex" style={{ textAlign: 'center' }}>
+              <span style={{ fontSize: 14, fontWeight: 600, color: 'rgba(255,255,255,.42)', letterSpacing: '.02em', textDecoration: 'none', borderBottom: '1px solid rgba(255,255,255,.2)', paddingBottom: 2, transition: 'color .2s, border-color .2s' }}
+                onMouseEnter={(e) => { e.currentTarget.style.color = '#84cc16'; e.currentTarget.style.borderBottomColor = '#84cc16'; }}
+                onMouseLeave={(e) => { e.currentTarget.style.color = 'rgba(255,255,255,.42)'; e.currentTarget.style.borderBottomColor = 'rgba(255,255,255,.2)'; }}>
+                Démo distributeur — Difamex (Ifs & Valognes) →
+              </span>
+            </Link>
+          </div>
         </div>
 
         {/* Stats */}
