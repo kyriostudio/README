@@ -128,12 +128,19 @@ function IconBox({ name, size = 20, bg = 'rgba(99,102,241,.1)', color = '#6366f1
 }
 
 /* ── Data ── */
+/* Positionnement marché 2026 (France, TPE/PME) :
+   - Freelance WordPress : 1 500 – 3 000 €
+   - Agence locale       : 2 500 – 6 000 €
+   - Agence digitale     : 5 000 – 15 000 €
+   Kyrio : 30 à 45 % sous la moyenne agence, délais 3× plus courts,
+   SEO local Basse-Normandie inclus par défaut. */
+
 const OFFRES = [
   {
     nom: 'Essentiel',
     prix: 990,
     delai: '7 jours',
-    desc: "Google vous zappe ? Vous êtes page 7 ? On remonte la file — en une semaine, sans mégaphone ni PowerPoint de 90 slides.",
+    desc: "Le prix d'un site « starter » d'agence — en moins cher, plus rapide, et sans devis mystère. Parfait pour sortir de la page 7 de Google en une semaine.",
     color: '#6366f1',
     features: [
       '5 pages (Accueil, Services, À propos, Galerie, Contact)',
@@ -151,7 +158,7 @@ const OFFRES = [
     nom: 'Pro',
     prix: 1490,
     delai: '14 jours',
-    desc: "L'offre que 7 clients sur 10 choisissent. Le 8ᵉ est encore en train de lire notre tableau comparatif — on l'attend, café compris.",
+    desc: "Là où la concurrence facture 3 500 € pour 10 pages, Kyrio en demande 1 490 €. Même qualité, même SEO — juste sans la marge « agence parisienne ». Choisi par 7 clients sur 10.",
     color: '#06b6d4',
     features: [
       '10 pages sur-mesure',
@@ -170,7 +177,7 @@ const OFFRES = [
     nom: 'Signature',
     prix: 2490,
     delai: '21 jours',
-    desc: "Le projet XXL. Un site qui claque autant qu'un bon commercial — mais sans la pause clope ni le blabla.",
+    desc: "Le site XXL — équivalent à un projet agence à 5 000 – 6 000 €, chez nous à 2 490 €. Même ambition, même finition, deux fois moins cher. Parce que la Basse-Normandie, c'est pas la Silicon Valley.",
     color: '#f59e0b',
     features: [
       'Pages illimitées',
@@ -208,6 +215,80 @@ const WHY = [
   { titre: 'Tarifs affichés. Fin de la blague.', desc: "Ce que vous signez, c'est ce que vous payez. Pas de ligne « ajustement créatif » en taille 6.", icon: 'shield' },
   { titre: 'Des chiffres. Même quand ça pique.', desc: "Stats, rapports, courbes — on vous montre ce qui marche. Et ce qui devrait prendre sa retraite.", icon: 'chart' },
 ];
+
+/* Matrice comparative des offres one-shot (lignes = fonctionnalités, colonnes = offres).
+   Valeurs possibles : true, false, ou une chaîne (ex. "5", "Illimité"). */
+const FEATURES_MATRIX = [
+  { group: 'Site & design', items: [
+    { label: 'Nombre de pages',                 essentiel: '5',         pro: '10',        signature: 'Illimité' },
+    { label: 'Design responsive mobile/desktop',essentiel: true,        pro: true,        signature: true       },
+    { label: 'Design premium personnalisé',     essentiel: false,       pro: true,        signature: true       },
+    { label: 'Animations & effets premium',     essentiel: false,       pro: false,       signature: true       },
+    { label: 'Galerie photos / avant-après',    essentiel: false,       pro: true,        signature: true       },
+    { label: 'Réservation en ligne ou boutique',essentiel: false,       pro: false,       signature: true       },
+  ]},
+  { group: 'Contenu & fonctionnalités', items: [
+    { label: 'Formulaire de contact',           essentiel: true,        pro: true,        signature: true       },
+    { label: 'Intégration Google Maps',         essentiel: true,        pro: true,        signature: true       },
+    { label: 'Blog (3 articles de lancement)',  essentiel: false,       pro: true,        signature: true       },
+    { label: 'Contenu rédactionnel sur-mesure', essentiel: false,       pro: false,       signature: true       },
+  ]},
+  { group: 'SEO & visibilité', items: [
+    { label: 'SEO de base (balises, métadonnées)',  essentiel: true,    pro: true,        signature: true       },
+    { label: 'Google Search Console configurée',    essentiel: true,    pro: true,        signature: true       },
+    { label: 'Fiche Google Business optimisée',     essentiel: false,   pro: true,        signature: true       },
+    { label: 'SEO avancé (mots-clés, structure)',   essentiel: false,   pro: true,        signature: true       },
+    { label: 'Stratégie de contenu SEO premium',    essentiel: false,   pro: false,       signature: true       },
+    { label: 'Google Analytics 4 configuré',        essentiel: false,   pro: true,        signature: true       },
+  ]},
+  { group: 'Accompagnement & suivi', items: [
+    { label: 'Mise en ligne incluse',           essentiel: true,        pro: true,        signature: true       },
+    { label: 'Hébergement 1 an offert',         essentiel: false,       pro: true,        signature: true       },
+    { label: 'Suivi 30 jours post-lancement',   essentiel: false,       pro: true,        signature: true       },
+    { label: 'Formation client (2 h)',          essentiel: false,       pro: false,       signature: true       },
+    { label: 'Rapport mensuel de performance',  essentiel: false,       pro: false,       signature: true       },
+    { label: 'Priorité absolue & accès direct', essentiel: false,       pro: false,       signature: true       },
+  ]},
+];
+
+/* Offre signature : l'abonnement "Kyrio Flex" — 0 € à l'entrée, engagement 12 mois.
+   Différenciateur clé face aux agences qui demandent 3-5 k€ cash. */
+const OFFRE_FLEX = {
+  nom: 'Kyrio Flex',
+  prixMensuel: 89,
+  engagement: 12,
+  setup: 0,
+  desc: "Pas de budget pour sortir 1 500 € d'un coup ? Kyrio Flex : 0 € à la signature, 89 €/mois pendant 12 mois. Site livré en 7 jours, maintenance et hébergement inclus. Vous possédez le site au bout d'un an.",
+  features: [
+    '0 € de frais de lancement',
+    'Site pro livré en 7 jours',
+    '89 €/mois × 12 mois (engagement 1 an)',
+    'Hébergement + nom de domaine inclus',
+    'Maintenance Kyrio Gardien incluse',
+    '1 h de modifications par mois',
+    'Propriétaire du site au terme du contrat',
+    'Résiliation à 12 mois, sans frais',
+  ],
+};
+
+/* Comparatif marché — chiffres sourcés moyennes FR 2026 */
+const VS_MARCHE = [
+  { label: 'Site 10 pages + SEO',       freelance: '2 200 €',   agence: '3 800 €',   kyrio: '1 490 €', economie: '−61 %' },
+  { label: 'Délai moyen de livraison',  freelance: '4 semaines',agence: '8 semaines',kyrio: '7 jours', economie: '8× plus vite' },
+  { label: 'SEO local inclus',          freelance: 'Option',    agence: 'Option',    kyrio: 'Inclus',  economie: '+400 € économisés' },
+  { label: 'Maintenance mensuelle',     freelance: 'Rarement',  agence: '120 €/mois',kyrio: '49 €/mois', economie: '−59 %' },
+  { label: 'Abonnement 0 € d\'entrée',  freelance: 'Non',       agence: 'Non',       kyrio: 'Oui (Flex)', economie: 'Exclu. Kyrio' },
+];
+
+/* Zone d'intervention — Basse-Normandie (Calvados 14, Manche 50, Orne 61) */
+const ZONE_BN = {
+  departements: [
+    { code: '14', nom: 'Calvados', villes: ['Caen', 'Bayeux', 'Lisieux', 'Vire', 'Deauville', 'Honfleur', 'Falaise'] },
+    { code: '50', nom: 'Manche',   villes: ['Cherbourg', 'Saint-Lô', 'Granville', 'Coutances', 'Avranches', 'Carentan'] },
+    { code: '61', nom: 'Orne',     villes: ['Alençon', 'Flers', 'Argentan', 'L\'Aigle', 'Mortagne-au-Perche'] },
+  ],
+  deplacement: 'Déplacement offert dans tout le Calvados, la Manche et l\'Orne. Rendez-vous visio partout ailleurs.',
+};
 
 const PACK_LANCEMENT = {
   prix: 490,
@@ -444,7 +525,7 @@ export default function KyrioVitrine() {
 
   const portfolioRows = portfolioList && portfolioList.length > 0 ? portfolioList : PORTFOLIO_FALLBACK;
 
-  const NAV_LINKS = [['offres', 'Offres'], ['maintenance', 'Maintenance'], ['processus', 'Processus'], ['avant-apres', 'Avant/Après'], ['demos', 'Réalisations']];
+  const NAV_LINKS = [['offres', 'Offres'], ['flex', 'Flex'], ['zone', 'Zone'], ['maintenance', 'Maintenance'], ['processus', 'Processus'], ['demos', 'Réalisations']];
 
   const scrollTo = (id) => {
     document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
@@ -728,7 +809,7 @@ export default function KyrioVitrine() {
 
         <div className="fade-up badge-pulse hero-badge" style={{ display: 'inline-flex', alignItems: 'center', gap: 8, background: 'rgba(99,102,241,.12)', border: '1px solid rgba(99,102,241,.3)', borderRadius: 50, padding: '7px 18px', fontSize: 12, fontWeight: 700, color: '#6366f1', letterSpacing: '.06em', textTransform: 'uppercase', marginBottom: 32 }}>
           <span style={{ width: 7, height: 7, borderRadius: '50%', background: '#6366f1', display: 'inline-block', boxShadow: '0 0 6px #6366f1' }} />
-          Kyrio — Site pro en 7 jours. Promis, sans unicorn ni blockchain.
+          Kyrio — Agence web basée en Basse-Normandie · Caen · Site pro en 7 jours
         </div>
 
         <h1 className="fade-up-2 hero-title" style={{ fontSize: 'clamp(48px, 7vw, 88px)', fontWeight: 900, color: '#fff', lineHeight: 1.05, letterSpacing: '-0.03em', maxWidth: 900, marginBottom: 28 }}>
@@ -738,7 +819,7 @@ export default function KyrioVitrine() {
         </h1>
 
         <p className="fade-up-3 hero-sub" style={{ fontSize: 'clamp(16px, 2vw, 20px)', color: 'rgba(255,255,255,.5)', maxWidth: 580, lineHeight: 1.7, marginBottom: 48 }}>
-          Des sites qui bossent pour vous — pas des vitrines qui accumulent la poussière numérique. SEO inclus, résultats visibles, et on décroche encore le téléphone après la livraison (oui, c'est fou).
+          Des sites qui bossent pour vous — pas des vitrines qui accumulent la poussière numérique. On accompagne les artisans, commerçants et TPE du <strong style={{ color: 'rgba(255,255,255,.75)' }}>Calvados, de la Manche et de l'Orne</strong>. SEO inclus, tarifs affichés, et on décroche encore le téléphone après la livraison.
         </p>
 
         <div className="fade-up-3 hero-cta" style={{ display: 'flex', gap: 14, flexWrap: 'wrap', justifyContent: 'center', alignItems: 'center' }}>
@@ -793,47 +874,95 @@ export default function KyrioVitrine() {
             </div>
           </Reveal>
 
-          <div className="offers-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 20, alignItems: 'start' }}>
-            {OFFRES.map((o, i) => (
-              <Reveal key={o.nom} delay={i * 0.1}>
-                <div className={"card-hover offer-card" + (o.popular ? " popular" : "")} style={{ position: 'relative', background: o.popular ? '#0a0a0a' : 'var(--scard)', border: o.popular ? 'none' : '1px solid var(--scbdr)', borderRadius: 28, padding: o.popular ? '52px 32px 36px' : '36px 32px', display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
-                  {o.popular && (
-                    <div style={{ position: 'absolute', top: 16, left: 0, right: 0, textAlign: 'center', zIndex: 2, pointerEvents: 'none' }}>
-                      <span style={{ background: 'linear-gradient(135deg, #6366f1, #06b6d4)', color: '#fff', borderRadius: 50, padding: '6px 18px', fontSize: 12, fontWeight: 800, letterSpacing: '.04em', whiteSpace: 'nowrap', display: 'inline-flex', alignItems: 'center', gap: 6 }}>
-                        <KIcon name="star" size={12} color="#fff" strokeWidth={2} /> Le plus choisi
-                      </span>
-                    </div>
-                  )}
-                  {/* Bande colorée en haut */}
-                  <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 4, background: `linear-gradient(90deg, ${o.color}, ${o.color}88)`, borderRadius: '28px 28px 0 0' }} />
-                  <div style={{ marginBottom: 28 }}>
-                    <span style={{ display: 'inline-block', background: o.color + (o.popular ? '22' : '18'), color: o.color, borderRadius: 8, padding: '4px 12px', fontSize: 12, fontWeight: 700, marginBottom: 16 }}>{o.nom}</span>
-                    <div style={{ display: 'flex', alignItems: 'flex-end', gap: 8, marginBottom: 10 }}>
-                      <span style={{ fontSize: 'clamp(36px, 4vw, 48px)', fontWeight: 900, color: o.popular ? '#fff' : 'var(--sf)', letterSpacing: '-0.03em' }}>{eur(o.prix)}</span>
-                    </div>
-                    <div style={{ fontSize: 13, color: o.popular ? 'rgba(255,255,255,.4)' : '#999', marginBottom: 16, display: 'flex', alignItems: 'center', gap: 6 }}>
-                      <KIcon name="clock" size={13} color={o.popular ? 'rgba(255,255,255,.4)' : '#aaa'} />
+          {/* Tableau récapitulatif unifié — header offres + matrice fonctionnalités */}
+          <Reveal delay={0.05}>
+            <div className="offers-table-wrap" style={{ background: 'var(--scard)', border: '1px solid var(--scbdr)', borderRadius: 24, overflow: 'hidden', boxShadow: '0 24px 60px rgba(0,0,0,.08)' }}>
+              {/* HEADER — 3 offres en colonnes */}
+              <div className="offers-table-head" style={{ display: 'grid', gridTemplateColumns: '1.4fr 1fr 1fr 1fr' }}>
+                <div style={{ padding: '28px 24px', background: 'var(--sb2)', borderBottom: '1px solid var(--sbdr)', borderRight: '1px solid var(--sbdr)' }}>
+                  <div style={{ fontSize: 11, fontWeight: 800, color: 'var(--sf3)', textTransform: 'uppercase', letterSpacing: '.08em', marginBottom: 8 }}>Comparatif</div>
+                  <div style={{ fontSize: 15, fontWeight: 700, color: 'var(--sf)', lineHeight: 1.45 }}>Choisissez votre niveau d'ambition.</div>
+                  <div style={{ fontSize: 13, color: 'var(--sf2)', marginTop: 6, lineHeight: 1.55 }}>Tout est inclus dans le prix. Pas d'option cachée.</div>
+                </div>
+                {OFFRES.map((o) => (
+                  <div key={o.nom} style={{ padding: '28px 20px 22px', textAlign: 'center', background: o.popular ? 'linear-gradient(180deg, #0a0a0a, #1a1a2e)' : 'var(--scard)', borderBottom: '1px solid var(--sbdr)', borderRight: '1px solid var(--sbdr)', position: 'relative' }}>
+                    <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 4, background: `linear-gradient(90deg, ${o.color}, ${o.color}88)` }} />
+                    {o.popular && (
+                      <div style={{ position: 'absolute', top: -12, left: '50%', transform: 'translateX(-50%)', background: 'linear-gradient(135deg, #6366f1, #06b6d4)', color: '#fff', borderRadius: 50, padding: '5px 14px', fontSize: 10, fontWeight: 800, letterSpacing: '.06em', whiteSpace: 'nowrap', textTransform: 'uppercase', display: 'inline-flex', alignItems: 'center', gap: 5, boxShadow: '0 6px 20px rgba(99,102,241,.35)' }}>
+                        <KIcon name="star" size={10} color="#fff" strokeWidth={2.5} /> Le plus choisi
+                      </div>
+                    )}
+                    <div style={{ display: 'inline-block', background: o.color + (o.popular ? '2a' : '18'), color: o.color, borderRadius: 8, padding: '4px 12px', fontSize: 11, fontWeight: 800, letterSpacing: '.04em', marginBottom: 14, marginTop: o.popular ? 8 : 0, textTransform: 'uppercase' }}>{o.nom}</div>
+                    <div style={{ fontSize: 32, fontWeight: 900, color: o.popular ? '#fff' : 'var(--sf)', letterSpacing: '-0.03em', lineHeight: 1 }}>{eur(o.prix)}</div>
+                    <div style={{ fontSize: 12, color: o.popular ? 'rgba(255,255,255,.5)' : 'var(--sf3)', marginTop: 8, display: 'inline-flex', alignItems: 'center', gap: 5 }}>
+                      <KIcon name="clock" size={12} color={o.popular ? 'rgba(255,255,255,.5)' : 'var(--sf3)'} />
                       Livré en {o.delai}
                     </div>
-                    <p style={{ fontSize: 14, color: o.popular ? 'rgba(255,255,255,.65)' : '#666', lineHeight: 1.65 }}>{o.desc}</p>
                   </div>
-                  <ul style={{ listStyle: 'none', flex: 1, marginBottom: 32 }}>
-                    {o.features.map(f => (
-                        <li key={f} style={{ display: 'flex', gap: 10, alignItems: 'flex-start', fontSize: 13.5, color: o.popular ? 'rgba(255,255,255,.75)' : 'var(--sf2)', padding: '8px 0', borderBottom: `1px solid ${o.popular ? 'rgba(255,255,255,.06)' : 'var(--sbdr)'}` }}>
-                        <span style={{ flexShrink: 0, marginTop: 2 }}><KIcon name="tick" size={14} color={o.color} strokeWidth={2.5} /></span>
-                        {f}
-                      </li>
-                    ))}
-                  </ul>
-                  <button onClick={() => scrollTo('contact')} style={{ background: o.popular ? 'linear-gradient(135deg, #6366f1, #06b6d4)' : 'transparent', color: o.popular ? '#fff' : '#111', border: o.popular ? 'none' : '1.5px solid #ddd', borderRadius: 50, padding: '14px', fontSize: 14, fontWeight: 700, cursor: 'pointer', fontFamily: 'inherit', transition: 'all .2s', width: '100%' }}
-                    onMouseEnter={e => { if (!o.popular) { e.target.style.borderColor = '#111'; e.target.style.background = '#f5f5f5'; } }}
-                    onMouseLeave={e => { if (!o.popular) { e.target.style.borderColor = '#ddd'; e.target.style.background = 'transparent'; } }}>
-                    {o.cta}
-                  </button>
+                ))}
+              </div>
+
+              {/* MATRICE — groupes et lignes */}
+              {FEATURES_MATRIX.map((grp) => (
+                <div key={grp.group}>
+                  <div style={{ display: 'grid', gridTemplateColumns: '1.4fr 1fr 1fr 1fr', background: 'var(--sb2)' }}>
+                    <div style={{ gridColumn: '1 / -1', padding: '14px 24px', fontSize: 11, fontWeight: 800, color: '#6366f1', textTransform: 'uppercase', letterSpacing: '.1em', borderTop: '1px solid var(--sbdr)', borderBottom: '1px solid var(--sbdr)' }}>{grp.group}</div>
+                  </div>
+                  {grp.items.map((row, idx) => (
+                    <div key={row.label} className="offers-row" style={{ display: 'grid', gridTemplateColumns: '1.4fr 1fr 1fr 1fr', borderBottom: idx < grp.items.length - 1 ? '1px solid var(--sbdr)' : 'none', fontSize: 14, transition: 'background .15s' }}
+                      onMouseEnter={e => e.currentTarget.style.background = 'rgba(99,102,241,.03)'}
+                      onMouseLeave={e => e.currentTarget.style.background = 'transparent'}>
+                      <div style={{ padding: '14px 24px', color: 'var(--sf)', fontWeight: 500, borderRight: '1px solid var(--sbdr)' }}>{row.label}</div>
+                      {['essentiel', 'pro', 'signature'].map((key, i) => {
+                        const val = row[key];
+                        const offre = OFFRES[i];
+                        const isPopular = offre.popular;
+                        return (
+                          <div key={key} style={{ padding: '14px 20px', textAlign: 'center', borderRight: '1px solid var(--sbdr)', background: isPopular ? 'rgba(99,102,241,.04)' : 'transparent' }}>
+                            {val === true ? (
+                              <KIcon name="tick" size={18} color={offre.color} strokeWidth={3} />
+                            ) : val === false ? (
+                              <span style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', width: 18, height: 18, color: 'var(--sf3)', fontSize: 16, fontWeight: 300, opacity: .5 }}>—</span>
+                            ) : (
+                              <span style={{ fontSize: 13, fontWeight: 700, color: offre.color, background: offre.color + '12', borderRadius: 50, padding: '3px 12px', display: 'inline-block' }}>{val}</span>
+                            )}
+                          </div>
+                        );
+                      })}
+                    </div>
+                  ))}
                 </div>
-              </Reveal>
-            ))}
-          </div>
+              ))}
+
+              {/* FOOTER — CTAs */}
+              <div style={{ display: 'grid', gridTemplateColumns: '1.4fr 1fr 1fr 1fr', background: 'var(--sb2)', borderTop: '1px solid var(--sbdr)' }}>
+                <div style={{ padding: '22px 24px', fontSize: 13, color: 'var(--sf2)', fontStyle: 'italic', borderRight: '1px solid var(--sbdr)', display: 'flex', alignItems: 'center' }}>
+                  Besoin d'un conseil ? On répond en &lt; 24 h.
+                </div>
+                {OFFRES.map((o) => (
+                  <div key={o.nom} style={{ padding: '18px 14px', borderRight: '1px solid var(--sbdr)' }}>
+                    <button onClick={() => scrollTo('contact')} style={{ width: '100%', background: o.popular ? 'linear-gradient(135deg, #6366f1, #06b6d4)' : 'transparent', color: o.popular ? '#fff' : 'var(--sf)', border: o.popular ? 'none' : `1.5px solid ${o.color}55`, borderRadius: 50, padding: '12px 14px', fontSize: 13, fontWeight: 700, cursor: 'pointer', fontFamily: 'inherit', transition: 'all .2s' }}
+                      onMouseEnter={e => { if (!o.popular) { e.currentTarget.style.borderColor = o.color; e.currentTarget.style.background = o.color + '10'; } }}
+                      onMouseLeave={e => { if (!o.popular) { e.currentTarget.style.borderColor = o.color + '55'; e.currentTarget.style.background = 'transparent'; } }}>
+                      {o.cta}
+                    </button>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </Reveal>
+
+          {/* Descriptions courtes sous le tableau — rappel émotionnel */}
+          <Reveal delay={0.15}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 20, marginTop: 32 }} className="offers-recap-desc">
+              {OFFRES.map(o => (
+                <div key={o.nom} style={{ padding: '16px 20px', borderLeft: `3px solid ${o.color}`, background: 'var(--scard)', borderRadius: '0 12px 12px 0' }}>
+                  <div style={{ fontSize: 12, fontWeight: 800, color: o.color, textTransform: 'uppercase', letterSpacing: '.06em', marginBottom: 6 }}>{o.nom}</div>
+                  <p style={{ fontSize: 13, color: 'var(--sf2)', lineHeight: 1.6, margin: 0 }}>{o.desc}</p>
+                </div>
+              ))}
+            </div>
+          </Reveal>
 
           {/* Pack Lancement */}
           <Reveal delay={0.2}>
@@ -859,6 +988,111 @@ export default function KyrioVitrine() {
               <button onClick={() => scrollTo('contact')} className="kyrio-btn-dark" style={{ flexShrink: 0 }}>
                 Ajouter au projet
               </button>
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* ══ KYRIO FLEX — Abonnement 0 € d'entrée ══ */}
+      <section id="flex" className="section-pad" style={{ padding: '140px 24px', background: 'linear-gradient(135deg, #0f0f19 0%, #111 50%, #0a0a0f 100%)', position: 'relative', overflow: 'hidden' }}>
+        <div style={{ position: 'absolute', top: '-20%', right: '-10%', width: 600, height: 600, background: 'radial-gradient(circle, rgba(236,72,153,.08) 0%, transparent 70%)', pointerEvents: 'none' }} />
+        <div style={{ position: 'absolute', bottom: '-10%', left: '-10%', width: 500, height: 500, background: 'radial-gradient(circle, rgba(99,102,241,.08) 0%, transparent 70%)', pointerEvents: 'none' }} />
+        <div style={{ maxWidth: 1100, margin: '0 auto', position: 'relative' }}>
+          <Reveal>
+            <div className="section-head" style={{ textAlign: 'center', marginBottom: 48 }}>
+              <div style={{ display: 'inline-block', fontSize: 11, fontWeight: 800, letterSpacing: '.12em', textTransform: 'uppercase', color: '#ec4899', background: 'rgba(236,72,153,.1)', border: '1px solid rgba(236,72,153,.3)', padding: '6px 14px', borderRadius: 50, marginBottom: 18 }}>Nouveau · exclusif Kyrio</div>
+              <h2 style={{ fontSize: 'clamp(32px, 5vw, 52px)', fontWeight: 900, color: '#fff', letterSpacing: '-0.02em', lineHeight: 1.1, marginBottom: 18 }}>
+                Kyrio Flex.<br /><span style={{ color: '#ec4899' }}>0 € à la signature.</span>
+              </h2>
+              <p style={{ fontSize: 17, color: 'rgba(255,255,255,.55)', maxWidth: 620, margin: '0 auto', lineHeight: 1.7 }}>
+                Les agences veulent 3 000 à 5 000 € d'un coup. On a inventé autre chose : <strong style={{ color: '#fff' }}>89 €/mois pendant 12 mois</strong>, site livré en 7 jours, maintenance incluse, vous possédez tout au terme. Le moyen le plus accessible d'avoir un site pro en Basse-Normandie.
+              </p>
+            </div>
+          </Reveal>
+          <Reveal delay={0.1}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1.1fr) minmax(0, 1fr)', gap: 32, alignItems: 'stretch' }} className="flex-grid">
+              {/* Carte principale Flex */}
+              <div style={{ background: 'linear-gradient(135deg, #1a0d1f 0%, #0f0f19 100%)', border: '1px solid rgba(236,72,153,.3)', borderRadius: 28, padding: '44px 40px', position: 'relative', overflow: 'hidden' }}>
+                <div style={{ position: 'absolute', top: 0, right: 0, width: 200, height: 200, background: 'radial-gradient(circle at top right, rgba(236,72,153,.15), transparent 70%)', pointerEvents: 'none' }} />
+                <div style={{ display: 'flex', alignItems: 'baseline', gap: 8, marginBottom: 8 }}>
+                  <span style={{ fontSize: 56, fontWeight: 900, color: '#fff', letterSpacing: '-0.04em', lineHeight: 1 }}>89 €</span>
+                  <span style={{ fontSize: 18, color: 'rgba(255,255,255,.5)', fontWeight: 600 }}>/mois</span>
+                </div>
+                <div style={{ fontSize: 13, color: '#ec4899', fontWeight: 700, letterSpacing: '.06em', textTransform: 'uppercase', marginBottom: 24 }}>Engagement 12 mois · 0 € à l'entrée</div>
+                <ul style={{ listStyle: 'none', padding: 0, margin: '0 0 28px 0' }}>
+                  {OFFRE_FLEX.features.map(f => (
+                    <li key={f} style={{ display: 'flex', gap: 12, fontSize: 14, color: 'rgba(255,255,255,.75)', padding: '10px 0', borderBottom: '1px solid rgba(255,255,255,.05)', alignItems: 'flex-start', lineHeight: 1.5 }}>
+                      <span style={{ flexShrink: 0, marginTop: 2 }}><KIcon name="tick" size={14} color="#ec4899" strokeWidth={2.5} /></span>{f}
+                    </li>
+                  ))}
+                </ul>
+                <button onClick={() => scrollTo('contact')} style={{ width: '100%', background: '#ec4899', color: '#fff', border: 'none', borderRadius: 50, padding: '16px', fontSize: 15, fontWeight: 700, cursor: 'pointer', fontFamily: 'inherit', transition: 'all .2s', boxShadow: '0 10px 30px rgba(236,72,153,.3)' }}
+                  onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-2px)'; e.currentTarget.style.boxShadow = '0 14px 40px rgba(236,72,153,.45)'; }}
+                  onMouseLeave={e => { e.currentTarget.style.transform = 'none'; e.currentTarget.style.boxShadow = '0 10px 30px rgba(236,72,153,.3)'; }}>
+                  Je démarre avec Flex →
+                </button>
+              </div>
+              {/* Pourquoi Flex */}
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 14, justifyContent: 'center' }}>
+                {[
+                  { t: 'Pas de trésorerie à sortir', d: "Idéal pour les artisans et commerçants qui ne veulent pas grever leur BFR pour un site.", c: '#6366f1' },
+                  { t: 'Prix lissé, charges déductibles', d: "Passé en charge mensuelle (comme votre forfait téléphonique). Bien plus léger comptablement.", c: '#06b6d4' },
+                  { t: 'Maintenance incluse, zéro stress', d: "Mises à jour, sécurité, sauvegardes, 1 h de retouches/mois. Vous ne touchez à rien, ça tourne.", c: '#10b981' },
+                  { t: 'Propriétaire au bout d\'un an', d: "Après 12 mois, le site est 100 % à vous. Vous restez avec nous ou vous partez — votre choix.", c: '#f59e0b' },
+                ].map((x) => (
+                  <div key={x.t} style={{ background: 'rgba(255,255,255,.03)', border: '1px solid rgba(255,255,255,.08)', borderRadius: 16, padding: '18px 22px' }}>
+                    <div style={{ fontSize: 15, fontWeight: 700, color: '#fff', marginBottom: 4, display: 'flex', alignItems: 'center', gap: 10 }}>
+                      <span style={{ width: 6, height: 6, borderRadius: '50%', background: x.c, boxShadow: `0 0 10px ${x.c}` }} />
+                      {x.t}
+                    </div>
+                    <div style={{ fontSize: 13, color: 'rgba(255,255,255,.5)', lineHeight: 1.6 }}>{x.d}</div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* ══ VS MARCHÉ — Comparatif ══ */}
+      <section id="vs-marche" className="section-pad" style={{ padding: '140px 24px', background: 'var(--sb)', transition: 'background .35s' }}>
+        <div style={{ maxWidth: 1100, margin: '0 auto' }}>
+          <Reveal>
+            <div className="section-head" style={{ textAlign: 'center', marginBottom: 56 }}>
+              <div style={{ fontSize: 12, fontWeight: 700, letterSpacing: '.1em', textTransform: 'uppercase', color: 'var(--sf3)', marginBottom: 14 }}>Le comparatif honnête</div>
+              <h2 style={{ fontSize: 'clamp(30px, 4.5vw, 48px)', fontWeight: 900, color: 'var(--sf)', letterSpacing: '-0.02em', lineHeight: 1.1, marginBottom: 18 }}>
+                Kyrio vs le marché.<br />
+                <span style={{ color: '#6366f1' }}>Même qualité, moitié prix.</span>
+              </h2>
+              <p style={{ fontSize: 16, color: 'var(--sf2)', maxWidth: 560, margin: '0 auto', lineHeight: 1.7 }}>
+                Chiffres réels basés sur les devis moyens reçus par nos clients en 2025–2026. On ne triche pas, on compare.
+              </p>
+            </div>
+          </Reveal>
+          <Reveal delay={0.1}>
+            <div style={{ background: 'var(--scard)', border: '1px solid var(--scbdr)', borderRadius: 24, overflow: 'hidden', boxShadow: '0 16px 40px rgba(0,0,0,.06)' }}>
+              {/* Header */}
+              <div className="vs-row" style={{ display: 'grid', gridTemplateColumns: '1.5fr 1fr 1fr 1fr 1fr', background: 'var(--sb2)', borderBottom: '1px solid var(--sbdr)', fontSize: 12, fontWeight: 800, color: 'var(--sf3)', textTransform: 'uppercase', letterSpacing: '.06em' }}>
+                <div style={{ padding: '18px 20px' }}>Prestation</div>
+                <div style={{ padding: '18px 14px', textAlign: 'center' }}>Freelance</div>
+                <div style={{ padding: '18px 14px', textAlign: 'center' }}>Agence</div>
+                <div style={{ padding: '18px 14px', textAlign: 'center', background: 'rgba(99,102,241,.08)', color: '#6366f1' }}>Kyrio</div>
+                <div style={{ padding: '18px 14px', textAlign: 'center' }}>Économie</div>
+              </div>
+              {VS_MARCHE.map((r, i) => (
+                <div key={r.label} className="vs-row" style={{ display: 'grid', gridTemplateColumns: '1.5fr 1fr 1fr 1fr 1fr', borderBottom: i < VS_MARCHE.length - 1 ? '1px solid var(--sbdr)' : 'none', fontSize: 14, alignItems: 'center' }}>
+                  <div style={{ padding: '18px 20px', fontWeight: 600, color: 'var(--sf)' }}>{r.label}</div>
+                  <div style={{ padding: '18px 14px', textAlign: 'center', color: 'var(--sf2)' }}>{r.freelance}</div>
+                  <div style={{ padding: '18px 14px', textAlign: 'center', color: 'var(--sf2)' }}>{r.agence}</div>
+                  <div style={{ padding: '18px 14px', textAlign: 'center', background: 'rgba(99,102,241,.05)', fontWeight: 800, color: '#6366f1' }}>{r.kyrio}</div>
+                  <div style={{ padding: '18px 14px', textAlign: 'center', fontWeight: 700, color: '#10b981', fontSize: 13 }}>{r.economie}</div>
+                </div>
+              ))}
+            </div>
+          </Reveal>
+          <Reveal delay={0.2}>
+            <div style={{ textAlign: 'center', marginTop: 32, fontSize: 13, color: 'var(--sf3)', fontStyle: 'italic' }}>
+              Sources : moyennes 2026 sur projets TPE/PME — Codeur.com, Malt, benchmarks agences Normandie.
             </div>
           </Reveal>
         </div>
@@ -918,6 +1152,50 @@ export default function KyrioVitrine() {
         </div>
       </section>
 
+      {/* ══ ZONE D'INTERVENTION — Basse-Normandie ══ */}
+      <section id="zone" className="section-pad" style={{ padding: '140px 24px', background: 'var(--sb2)', transition: 'background .35s', position: 'relative', overflow: 'hidden' }}>
+        <div style={{ maxWidth: 1100, margin: '0 auto', position: 'relative' }}>
+          <Reveal>
+            <div className="section-head" style={{ textAlign: 'center', marginBottom: 56 }}>
+              <div style={{ fontSize: 12, fontWeight: 700, letterSpacing: '.1em', textTransform: 'uppercase', color: 'var(--sf3)', marginBottom: 14 }}>Notre territoire</div>
+              <h2 style={{ fontSize: 'clamp(32px, 5vw, 52px)', fontWeight: 900, color: 'var(--sf)', letterSpacing: '-0.02em', lineHeight: 1.1, marginBottom: 18 }}>
+                Kyrio accompagne les<br /><span style={{ color: '#10b981' }}>entreprises de Basse-Normandie.</span>
+              </h2>
+              <p style={{ fontSize: 17, color: 'var(--sf2)', maxWidth: 620, margin: '0 auto', lineHeight: 1.7 }}>
+                Basée en Basse-Normandie, Kyrio intervient en priorité dans le <strong>Calvados (14)</strong>, la <strong>Manche (50)</strong> et l'<strong>Orne (61)</strong>. On connaît le terrain, les habitudes, le tissu économique local — et on se déplace en vrai.
+              </p>
+            </div>
+          </Reveal>
+          <div className="zone-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 20, marginBottom: 32 }}>
+            {ZONE_BN.departements.map((d, i) => {
+              const colors = ['#10b981', '#06b6d4', '#f59e0b'];
+              const c = colors[i];
+              return (
+                <Reveal key={d.code} delay={i * 0.1}>
+                  <div className="card-hover" style={{ background: 'var(--scard)', border: '1px solid var(--scbdr)', borderRadius: 20, padding: '32px 28px', height: '100%', transition: 'all .3s' }}>
+                    <div style={{ display: 'flex', alignItems: 'baseline', gap: 10, marginBottom: 18 }}>
+                      <span style={{ fontSize: 42, fontWeight: 900, color: c, letterSpacing: '-0.03em', fontFamily: 'monospace' }}>{d.code}</span>
+                      <span style={{ fontSize: 22, fontWeight: 800, color: 'var(--sf)' }}>{d.nom}</span>
+                    </div>
+                    <div style={{ fontSize: 11, fontWeight: 700, color: 'var(--sf3)', textTransform: 'uppercase', letterSpacing: '.08em', marginBottom: 12 }}>Villes couvertes</div>
+                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
+                      {d.villes.map(v => (
+                        <span key={v} style={{ fontSize: 13, fontWeight: 600, color: 'var(--sf2)', background: c + '12', border: `1px solid ${c}28`, borderRadius: 50, padding: '5px 12px' }}>{v}</span>
+                      ))}
+                    </div>
+                  </div>
+                </Reveal>
+              );
+            })}
+          </div>
+          <Reveal delay={0.3}>
+            <div style={{ textAlign: 'center', background: 'var(--scard)', border: '1px dashed var(--scbdr)', borderRadius: 16, padding: '20px 28px', fontSize: 14, color: 'var(--sf2)', lineHeight: 1.6 }}>
+              <strong style={{ color: 'var(--sf)' }}>Déplacement offert</strong> dans tout le Calvados, la Manche et l'Orne — on vient vous rencontrer chez vous. Pour les autres régions : rendez-vous visio, même tarif, même qualité.
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
       {/* ══ PROCESSUS ══ */}
       <section id="processus" className="section-pad" style={{ padding: '160px 24px', background: 'var(--sb)', transition: 'background .35s' }}>
         <div style={{ maxWidth: 1100, margin: '0 auto' }}>
@@ -952,40 +1230,6 @@ export default function KyrioVitrine() {
               </Reveal>
             );})}
           </div>
-        </div>
-      </section>
-
-      {/* ══ AVANT / APRÈS ══ */}
-      <section id="avant-apres" className="section-pad" style={{ padding: '160px 24px', background: 'var(--sb2)', transition: 'background .35s' }}>
-        <div style={{ maxWidth: 1000, margin: '0 auto' }}>
-          <Reveal>
-            <div className="section-head" style={{ textAlign: 'center', marginBottom: 56 }}>
-              <div style={{ fontSize: 12, fontWeight: 700, letterSpacing: '.1em', textTransform: 'uppercase', color: 'var(--sf3)', marginBottom: 14 }}>Transformation</div>
-              <h2 style={{ fontSize: 'clamp(30px, 4.5vw, 50px)', fontWeight: 900, color: 'var(--sf)', letterSpacing: '-0.02em', lineHeight: 1.1, marginBottom: 18 }}>
-                Glissez. Vous allez voir.
-              </h2>
-              <p style={{ fontSize: 16, color: 'var(--sf2)', maxWidth: 480, margin: '0 auto', lineHeight: 1.7 }}>
-                Le restaurant de droite a investi dans son site. Celui de gauche... pas encore. La différence se voit. Et Google aussi la voit (il est un peu voyeur, Google).
-              </p>
-            </div>
-          </Reveal>
-          <Reveal delay={0.1}>
-            <AvantApres />
-          </Reveal>
-          <Reveal delay={0.2}>
-            <div style={{ display: 'flex', justifyContent: 'center', gap: 48, marginTop: 48, flexWrap: 'wrap' }}>
-              {[
-                { v: '+340%', l: 'de visibilité Google en moyenne', color: '#6366f1' },
-                { v: '×2.8', l: 'de demandes de devis', color: '#06b6d4' },
-                { v: '7j', l: 'pour être en ligne', color: '#10b981' },
-              ].map(({ v, l, color }) => (
-                <div key={l} style={{ textAlign: 'center' }}>
-                  <div style={{ fontSize: 'clamp(28px, 4vw, 40px)', fontWeight: 900, color: color, letterSpacing: '-0.03em', marginBottom: 4 }}>{v}</div>
-                  <div style={{ fontSize: 13, color: 'var(--sf2)', fontWeight: 500 }}>{l}</div>
-                </div>
-              ))}
-            </div>
-          </Reveal>
         </div>
       </section>
 
@@ -1132,9 +1376,15 @@ export default function KyrioVitrine() {
 
       {/* ══ FOOTER ══ */}
       <footer className="footer-kyrio" style={{ background: '#050505', borderTop: '1px solid rgba(255,255,255,.06)', padding: '48px 40px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 20 }}>
-        <KyrioMark size={24} dark opacity={0.6} />
-        <div style={{ display: 'flex', gap: 28 }}>
-          {[['offres', 'Offres'], ['maintenance', 'Maintenance'], ['processus', 'Processus']].map(([id, label]) => (
+        <div>
+          <KyrioMark size={24} dark opacity={0.6} />
+          <div style={{ fontSize: 11, color: 'rgba(255,255,255,.35)', marginTop: 8, letterSpacing: '.04em' }}>
+            Agence web · Basse-Normandie<br />
+            Calvados (14) · Manche (50) · Orne (61)
+          </div>
+        </div>
+        <div style={{ display: 'flex', gap: 28, flexWrap: 'wrap' }}>
+          {[['offres', 'Offres'], ['flex', 'Flex'], ['zone', 'Zone'], ['maintenance', 'Maintenance']].map(([id, label]) => (
             <button key={id} onClick={() => scrollTo(id)} style={{ background: 'transparent', border: 'none', color: 'rgba(255,255,255,.3)', fontSize: 13, cursor: 'pointer', fontFamily: 'inherit', transition: 'color .2s' }}
               onMouseEnter={e => e.target.style.color = 'rgba(255,255,255,.7)'}
               onMouseLeave={e => e.target.style.color = 'rgba(255,255,255,.3)'}>
@@ -1242,6 +1492,7 @@ function ContactForm() {
           <label style={lbl}>Offre souhaitée</label>
           <select value={form.offre} onChange={e => setForm(f => ({ ...f, offre: e.target.value }))} style={{ ...inp, color: form.offre ? '#fff' : 'rgba(255,255,255,.35)', cursor: 'pointer', background: '#1a1a1a' }}>
             <option value="">— Choisir —</option>
+            <option value="Kyrio Flex (89 €/mois, 0 € d'entrée)">Kyrio Flex — 89 €/mois (0 € d'entrée) ⭐</option>
             <option value="Essentiel (990 €)">Essentiel — 990 €</option>
             <option value="Pro (1 490 €)">Pro — 1 490 €</option>
             <option value="Signature (2 490 €)">Signature — 2 490 €</option>

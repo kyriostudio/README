@@ -8,6 +8,7 @@ const ArcencielVitrine          = lazy(() => import('./ArcencielVitrine.jsx'));
 const DesignContemporainVitrine = lazy(() => import('./DesignContemporainVitrine.jsx'));
 const CarentanVitrine           = lazy(() => import('./CarentanVitrine.jsx'));
 const SiteVitrine               = lazy(() => import('./SiteVitrine.jsx'));
+const DifamexVitrine            = lazy(() => import('./DifamexVitrine.jsx'));
 
 function DemoLoading() {
   return (
@@ -558,6 +559,9 @@ function DemoSite({ clients }) {
   }
   if (client.template === 'site-vitrine') {
     return <SiteVitrine client={client} />;
+  }
+  if (client.template === 'difamex') {
+    return <DifamexVitrine client={client} />;
   }
 
   return <VitrineGenerique client={client} />;
