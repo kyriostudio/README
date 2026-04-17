@@ -32,6 +32,8 @@ jobs:
           npm ci
           npm run build
 
+      # ./dist/* n’inclut pas les dotfiles (ex. .htaccess) — sans réécriture Apache, les routes SPA
+      # (/demos/difamex, etc.) renvoient 404 en accès direct ou refresh. Voir wlixcc/SFTP-Deploy-Action#59
       - name: Deploy dist to IONOS (SFTP)
         uses: wlixcc/SFTP-Deploy-Action@v1.2.6
         with:
@@ -40,6 +42,18 @@ jobs:
           password: ${{ secrets.IONOS_SFTP_PASSWORD }}
           port: 22
           local_path: ./dist/*
+          remote_path: /
+          sftp_only: true
+          sftpArgs: "-o ConnectTimeout=30 -o StrictHostKeyChecking=accept-new"
+
+      - name: Deploy .htaccess (réécriture SPA)
+        uses: wlixcc/SFTP-Deploy-Action@v1.2.6
+        with:
+          server: ${{ secrets.IONOS_SFTP_HOST }}
+          username: ${{ secrets.IONOS_SFTP_USERNAME }}
+          password: ${{ secrets.IONOS_SFTP_PASSWORD }}
+          port: 22
+          local_path: ./dist/.htaccess
           remote_path: /
           sftp_only: true
           sftpArgs: "-o ConnectTimeout=30 -o StrictHostKeyChecking=accept-new"
