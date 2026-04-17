@@ -4,6 +4,14 @@ import { ViteImageOptimizer } from 'vite-plugin-image-optimizer'
 
 // https://vite.dev/config/
 export default defineConfig({
+  server: {
+    port: 5180,
+    strictPort: true,
+  },
+  preview: {
+    port: 5181,
+    strictPort: true,
+  },
   plugins: [
     react(),
     ViteImageOptimizer({
