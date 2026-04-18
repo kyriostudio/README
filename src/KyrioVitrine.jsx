@@ -1,5 +1,6 @@
 ﻿import { useState, useEffect, useRef, useMemo } from 'react';
 import { Link } from 'react-router-dom';
+import { motion, useReducedMotion } from 'framer-motion';
 
 /* ── Intersection observer hook ── */
 function useVisible(threshold = 0.15) {
@@ -19,6 +20,25 @@ function Reveal({ children, delay = 0, y = 24 }) {
     <div ref={ref} style={{ opacity: vis ? 1 : 0, transform: vis ? 'none' : `translateY(${y}px)`, transition: `opacity .7s ${delay}s ease, transform .7s ${delay}s ease` }}>
       {children}
     </div>
+  );
+}
+
+/* ── ElegantShape — floating pill for hero ── */
+function ElegantShape({ className, delay = 0, width = 400, height = 100, rotate = 0, gradient, style: extraStyle = {} }) {
+  const prefersReduced = useReducedMotion();
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: -150, rotate: rotate - 15 }}
+      animate={{ opacity: 1, y: 0, rotate }}
+      transition={{ duration: 2.4, delay, ease: [0.23, 0.86, 0.39, 0.96], opacity: { duration: 1.2 } }}
+      style={{ position: 'absolute', pointerEvents: 'none', ...extraStyle }}
+    >
+      <motion.div
+        animate={prefersReduced ? {} : { y: [0, 15, 0] }}
+        transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
+        style={{ width, height, borderRadius: 9999, background: gradient, border: '1px solid rgba(255,255,255,0.12)', boxShadow: '0 8px 32px rgba(0,0,0,0.2)' }}
+      />
+    </motion.div>
   );
 }
 
@@ -777,81 +797,154 @@ export default function KyrioVitrine() {
       )}
 
       {/* ══ HERO ══ */}
-      <section className="hero-section" style={{ minHeight: '100vh', background: 'linear-gradient(160deg, #0a0a0a 0%, #111 50%, #0d0d1a 100%)', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center', padding: '120px 24px 80px', position: 'relative', overflow: 'hidden' }}>
-        {/* 3D Orbital rings */}
-        <div className="hero-orbit" style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', width: 600, height: 600, pointerEvents: 'none' }}>
-          <div style={{ position: 'absolute', inset: 0, borderRadius: '50%', border: '1.5px solid rgba(99,102,241,.2)', animation: 'orbit3d-1 20s linear infinite' }} />
-          <div style={{ position: 'absolute', inset: '10%', borderRadius: '50%', border: '1px solid rgba(6,182,212,.15)', animation: 'orbit3d-2 28s linear infinite' }} />
-          <div style={{ position: 'absolute', inset: '25%', borderRadius: '50%', border: '1px solid rgba(236,72,153,.12)', animation: 'orbit3d-3 15s linear infinite' }} />
-          {/* Orbiting dots */}
-          <div style={{ position: 'absolute', top: 0, left: '50%', width: 8, height: 8, borderRadius: '50%', background: '#6366f1', boxShadow: '0 0 12px rgba(99,102,241,.6)', animation: 'orbit3d-1 20s linear infinite', transformOrigin: '0 300px' }} />
-          <div style={{ position: 'absolute', top: '10%', left: '50%', width: 6, height: 6, borderRadius: '50%', background: '#06b6d4', boxShadow: '0 0 10px rgba(6,182,212,.5)', animation: 'orbit3d-2 28s linear infinite', transformOrigin: '0 270px' }} />
-          <div style={{ position: 'absolute', top: '25%', left: '50%', width: 5, height: 5, borderRadius: '50%', background: '#ec4899', boxShadow: '0 0 8px rgba(236,72,153,.4)', animation: 'orbit3d-3 15s linear infinite', transformOrigin: '0 225px' }} />
-        </div>
+      <section className="hero-section" style={{ minHeight: '100vh', background: 'linear-gradient(135deg, #030303 0%, #0a0a12 50%, #0d0a1a 100%)', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center', padding: '120px 24px 80px', position: 'relative', overflow: 'hidden' }}>
+
+        {/* ── Floating pill shapes ── */}
+        {/* Top-left large indigo pill */}
+        <ElegantShape
+          width={600} height={140} rotate={-15} delay={0.3}
+          gradient="linear-gradient(135deg, rgba(99,102,241,0.15) 0%, rgba(99,102,241,0) 100%)"
+          style={{ top: '8%', left: '-8%' }}
+        />
+        {/* Top-right rose pill */}
+        <ElegantShape
+          width={500} height={120} rotate={15} delay={0.5}
+          gradient="linear-gradient(135deg, rgba(236,72,153,0.15) 0%, rgba(236,72,153,0) 100%)"
+          style={{ top: '15%', right: '-6%' }}
+        />
+        {/* Bottom-left violet pill */}
+        <ElegantShape
+          width={300} height={80} rotate={-8} delay={0.4}
+          gradient="linear-gradient(135deg, rgba(139,92,246,0.15) 0%, rgba(139,92,246,0) 100%)"
+          style={{ bottom: '28%', left: '-4%' }}
+        />
+        {/* Bottom-right amber pill */}
+        <ElegantShape
+          width={200} height={60} rotate={20} delay={0.6}
+          gradient="linear-gradient(135deg, rgba(245,158,11,0.18) 0%, rgba(245,158,11,0) 100%)"
+          style={{ bottom: '20%', right: '4%' }}
+        />
+        {/* Center-top cyan accent */}
+        <ElegantShape
+          width={160} height={50} rotate={-5} delay={0.7}
+          gradient="linear-gradient(135deg, rgba(6,182,212,0.18) 0%, rgba(6,182,212,0) 100%)"
+          style={{ top: '32%', right: '18%' }}
+        />
+
         {/* Grille de points décorative */}
-        <div style={{ position: 'absolute', inset: 0, backgroundImage: 'radial-gradient(circle, rgba(255,255,255,.06) 1px, transparent 1px)', backgroundSize: '32px 32px', pointerEvents: 'none', opacity: .5 }} />
-        {/* Cercle décoratif rotatif */}
-        <div className="spin-slow" style={{ position: 'absolute', top: '10%', right: '12%', width: 80, height: 80, borderRadius: '50%', border: '1px dashed rgba(99,102,241,.2)', pointerEvents: 'none' }} />
+        <div style={{ position: 'absolute', inset: 0, backgroundImage: 'radial-gradient(circle, rgba(255,255,255,.04) 1px, transparent 1px)', backgroundSize: '32px 32px', pointerEvents: 'none' }} />
+
+        {/* Radial glow central */}
+        <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', width: 700, height: 700, background: 'radial-gradient(ellipse at center, rgba(99,102,241,0.07) 0%, transparent 70%)', pointerEvents: 'none' }} />
+
+        {/* Separator bottom */}
         <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: 1, background: 'linear-gradient(90deg, transparent, rgba(255,255,255,.06), transparent)' }} />
 
-        <div className="fade-up badge-pulse hero-badge" style={{ display: 'inline-flex', alignItems: 'center', gap: 8, background: 'rgba(99,102,241,.12)', border: '1px solid rgba(99,102,241,.3)', borderRadius: 50, padding: '7px 18px', fontSize: 12, fontWeight: 700, color: '#6366f1', letterSpacing: '.06em', textTransform: 'uppercase', marginBottom: 32 }}>
-          <span style={{ width: 7, height: 7, borderRadius: '50%', background: '#6366f1', display: 'inline-block', boxShadow: '0 0 6px #6366f1' }} />
-          Kyrio — Agence web basée en Basse-Normandie · Caen · Site pro en 7 jours
-        </div>
+        {/* ── Content — fade-up via framer-motion ── */}
+        <div style={{ position: 'relative', zIndex: 10, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
 
-        <h1 className="fade-up-2 hero-title" style={{ fontSize: 'clamp(48px, 7vw, 88px)', fontWeight: 900, color: '#fff', lineHeight: 1.05, letterSpacing: '-0.03em', maxWidth: 900, marginBottom: 28 }}>
-          Votre site web.<br />
-          <span className="squiggle" style={{ color: '#6366f1' }}>Livré en 7 jours.</span><br />
-          Sans vous prendre la tête — trop.
-        </h1>
+          {/* Badge */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, delay: 0.5, ease: [0.21, 0.47, 0.32, 0.98] }}
+            style={{ display: 'inline-flex', alignItems: 'center', gap: 8, background: 'rgba(99,102,241,.1)', border: '1px solid rgba(99,102,241,.25)', borderRadius: 50, padding: '7px 18px', fontSize: 12, fontWeight: 700, color: '#6366f1', letterSpacing: '.06em', textTransform: 'uppercase', marginBottom: 32 }}
+          >
+            <span style={{ width: 7, height: 7, borderRadius: '50%', background: '#6366f1', display: 'inline-block', boxShadow: '0 0 6px #6366f1' }} />
+            Kyrio — Agence web basée en Basse-Normandie · Caen · Site pro en 7 jours
+          </motion.div>
 
-        <p className="fade-up-3 hero-sub" style={{ fontSize: 'clamp(16px, 2vw, 20px)', color: 'rgba(255,255,255,.5)', maxWidth: 580, lineHeight: 1.7, marginBottom: 48 }}>
-          Des sites qui bossent pour vous — pas des vitrines qui accumulent la poussière numérique. On accompagne les artisans, commerçants et TPE du <strong style={{ color: 'rgba(255,255,255,.75)' }}>Calvados, de la Manche et de l'Orne</strong>. SEO inclus, tarifs affichés, et on décroche encore le téléphone après la livraison.
-        </p>
+          {/* Heading */}
+          <motion.h1
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, delay: 0.7, ease: [0.21, 0.47, 0.32, 0.98] }}
+            className="hero-title"
+            style={{ fontSize: 'clamp(48px, 7vw, 88px)', fontWeight: 900, color: '#fff', lineHeight: 1.05, letterSpacing: '-0.03em', maxWidth: 900, marginBottom: 28 }}
+          >
+            Votre site web.<br />
+            <span
+              className="squiggle"
+              style={{ background: 'linear-gradient(135deg, #6366f1 0%, #ec4899 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}
+            >
+              Livré en 7 jours.
+            </span>
+            <br />
+            <span style={{ color: 'rgba(255,255,255,0.5)', fontSize: '0.58em', fontWeight: 500, letterSpacing: '-0.01em' }}>
+              Sans vous prendre la tête — trop.
+            </span>
+          </motion.h1>
 
-        <div className="fade-up-3 hero-cta" style={{ display: 'flex', gap: 14, flexWrap: 'wrap', justifyContent: 'center', alignItems: 'center' }}>
-          <button onClick={() => scrollTo('offres')} className="kyrio-btn-dark" style={{ fontSize: 16, padding: '16px 36px' }}>
-            Voir les offres
-          </button>
-          <Link to="/demos">
-            <button className="kyrio-btn-ghost" style={{ fontSize: 16, padding: '16px 32px' }}>
-              Voir les réalisations →
+          {/* Subtitle */}
+          <motion.p
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, delay: 0.9, ease: [0.21, 0.47, 0.32, 0.98] }}
+            className="hero-sub"
+            style={{ fontSize: 'clamp(16px, 2vw, 20px)', color: 'rgba(255,255,255,.45)', maxWidth: 580, lineHeight: 1.75, marginBottom: 48 }}
+          >
+            Des sites qui bossent pour vous — pas des vitrines qui accumulent la poussière numérique. On accompagne les artisans, commerçants et TPE du{' '}
+            <strong style={{ color: 'rgba(255,255,255,.72)', fontWeight: 600 }}>Calvados, de la Manche et de l'Orne</strong>.{' '}
+            SEO inclus, tarifs affichés, et on décroche encore le téléphone après la livraison.
+          </motion.p>
+
+          {/* CTAs */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, delay: 1.1, ease: [0.21, 0.47, 0.32, 0.98] }}
+            className="hero-cta"
+            style={{ display: 'flex', gap: 14, flexWrap: 'wrap', justifyContent: 'center', alignItems: 'center' }}
+          >
+            <button onClick={() => scrollTo('offres')} className="kyrio-btn-dark" style={{ fontSize: 16, padding: '16px 36px' }}>
+              Voir les offres
             </button>
-          </Link>
-          <div style={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 10, marginTop: 4 }}>
-            <Link to="/demos/carentan" style={{ textAlign: 'center' }}>
-              <span style={{ fontSize: 14, fontWeight: 600, color: 'rgba(255,255,255,.42)', letterSpacing: '.02em', textDecoration: 'none', borderBottom: '1px solid rgba(255,255,255,.2)', paddingBottom: 2, transition: 'color .2s, border-color .2s' }}
-                onMouseEnter={(e) => { e.currentTarget.style.color = '#22d3ee'; e.currentTarget.style.borderBottomColor = '#22d3ee'; }}
-                onMouseLeave={(e) => { e.currentTarget.style.color = 'rgba(255,255,255,.42)'; e.currentTarget.style.borderBottomColor = 'rgba(255,255,255,.2)'; }}>
-                Démo site mairie — Carentan-les-Marais →
-              </span>
+            <Link to="/demos">
+              <button className="kyrio-btn-ghost" style={{ fontSize: 16, padding: '16px 32px' }}>
+                Voir les réalisations →
+              </button>
             </Link>
-            <Link to="/demos/difamex" style={{ textAlign: 'center' }}>
-              <span style={{ fontSize: 14, fontWeight: 600, color: 'rgba(255,255,255,.42)', letterSpacing: '.02em', textDecoration: 'none', borderBottom: '1px solid rgba(255,255,255,.2)', paddingBottom: 2, transition: 'color .2s, border-color .2s' }}
-                onMouseEnter={(e) => { e.currentTarget.style.color = '#84cc16'; e.currentTarget.style.borderBottomColor = '#84cc16'; }}
-                onMouseLeave={(e) => { e.currentTarget.style.color = 'rgba(255,255,255,.42)'; e.currentTarget.style.borderBottomColor = 'rgba(255,255,255,.2)'; }}>
-                Démo distributeur — Difamex (Ifs & Valognes) →
-              </span>
-            </Link>
-          </div>
-        </div>
-
-        {/* Stats */}
-        <div className="hero-stats" style={{ display: 'flex', gap: 0, marginTop: 80, borderTop: '1px solid rgba(255,255,255,.07)', paddingTop: 48, flexWrap: 'wrap', justifyContent: 'center' }}>
-          {[
-            { val: '7j', label: 'Délai moyen (oui, on tient nos promesses)', icon: 'clock', color: '#6366f1' },
-            { val: '100%', label: 'Clients qui reviennent (on ne les a pas ligotés)', icon: 'check', color: '#10b981' },
-            { val: '3 ans', label: 'Dans les tranchées du web (café : illimité)', icon: 'lock', color: '#f59e0b' },
-            { val: 'SEO', label: 'Toujours inclus. Même le lundi.', icon: 'search', color: '#ec4899' },
-          ].map((s, i) => (
-            <div key={s.label} style={{ padding: '0 40px', textAlign: 'center', borderRight: i < 3 ? '1px solid rgba(255,255,255,.06)' : 'none' }}>
-              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, marginBottom: 6 }}>
-                <KIcon name={s.icon} size={16} color={s.color} />
-                <span style={{ fontSize: 'clamp(26px, 3.5vw, 38px)', fontWeight: 900, color: '#fff', letterSpacing: '-0.03em' }}>{s.val}</span>
-              </div>
-              <div style={{ fontSize: 12, color: 'rgba(255,255,255,.3)', fontWeight: 500, letterSpacing: '.02em' }}>{s.label}</div>
+            <div style={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 10, marginTop: 4 }}>
+              <Link to="/demos/carentan" style={{ textAlign: 'center' }}>
+                <span style={{ fontSize: 14, fontWeight: 600, color: 'rgba(255,255,255,.38)', letterSpacing: '.02em', textDecoration: 'none', borderBottom: '1px solid rgba(255,255,255,.15)', paddingBottom: 2, transition: 'color .2s, border-color .2s' }}
+                  onMouseEnter={(e) => { e.currentTarget.style.color = '#22d3ee'; e.currentTarget.style.borderBottomColor = '#22d3ee'; }}
+                  onMouseLeave={(e) => { e.currentTarget.style.color = 'rgba(255,255,255,.38)'; e.currentTarget.style.borderBottomColor = 'rgba(255,255,255,.15)'; }}>
+                  Démo site mairie — Carentan-les-Marais →
+                </span>
+              </Link>
+              <Link to="/demos/difamex" style={{ textAlign: 'center' }}>
+                <span style={{ fontSize: 14, fontWeight: 600, color: 'rgba(255,255,255,.38)', letterSpacing: '.02em', textDecoration: 'none', borderBottom: '1px solid rgba(255,255,255,.15)', paddingBottom: 2, transition: 'color .2s, border-color .2s' }}
+                  onMouseEnter={(e) => { e.currentTarget.style.color = '#84cc16'; e.currentTarget.style.borderBottomColor = '#84cc16'; }}
+                  onMouseLeave={(e) => { e.currentTarget.style.color = 'rgba(255,255,255,.38)'; e.currentTarget.style.borderBottomColor = 'rgba(255,255,255,.15)'; }}>
+                  Démo distributeur — Difamex (Ifs & Valognes) →
+                </span>
+              </Link>
             </div>
-          ))}
+          </motion.div>
+
+          {/* Stats */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, delay: 1.3, ease: [0.21, 0.47, 0.32, 0.98] }}
+            className="hero-stats"
+            style={{ display: 'flex', gap: 0, marginTop: 80, borderTop: '1px solid rgba(255,255,255,.07)', paddingTop: 48, flexWrap: 'wrap', justifyContent: 'center' }}
+          >
+            {[
+              { val: '7j', label: 'Délai moyen (oui, on tient nos promesses)', icon: 'clock', color: '#6366f1' },
+              { val: '100%', label: 'Clients qui reviennent (on ne les a pas ligotés)', icon: 'check', color: '#10b981' },
+              { val: '3 ans', label: 'Dans les tranchées du web (café : illimité)', icon: 'lock', color: '#f59e0b' },
+              { val: 'SEO', label: 'Toujours inclus. Même le lundi.', icon: 'search', color: '#ec4899' },
+            ].map((s, i) => (
+              <div key={s.label} style={{ padding: '0 40px', textAlign: 'center', borderRight: i < 3 ? '1px solid rgba(255,255,255,.06)' : 'none' }}>
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, marginBottom: 6 }}>
+                  <KIcon name={s.icon} size={16} color={s.color} />
+                  <span style={{ fontSize: 'clamp(26px, 3.5vw, 38px)', fontWeight: 900, color: '#fff', letterSpacing: '-0.03em' }}>{s.val}</span>
+                </div>
+                <div style={{ fontSize: 12, color: 'rgba(255,255,255,.3)', fontWeight: 500, letterSpacing: '.02em' }}>{s.label}</div>
+              </div>
+            ))}
+          </motion.div>
         </div>
       </section>
 
