@@ -39,7 +39,7 @@ function BoxesCore({ style: extraStyle = {} }) {
       style={{
         position: 'absolute', left: '25%', top: '-25%', width: '100%', height: '100%', zIndex: 0,
         padding: 16, display: 'flex',
-        transform: 'translate(-50%,-50%) translate(-40%,-60%) skewX(-48deg) skewY(14deg) scale(0.675) rotate(0deg) translateZ(0)',
+        transform: 'translate(-40%,-60%) skewX(-48deg) skewY(14deg) scale(0.675) rotate(0deg) translateZ(0)',
         ...extraStyle,
       }}
     >
@@ -834,8 +834,8 @@ export default function KyrioVitrine() {
           style={{
             position: 'absolute', inset: 0, width: '100%', height: '100%',
             background: '#0f172a', zIndex: 20, pointerEvents: 'none',
-            maskImage: 'radial-gradient(transparent, white)',
-            WebkitMaskImage: 'radial-gradient(transparent, white)',
+            maskImage: 'radial-gradient(ellipse at center, transparent 20%, black 80%)',
+            WebkitMaskImage: 'radial-gradient(ellipse at center, transparent 20%, black 80%)',
           }}
         />
 
