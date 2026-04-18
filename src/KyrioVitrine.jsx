@@ -1,5 +1,7 @@
-﻿import { useState, useEffect, useRef, useMemo } from 'react';
+﻿import { useState, useEffect, useRef, useMemo, memo } from 'react';
 import { Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
+import { Plus } from 'lucide-react';
 
 /* ── Intersection observer hook ── */
 function useVisible(threshold = 0.15) {
@@ -21,6 +23,52 @@ function Reveal({ children, delay = 0, y = 24 }) {
     </div>
   );
 }
+
+/* ── Boxes — isometric grid background (aceternity-style) ── */
+const BOX_COLORS = [
+  'rgb(125 211 252)', 'rgb(249 168 212)', 'rgb(134 239 172)',
+  'rgb(253 224 71)',  'rgb(252 165 165)', 'rgb(216 180 254)',
+  'rgb(147 197 253)', 'rgb(165 180 252)', 'rgb(196 181 253)',
+];
+const randBoxColor = () => BOX_COLORS[Math.floor(Math.random() * BOX_COLORS.length)];
+
+function BoxesCore({ style: extraStyle = {} }) {
+  const rows = useMemo(() => new Array(80).fill(1), []);
+  const cols = useMemo(() => new Array(40).fill(1), []);
+  return (
+    <div
+      style={{
+        position: 'absolute', left: '25%', top: '-25%', width: '100%', height: '100%', zIndex: 0,
+        padding: 16, display: 'flex',
+        transform: 'translate(-40%,-60%) skewX(-48deg) skewY(14deg) scale(0.675) rotate(0deg) translateZ(0)',
+        ...extraStyle,
+      }}
+    >
+      {rows.map((_, i) => (
+        <motion.div key={`row-${i}`} style={{ width: 64, height: 32, borderLeft: '1px solid #334155', position: 'relative' }}>
+          {cols.map((_, j) => (
+            <motion.div
+              key={`col-${j}`}
+              whileHover={{ backgroundColor: randBoxColor(), transition: { duration: 0 } }}
+              animate={{ transition: { duration: 2 } }}
+              style={{ width: 64, height: 32, borderRight: '1px solid #334155', borderTop: '1px solid #334155', position: 'relative' }}
+            >
+              {j % 2 === 0 && i % 2 === 0 ? (
+                <svg
+                  xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="#334155"
+                  style={{ position: 'absolute', height: 24, width: 40, top: -14, left: -22, pointerEvents: 'none' }}
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v12m6-6H6" />
+                </svg>
+              ) : null}
+            </motion.div>
+          ))}
+        </motion.div>
+      ))}
+    </div>
+  );
+}
+const Boxes = memo(BoxesCore);
 
 /* ── Helpers ── */
 const eur = n => Number(n).toLocaleString('fr-FR') + ' €';
@@ -159,7 +207,7 @@ const OFFRES = [
     prix: 1490,
     delai: '14 jours',
     desc: "Là où la concurrence facture 3 500 € pour 10 pages, Kyrio en demande 1 490 €. Même qualité, même SEO — juste sans la marge « agence parisienne ». Choisi par 7 clients sur 10.",
-    color: '#06b6d4',
+    color: '#22d3ee',
     features: [
       '10 pages sur-mesure',
       'Design premium personnalisé',
@@ -178,7 +226,7 @@ const OFFRES = [
     prix: null,
     delai: '~21 jours',
     desc: "Le site XXL sur-mesure — pages illimitées, boutique, animations premium, stratégie SEO. Chaque projet est unique, le tarif aussi. On en discute autour d'un café.",
-    color: '#f59e0b',
+    color: '#10b981',
     features: [
       'Pages illimitées',
       'Animations & effets premium',
@@ -195,9 +243,9 @@ const OFFRES = [
 ];
 
 const MAINTENANCE = [
-  { nom: 'Kyrio Gardien',    prix: 39,  desc: "On veille comme un chat sur un clavier — sauf qu'on met à jour vos plugins, pas les vidéos de moustaches.",              features: ['Mises à jour CMS & plugins', 'Sauvegardes quotidiennes', 'Surveillance sécurité 24h/24', 'Certificat SSL maintenu'],              color: '#10b981', icon: 'guardian' },
-  { nom: 'Kyrio Croissance', prix: 69,  desc: "Un site qui ne bouge pas, c'est du patrimoine. Sauf que Google ne collectionne pas les antiquités.",                     features: ['Tout le Gardien inclus', '2 h de modifications/mois', 'Rapport SEO mensuel', 'Fiche Google Business suivi'],                     color: '#06b6d4', icon: 'growth'   },
-  { nom: 'Kyrio Partenaire', prix: null, desc: "Stratégie, contenu, ads — votre équipe marketing sans les frais de plantes au bureau. Tarif sur mesure selon le projet.", features: ['Tout Croissance inclus', '4 h création contenu/mois', 'Gestion Google Ads', 'Réunion mensuelle bilan'],                     color: '#f59e0b', icon: 'partner'  },
+  { nom: 'Kyrio Gardien',    prix: 39,  desc: "On veille comme un chat sur un clavier — sauf qu'on met à jour vos plugins, pas les vidéos de moustaches.",              features: ['Mises à jour CMS & plugins', 'Sauvegardes quotidiennes', 'Surveillance sécurité 24h/24', 'Certificat SSL maintenu'],              color: '#6366f1', icon: 'guardian' },
+  { nom: 'Kyrio Croissance', prix: 69,  desc: "Un site qui ne bouge pas, c'est du patrimoine. Sauf que Google ne collectionne pas les antiquités.",                     features: ['Tout le Gardien inclus', '2 h de modifications/mois', 'Rapport SEO mensuel', 'Fiche Google Business suivi'],                     color: '#22d3ee', icon: 'growth'   },
+  { nom: 'Kyrio Partenaire', prix: null, desc: "Stratégie, contenu, ads — votre équipe marketing sans les frais de plantes au bureau. Tarif sur mesure selon le projet.", features: ['Tout Croissance inclus', '4 h création contenu/mois', 'Gestion Google Ads', 'Réunion mensuelle bilan'],                     color: '#10b981', icon: 'partner'  },
 ];
 
 const STEPS = [
@@ -261,7 +309,7 @@ const OFFRES_FLEX = [
     totalAn: 1428,
     oneShotRef: 1490,
     economie: '−62 €',
-    color: '#ec4899',
+    color: '#22d3ee',
     pitch: "Votre site Pro à 1 490 € ? Ou 119 €/mois — moins cher en total, 0 € ce mois-ci.",
     features: ['Site Pro (10 pages) livré en 14 j', 'Hébergement + domaine inclus', 'Maintenance Croissance incluse', '2 h de retouches/mois', 'Propriétaire après 12 mois'],
   },
@@ -478,7 +526,7 @@ function AvantApres() {
 export default function KyrioVitrine() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [dark, setDark] = useState(false);
+  const [dark, setDark] = useState(true);
   const [isMobileNav, setIsMobileNav] = useState(() => typeof window !== 'undefined' && window.matchMedia('(max-width: 768px)').matches);
 
   useEffect(() => {
@@ -581,6 +629,24 @@ export default function KyrioVitrine() {
         @keyframes kyrio-dot-orbit { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
         @keyframes spin-slow { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
         @keyframes pulse-badge { 0%,100% { box-shadow: 0 0 0 0 rgba(99,102,241,.4); } 50% { box-shadow: 0 0 0 8px rgba(99,102,241,.0); } }
+
+        /* ── Hero neon gradient text (adapté de text-color.tsx) ── */
+        @keyframes kyrio-hue-shift {
+          0%   { background-position: 0% 50%; }
+          100% { background-position: 300% 50%; }
+        }
+        /* Bleu univers → cyan → vert fluo (couleurs du logo Kyrio : K bleu, . vert) */
+        .kyrio-neon-text {
+          background-image: linear-gradient(90deg, #4f46e5, #6366f1, #818cf8, #22d3ee, #67e8f9, #4ade80, #39ff14, #4ade80, #67e8f9, #22d3ee, #818cf8, #6366f1, #4f46e5);
+          background-size: 300% 100%;
+          -webkit-background-clip: text;
+          background-clip: text;
+          color: transparent;
+          -webkit-text-fill-color: transparent;
+          animation: kyrio-hue-shift 9s linear infinite;
+        }
+        .hero-corner-plus { position: absolute; width: 28px; height: 28px; color: #6366f1; pointer-events: none; }
+
         .fade-up { animation: fadeUp .8s ease forwards; }
         .fade-up-2 { animation: fadeUp .8s .15s ease forwards; opacity: 0; }
         .fade-up-3 { animation: fadeUp .8s .3s ease forwards; opacity: 0; }
@@ -777,81 +843,110 @@ export default function KyrioVitrine() {
       )}
 
       {/* ══ HERO ══ */}
-      <section className="hero-section" style={{ minHeight: '100vh', background: 'linear-gradient(160deg, #0a0a0a 0%, #111 50%, #0d0d1a 100%)', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center', padding: '120px 24px 80px', position: 'relative', overflow: 'hidden' }}>
-        {/* 3D Orbital rings */}
-        <div className="hero-orbit" style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', width: 600, height: 600, pointerEvents: 'none' }}>
-          <div style={{ position: 'absolute', inset: 0, borderRadius: '50%', border: '1.5px solid rgba(99,102,241,.2)', animation: 'orbit3d-1 20s linear infinite' }} />
-          <div style={{ position: 'absolute', inset: '10%', borderRadius: '50%', border: '1px solid rgba(6,182,212,.15)', animation: 'orbit3d-2 28s linear infinite' }} />
-          <div style={{ position: 'absolute', inset: '25%', borderRadius: '50%', border: '1px solid rgba(236,72,153,.12)', animation: 'orbit3d-3 15s linear infinite' }} />
-          {/* Orbiting dots */}
-          <div style={{ position: 'absolute', top: 0, left: '50%', width: 8, height: 8, borderRadius: '50%', background: '#6366f1', boxShadow: '0 0 12px rgba(99,102,241,.6)', animation: 'orbit3d-1 20s linear infinite', transformOrigin: '0 300px' }} />
-          <div style={{ position: 'absolute', top: '10%', left: '50%', width: 6, height: 6, borderRadius: '50%', background: '#06b6d4', boxShadow: '0 0 10px rgba(6,182,212,.5)', animation: 'orbit3d-2 28s linear infinite', transformOrigin: '0 270px' }} />
-          <div style={{ position: 'absolute', top: '25%', left: '50%', width: 5, height: 5, borderRadius: '50%', background: '#ec4899', boxShadow: '0 0 8px rgba(236,72,153,.4)', animation: 'orbit3d-3 15s linear infinite', transformOrigin: '0 225px' }} />
-        </div>
-        {/* Grille de points décorative */}
-        <div style={{ position: 'absolute', inset: 0, backgroundImage: 'radial-gradient(circle, rgba(255,255,255,.06) 1px, transparent 1px)', backgroundSize: '32px 32px', pointerEvents: 'none', opacity: .5 }} />
-        {/* Cercle décoratif rotatif */}
-        <div className="spin-slow" style={{ position: 'absolute', top: '10%', right: '12%', width: 80, height: 80, borderRadius: '50%', border: '1px dashed rgba(99,102,241,.2)', pointerEvents: 'none' }} />
-        <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: 1, background: 'linear-gradient(90deg, transparent, rgba(255,255,255,.06), transparent)' }} />
+      <section className="hero-section" style={{ minHeight: '100vh', background: '#0f172a', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center', padding: '120px 24px 80px', position: 'relative', overflow: 'hidden' }}>
 
-        <div className="fade-up badge-pulse hero-badge" style={{ display: 'inline-flex', alignItems: 'center', gap: 8, background: 'rgba(99,102,241,.12)', border: '1px solid rgba(99,102,241,.3)', borderRadius: 50, padding: '7px 18px', fontSize: 12, fontWeight: 700, color: '#6366f1', letterSpacing: '.06em', textTransform: 'uppercase', marginBottom: 32 }}>
-          <span style={{ width: 7, height: 7, borderRadius: '50%', background: '#6366f1', display: 'inline-block', boxShadow: '0 0 6px #6366f1' }} />
-          Kyrio — Agence web basée en Basse-Normandie · Caen · Site pro en 7 jours
-        </div>
+        {/* Isometric boxes background */}
+        <Boxes />
 
-        <h1 className="fade-up-2 hero-title" style={{ fontSize: 'clamp(48px, 7vw, 88px)', fontWeight: 900, color: '#fff', lineHeight: 1.05, letterSpacing: '-0.03em', maxWidth: 900, marginBottom: 28 }}>
-          Votre site web.<br />
-          <span className="squiggle" style={{ color: '#6366f1' }}>Livré en 7 jours.</span><br />
-          Sans vous prendre la tête — trop.
-        </h1>
+        {/* Slate-900 overlay masked by radial gradient (center transparent, edges opaque) → vignette */}
+        <div
+          style={{
+            position: 'absolute', inset: 0, width: '100%', height: '100%',
+            background: '#0f172a', zIndex: 20, pointerEvents: 'none',
+            maskImage: 'radial-gradient(ellipse at center, transparent 20%, black 80%)',
+            WebkitMaskImage: 'radial-gradient(ellipse at center, transparent 20%, black 80%)',
+          }}
+        />
 
-        <p className="fade-up-3 hero-sub" style={{ fontSize: 'clamp(16px, 2vw, 20px)', color: 'rgba(255,255,255,.5)', maxWidth: 580, lineHeight: 1.7, marginBottom: 48 }}>
-          Des sites qui bossent pour vous — pas des vitrines qui accumulent la poussière numérique. On accompagne les artisans, commerçants et TPE du <strong style={{ color: 'rgba(255,255,255,.75)' }}>Calvados, de la Manche et de l'Orne</strong>. SEO inclus, tarifs affichés, et on décroche encore le téléphone après la livraison.
-        </p>
+        {/* Separator bottom */}
+        <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: 1, background: 'linear-gradient(90deg, transparent, rgba(255,255,255,.06), transparent)', zIndex: 25 }} />
 
-        <div className="fade-up-3 hero-cta" style={{ display: 'flex', gap: 14, flexWrap: 'wrap', justifyContent: 'center', alignItems: 'center' }}>
-          <button onClick={() => scrollTo('offres')} className="kyrio-btn-dark" style={{ fontSize: 16, padding: '16px 36px' }}>
-            Voir les offres
-          </button>
-          <Link to="/demos">
-            <button className="kyrio-btn-ghost" style={{ fontSize: 16, padding: '16px 32px' }}>
-              Voir les réalisations →
+        {/* ── Content — fade-up via framer-motion ── */}
+        {/* pointerEvents:none sur le wrapper → laisse passer le hover vers les Boxes ; réactivé sur les CTAs/liens */}
+        <div style={{ position: 'relative', zIndex: 30, display: 'flex', flexDirection: 'column', alignItems: 'center', pointerEvents: 'none' }}>
+
+          {/* Badge */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, delay: 0.5, ease: [0.21, 0.47, 0.32, 0.98] }}
+            style={{ display: 'inline-flex', alignItems: 'center', gap: 8, background: 'rgba(99,102,241,.1)', border: '1px solid rgba(99,102,241,.25)', borderRadius: 50, padding: '7px 18px', fontSize: 11, fontWeight: 700, color: '#6366f1', letterSpacing: '.08em', textTransform: 'uppercase', marginBottom: 40 }}
+          >
+            <span style={{ width: 7, height: 7, borderRadius: '50%', background: '#6366f1', display: 'inline-block', boxShadow: '0 0 6px #6366f1' }} />
+            Agence web · Basse-Normandie
+          </motion.div>
+
+          {/* Heading — neon gradient animé + Plus aux coins */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, delay: 0.7, ease: [0.21, 0.47, 0.32, 0.98] }}
+            style={{ position: 'relative', padding: '32px 24px', marginBottom: 48, border: '1px solid rgba(255,255,255,0.08)', maskImage: 'radial-gradient(200rem 24rem at center, white, transparent)', WebkitMaskImage: 'radial-gradient(200rem 24rem at center, white, transparent)' }}
+          >
+            <Plus strokeWidth={1.5} className="hero-corner-plus" style={{ top: -14, left: -14 }} />
+            <Plus strokeWidth={1.5} className="hero-corner-plus" style={{ top: -14, right: -14 }} />
+            <Plus strokeWidth={1.5} className="hero-corner-plus" style={{ bottom: -14, left: -14 }} />
+            <Plus strokeWidth={1.5} className="hero-corner-plus" style={{ bottom: -14, right: -14 }} />
+
+            <h1 className="hero-title" style={{ userSelect: 'none', display: 'flex', justifyContent: 'center', fontSize: 'clamp(72px, 14vw, 168px)', fontWeight: 900, lineHeight: 0.95, letterSpacing: '-0.045em', margin: 0 }}>
+              <span className="kyrio-neon-text" style={{ padding: '0 0 0 12px' }}>Kyrio</span><span style={{ color: '#39ff14', WebkitTextFillColor: '#39ff14' }}>.</span>
+            </h1>
+          </motion.div>
+
+          {/* Tagline */}
+          <motion.p
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, delay: 0.85, ease: [0.21, 0.47, 0.32, 0.98] }}
+            className="hero-sub"
+            style={{ fontSize: 'clamp(16px, 1.6vw, 19px)', color: 'rgba(255,255,255,.55)', maxWidth: 640, lineHeight: 1.65, marginBottom: 44, marginTop: -16 }}
+          >
+            On accompagne artisans, commerçants et TPE du{' '}
+            <strong style={{ color: 'rgba(255,255,255,.82)', fontWeight: 600 }}>Calvados, de la Manche et de l'Orne</strong>.{' '}
+            SEO inclus, tarifs affichés — et une fois en ligne, on reste à vos côtés.
+          </motion.p>
+
+          {/* CTAs */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, delay: 0.9, ease: [0.21, 0.47, 0.32, 0.98] }}
+            className="hero-cta"
+            style={{ display: 'flex', gap: 14, flexWrap: 'wrap', justifyContent: 'center', alignItems: 'center', pointerEvents: 'auto' }}
+          >
+            <button onClick={() => scrollTo('offres')} className="kyrio-btn-dark" style={{ fontSize: 16, padding: '16px 36px' }}>
+              Voir les offres
             </button>
-          </Link>
-          <div style={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 10, marginTop: 4 }}>
-            <Link to="/demos/carentan" style={{ textAlign: 'center' }}>
-              <span style={{ fontSize: 14, fontWeight: 600, color: 'rgba(255,255,255,.42)', letterSpacing: '.02em', textDecoration: 'none', borderBottom: '1px solid rgba(255,255,255,.2)', paddingBottom: 2, transition: 'color .2s, border-color .2s' }}
-                onMouseEnter={(e) => { e.currentTarget.style.color = '#22d3ee'; e.currentTarget.style.borderBottomColor = '#22d3ee'; }}
-                onMouseLeave={(e) => { e.currentTarget.style.color = 'rgba(255,255,255,.42)'; e.currentTarget.style.borderBottomColor = 'rgba(255,255,255,.2)'; }}>
-                Démo site mairie — Carentan-les-Marais →
-              </span>
+            <Link to="/demos">
+              <button className="kyrio-btn-ghost" style={{ fontSize: 16, padding: '16px 32px' }}>
+                Voir les réalisations →
+              </button>
             </Link>
-            <Link to="/demos/difamex" style={{ textAlign: 'center' }}>
-              <span style={{ fontSize: 14, fontWeight: 600, color: 'rgba(255,255,255,.42)', letterSpacing: '.02em', textDecoration: 'none', borderBottom: '1px solid rgba(255,255,255,.2)', paddingBottom: 2, transition: 'color .2s, border-color .2s' }}
-                onMouseEnter={(e) => { e.currentTarget.style.color = '#84cc16'; e.currentTarget.style.borderBottomColor = '#84cc16'; }}
-                onMouseLeave={(e) => { e.currentTarget.style.color = 'rgba(255,255,255,.42)'; e.currentTarget.style.borderBottomColor = 'rgba(255,255,255,.2)'; }}>
-                Démo distributeur — Difamex (Ifs & Valognes) →
-              </span>
-            </Link>
-          </div>
-        </div>
+          </motion.div>
 
-        {/* Stats */}
-        <div className="hero-stats" style={{ display: 'flex', gap: 0, marginTop: 80, borderTop: '1px solid rgba(255,255,255,.07)', paddingTop: 48, flexWrap: 'wrap', justifyContent: 'center' }}>
-          {[
-            { val: '7j', label: 'Délai moyen (oui, on tient nos promesses)', icon: 'clock', color: '#6366f1' },
-            { val: '100%', label: 'Clients qui reviennent (on ne les a pas ligotés)', icon: 'check', color: '#10b981' },
-            { val: '3 ans', label: 'Dans les tranchées du web (café : illimité)', icon: 'lock', color: '#f59e0b' },
-            { val: 'SEO', label: 'Toujours inclus. Même le lundi.', icon: 'search', color: '#ec4899' },
-          ].map((s, i) => (
-            <div key={s.label} style={{ padding: '0 40px', textAlign: 'center', borderRight: i < 3 ? '1px solid rgba(255,255,255,.06)' : 'none' }}>
-              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, marginBottom: 6 }}>
-                <KIcon name={s.icon} size={16} color={s.color} />
-                <span style={{ fontSize: 'clamp(26px, 3.5vw, 38px)', fontWeight: 900, color: '#fff', letterSpacing: '-0.03em' }}>{s.val}</span>
+          {/* Stats */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, delay: 1.3, ease: [0.21, 0.47, 0.32, 0.98] }}
+            className="hero-stats"
+            style={{ display: 'flex', gap: 0, marginTop: 80, borderTop: '1px solid rgba(255,255,255,.07)', paddingTop: 48, flexWrap: 'wrap', justifyContent: 'center' }}
+          >
+            {[
+              { val: '7j', label: 'Délai moyen (oui, on tient nos promesses)', icon: 'clock', color: '#6366f1' },
+              { val: '100%', label: 'Clients qui reviennent (on ne les a pas ligotés)', icon: 'check', color: '#22d3ee' },
+              { val: '3 ans', label: 'Dans les tranchées du web (café : illimité)', icon: 'lock', color: '#10b981' },
+              { val: 'SEO', label: 'Toujours inclus. Même le lundi.', icon: 'search', color: '#39ff14' },
+            ].map((s, i) => (
+              <div key={s.label} style={{ padding: '0 40px', textAlign: 'center', borderRight: i < 3 ? '1px solid rgba(255,255,255,.06)' : 'none' }}>
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, marginBottom: 6 }}>
+                  <KIcon name={s.icon} size={16} color={s.color} />
+                  <span style={{ fontSize: 'clamp(26px, 3.5vw, 38px)', fontWeight: 900, color: '#fff', letterSpacing: '-0.03em' }}>{s.val}</span>
+                </div>
+                <div style={{ fontSize: 12, color: 'rgba(255,255,255,.3)', fontWeight: 500, letterSpacing: '.02em' }}>{s.label}</div>
               </div>
-              <div style={{ fontSize: 12, color: 'rgba(255,255,255,.3)', fontWeight: 500, letterSpacing: '.02em' }}>{s.label}</div>
-            </div>
-          ))}
+            ))}
+          </motion.div>
         </div>
       </section>
 
@@ -883,7 +978,7 @@ export default function KyrioVitrine() {
                   </div>
                   <div>
                     <div style={{ fontSize: 11, fontWeight: 800, color: '#6366f1', textTransform: 'uppercase', letterSpacing: '.08em' }}>Achat unique — propriétaire dès J+1</div>
-                    <div style={{ fontSize: 18, fontWeight: 800, color: 'var(--sf)', marginTop: 2 }}>990 € · 1 490 € · Sur devis</div>
+                    <div style={{ fontSize: 18, fontWeight: 800, color: 'var(--sf)', marginTop: 2 }}>À partir de 990 €</div>
                   </div>
                 </div>
                 <p style={{ fontSize: 14, color: 'var(--sf2)', lineHeight: 1.65, margin: 0 }}>
@@ -903,11 +998,11 @@ export default function KyrioVitrine() {
                 <div style={{ position: 'absolute', top: 0, right: 0, width: 160, height: 160, background: 'radial-gradient(circle at top right, rgba(236,72,153,.14), transparent 70%)', pointerEvents: 'none' }} />
                 <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
                   <div style={{ width: 40, height: 40, borderRadius: 12, background: 'rgba(236,72,153,.15)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                    <KIcon name="growth" size={18} color="#ec4899" strokeWidth={2} />
+                    <KIcon name="growth" size={18} color="#22d3ee" strokeWidth={2} />
                   </div>
                   <div>
-                    <div style={{ fontSize: 11, fontWeight: 800, color: '#ec4899', textTransform: 'uppercase', letterSpacing: '.08em' }}>Kyrio Flex — mensuel · 0 € d'entrée</div>
-                    <div style={{ fontSize: 18, fontWeight: 800, color: '#fff', marginTop: 2 }}>79 € ou 119 €/mois × 12</div>
+                    <div style={{ fontSize: 11, fontWeight: 800, color: '#22d3ee', textTransform: 'uppercase', letterSpacing: '.08em' }}>Kyrio Flex — mensuel · 0 € d'entrée</div>
+                    <div style={{ fontSize: 18, fontWeight: 800, color: '#fff', marginTop: 2 }}>79 € ou 119 €/mois · engagement 12 mois</div>
                   </div>
                 </div>
                 <p style={{ fontSize: 14, color: 'rgba(255,255,255,.6)', lineHeight: 1.65, margin: 0 }}>
@@ -937,14 +1032,14 @@ export default function KyrioVitrine() {
                   <div style={{ fontSize: 12, color: 'var(--sf3)', marginTop: 4 }}>Aucune option cachée.</div>
                 </div>
                 {OFFRES.map((o) => (
-                  <div key={o.nom} style={{ padding: '22px 16px 18px', textAlign: 'center', background: o.popular ? 'linear-gradient(180deg, #0d0d1e, #141430)' : 'var(--scard)', borderBottom: '1px solid var(--sbdr)', borderRight: '1px solid var(--sbdr)', position: 'relative' }}>
-                    <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 3, background: o.color }} />
+                  <div key={o.nom} style={{ padding: o.popular ? '36px 16px 18px' : '22px 16px 18px', textAlign: 'center', background: o.popular ? 'linear-gradient(180deg, #0d0d1e, #141430)' : 'var(--scard)', borderBottom: '1px solid var(--sbdr)', borderRight: '1px solid var(--sbdr)', position: 'relative' }}>
+                    <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: o.popular ? 4 : 3, background: o.color }} />
                     {o.popular && (
-                      <div style={{ position: 'absolute', top: -11, left: '50%', transform: 'translateX(-50%)', background: 'linear-gradient(135deg, #6366f1, #06b6d4)', color: '#fff', borderRadius: 50, padding: '4px 12px', fontSize: 9, fontWeight: 800, letterSpacing: '.06em', whiteSpace: 'nowrap', textTransform: 'uppercase', boxShadow: '0 4px 14px rgba(99,102,241,.4)' }}>
+                      <div style={{ position: 'absolute', top: 9, left: '50%', transform: 'translateX(-50%)', background: 'linear-gradient(135deg, #6366f1, #22d3ee)', color: '#fff', borderRadius: 50, padding: '4px 12px', fontSize: 9, fontWeight: 800, letterSpacing: '.06em', whiteSpace: 'nowrap', textTransform: 'uppercase', boxShadow: '0 4px 14px rgba(99,102,241,.4)' }}>
                         ★ Le plus choisi
                       </div>
                     )}
-                    <div style={{ fontSize: 10, fontWeight: 800, color: o.color, textTransform: 'uppercase', letterSpacing: '.06em', marginBottom: 6, marginTop: o.popular ? 6 : 0 }}>{o.nom}</div>
+                    <div style={{ fontSize: 10, fontWeight: 800, color: o.color, textTransform: 'uppercase', letterSpacing: '.06em', marginBottom: 6 }}>{o.nom}</div>
                     <div style={{ fontSize: o.prix === null ? 18 : 26, fontWeight: 900, color: o.popular ? '#fff' : (o.prix === null ? o.color : 'var(--sf)'), letterSpacing: '-0.03em', lineHeight: 1 }}>
                       {o.prix !== null ? eur(o.prix) : 'Sur devis'}
                     </div>
@@ -1007,7 +1102,7 @@ export default function KyrioVitrine() {
               {/* Header */}
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 12, marginBottom: 20 }}>
                 <div>
-                  <div style={{ fontSize: 11, fontWeight: 800, color: '#ec4899', textTransform: 'uppercase', letterSpacing: '.1em', marginBottom: 4 }}>Kyrio Flex · Mensuel · 0 € à l'entrée</div>
+                  <div style={{ fontSize: 11, fontWeight: 800, color: '#22d3ee', textTransform: 'uppercase', letterSpacing: '.1em', marginBottom: 4 }}>Kyrio Flex · Mensuel · 0 € à l'entrée</div>
                   <div style={{ fontSize: 15, fontWeight: 700, color: 'rgba(255,255,255,.75)' }}>Le même site — financé sur 12 mois et même moins cher qu'en one-shot.</div>
                 </div>
                 <div style={{ fontSize: 12, color: 'rgba(255,255,255,.35)', fontStyle: 'italic' }}>Charge mensuelle · 100 % déductible · Propriétaire après 1 an</div>
@@ -1023,7 +1118,7 @@ export default function KyrioVitrine() {
                         <div style={{ fontSize: 10, fontWeight: 800, color: f.color, textTransform: 'uppercase', letterSpacing: '.08em', marginBottom: 2 }}>{f.nom}</div>
                         <div style={{ display: 'flex', alignItems: 'baseline', gap: 5 }}>
                           <span style={{ fontSize: 32, fontWeight: 900, color: '#fff', letterSpacing: '-0.04em', lineHeight: 1 }}>{f.prixMensuel} €</span>
-                          <span style={{ fontSize: 13, color: 'rgba(255,255,255,.4)', fontWeight: 500 }}>/mois × 12</span>
+                          <span style={{ fontSize: 13, color: 'rgba(255,255,255,.4)', fontWeight: 500 }}>/mois · engagement 12 mois</span>
                         </div>
                       </div>
                       {/* Badge économie vs one-shot */}
@@ -1101,7 +1196,7 @@ export default function KyrioVitrine() {
       {/* ══ MAINTENANCE ══ */}
       <section id="maintenance" className="section-pad" style={{ padding: '160px 24px', background: '#0a0a0a', position: 'relative', overflow: 'hidden' }}>
         <div className="float" style={{ position: 'absolute', top: '10%', right: '-5%', width: 400, height: 400, background: 'radial-gradient(circle, rgba(99,102,241,.1) 0%, transparent 70%)', pointerEvents: 'none' }} />
-        <div className="float-b" style={{ position: 'absolute', bottom: '10%', left: '-5%', width: 350, height: 350, background: 'radial-gradient(circle, rgba(245,158,11,.07) 0%, transparent 70%)', pointerEvents: 'none' }} />
+        <div className="float-b" style={{ position: 'absolute', bottom: '10%', left: '-5%', width: 350, height: 350, background: 'radial-gradient(circle, rgba(16,185,129,.07) 0%, transparent 70%)', pointerEvents: 'none' }} />
         <div style={{ maxWidth: 1100, margin: '0 auto' }}>
           <Reveal>
             <div className="section-head" style={{ textAlign: 'center', marginBottom: 72 }}>
@@ -1174,7 +1269,7 @@ export default function KyrioVitrine() {
           </Reveal>
           <div className="zone-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 20, marginBottom: 32 }}>
             {ZONE_BN.departements.map((d, i) => {
-              const colors = ['#10b981', '#06b6d4', '#f59e0b'];
+              const colors = ['#6366f1', '#22d3ee', '#10b981'];
               const c = colors[i];
               return (
                 <Reveal key={d.code} delay={i * 0.1}>
@@ -1498,12 +1593,20 @@ function ContactForm() {
           <label style={lbl}>Offre souhaitée</label>
           <select value={form.offre} onChange={e => setForm(f => ({ ...f, offre: e.target.value }))} style={{ ...inp, color: form.offre ? '#fff' : 'rgba(255,255,255,.35)', cursor: 'pointer', background: '#1a1a1a' }}>
             <option value="">— Choisir —</option>
-            <option value="Kyrio Flex (89 €/mois, 0 € d'entrée)">Kyrio Flex — 89 €/mois (0 € d'entrée) ⭐</option>
-            <option value="Essentiel (990 €)">Essentiel — 990 €</option>
-            <option value="Pro (1 490 €)">Pro — 1 490 €</option>
-            <option value="Signature (2 490 €)">Signature — 2 490 €</option>
-            <option value="Pack Lancement (490 €)">Pack Lancement — 490 €</option>
-            <option value="Maintenance mensuelle">Maintenance mensuelle</option>
+            <optgroup label="Achat unique">
+              <option value="Essentiel — 990 €">Essentiel — 990 €</option>
+              <option value="Pro — 1 490 € ⭐">Pro — 1 490 € ⭐ (le plus choisi)</option>
+              <option value="Signature — Sur devis">Signature — Sur devis</option>
+            </optgroup>
+            <optgroup label="Kyrio Flex — engagement 12 mois">
+              <option value="Flex Essentiel — 79 €/mois">Flex Essentiel — 79 €/mois</option>
+              <option value="Flex Pro — 119 €/mois">Flex Pro — 119 €/mois</option>
+            </optgroup>
+            <optgroup label="Maintenance mensuelle">
+              <option value="Kyrio Gardien — 39 €/mois">Kyrio Gardien — 39 €/mois</option>
+              <option value="Kyrio Croissance — 69 €/mois">Kyrio Croissance — 69 €/mois</option>
+              <option value="Kyrio Partenaire — Sur devis">Kyrio Partenaire — Sur devis</option>
+            </optgroup>
             <option value="Autre / Je ne sais pas encore">Autre / Je ne sais pas encore</option>
           </select>
         </div>
