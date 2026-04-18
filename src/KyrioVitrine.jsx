@@ -1593,12 +1593,20 @@ function ContactForm() {
           <label style={lbl}>Offre souhaitée</label>
           <select value={form.offre} onChange={e => setForm(f => ({ ...f, offre: e.target.value }))} style={{ ...inp, color: form.offre ? '#fff' : 'rgba(255,255,255,.35)', cursor: 'pointer', background: '#1a1a1a' }}>
             <option value="">— Choisir —</option>
-            <option value="Kyrio Flex (89 €/mois, 0 € d'entrée)">Kyrio Flex — 89 €/mois (0 € d'entrée) ⭐</option>
-            <option value="Essentiel (990 €)">Essentiel — 990 €</option>
-            <option value="Pro (1 490 €)">Pro — 1 490 €</option>
-            <option value="Signature (2 490 €)">Signature — 2 490 €</option>
-            <option value="Pack Lancement (490 €)">Pack Lancement — 490 €</option>
-            <option value="Maintenance mensuelle">Maintenance mensuelle</option>
+            <optgroup label="Achat unique">
+              <option value="Essentiel — 990 €">Essentiel — 990 €</option>
+              <option value="Pro — 1 490 € ⭐">Pro — 1 490 € ⭐ (le plus choisi)</option>
+              <option value="Signature — Sur devis">Signature — Sur devis</option>
+            </optgroup>
+            <optgroup label="Kyrio Flex — engagement 12 mois">
+              <option value="Flex Essentiel — 79 €/mois">Flex Essentiel — 79 €/mois</option>
+              <option value="Flex Pro — 119 €/mois">Flex Pro — 119 €/mois</option>
+            </optgroup>
+            <optgroup label="Maintenance mensuelle">
+              <option value="Kyrio Gardien — 39 €/mois">Kyrio Gardien — 39 €/mois</option>
+              <option value="Kyrio Croissance — 69 €/mois">Kyrio Croissance — 69 €/mois</option>
+              <option value="Kyrio Partenaire — Sur devis">Kyrio Partenaire — Sur devis</option>
+            </optgroup>
             <option value="Autre / Je ne sais pas encore">Autre / Je ne sais pas encore</option>
           </select>
         </div>
