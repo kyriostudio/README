@@ -526,7 +526,7 @@ function AvantApres() {
 export default function KyrioVitrine() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [dark, setDark] = useState(false);
+  const [dark, setDark] = useState(true);
   const [isMobileNav, setIsMobileNav] = useState(() => typeof window !== 'undefined' && window.matchMedia('(max-width: 768px)').matches);
 
   useEffect(() => {
@@ -1032,14 +1032,14 @@ export default function KyrioVitrine() {
                   <div style={{ fontSize: 12, color: 'var(--sf3)', marginTop: 4 }}>Aucune option cachée.</div>
                 </div>
                 {OFFRES.map((o) => (
-                  <div key={o.nom} style={{ padding: '22px 16px 18px', textAlign: 'center', background: o.popular ? 'linear-gradient(180deg, #0d0d1e, #141430)' : 'var(--scard)', borderBottom: '1px solid var(--sbdr)', borderRight: '1px solid var(--sbdr)', position: 'relative' }}>
-                    <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 3, background: o.color }} />
+                  <div key={o.nom} style={{ padding: o.popular ? '36px 16px 18px' : '22px 16px 18px', textAlign: 'center', background: o.popular ? 'linear-gradient(180deg, #0d0d1e, #141430)' : 'var(--scard)', borderBottom: '1px solid var(--sbdr)', borderRight: '1px solid var(--sbdr)', position: 'relative' }}>
+                    <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: o.popular ? 4 : 3, background: o.color }} />
                     {o.popular && (
-                      <div style={{ position: 'absolute', top: -11, left: '50%', transform: 'translateX(-50%)', background: 'linear-gradient(135deg, #6366f1, #06b6d4)', color: '#fff', borderRadius: 50, padding: '4px 12px', fontSize: 9, fontWeight: 800, letterSpacing: '.06em', whiteSpace: 'nowrap', textTransform: 'uppercase', boxShadow: '0 4px 14px rgba(99,102,241,.4)' }}>
+                      <div style={{ position: 'absolute', top: 9, left: '50%', transform: 'translateX(-50%)', background: 'linear-gradient(135deg, #6366f1, #22d3ee)', color: '#fff', borderRadius: 50, padding: '4px 12px', fontSize: 9, fontWeight: 800, letterSpacing: '.06em', whiteSpace: 'nowrap', textTransform: 'uppercase', boxShadow: '0 4px 14px rgba(99,102,241,.4)' }}>
                         ★ Le plus choisi
                       </div>
                     )}
-                    <div style={{ fontSize: 10, fontWeight: 800, color: o.color, textTransform: 'uppercase', letterSpacing: '.06em', marginBottom: 6, marginTop: o.popular ? 6 : 0 }}>{o.nom}</div>
+                    <div style={{ fontSize: 10, fontWeight: 800, color: o.color, textTransform: 'uppercase', letterSpacing: '.06em', marginBottom: 6 }}>{o.nom}</div>
                     <div style={{ fontSize: o.prix === null ? 18 : 26, fontWeight: 900, color: o.popular ? '#fff' : (o.prix === null ? o.color : 'var(--sf)'), letterSpacing: '-0.03em', lineHeight: 1 }}>
                       {o.prix !== null ? eur(o.prix) : 'Sur devis'}
                     </div>
