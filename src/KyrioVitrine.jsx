@@ -978,7 +978,7 @@ export default function KyrioVitrine() {
                   </div>
                   <div>
                     <div style={{ fontSize: 11, fontWeight: 800, color: '#6366f1', textTransform: 'uppercase', letterSpacing: '.08em' }}>Achat unique — propriétaire dès J+1</div>
-                    <div style={{ fontSize: 18, fontWeight: 800, color: 'var(--sf)', marginTop: 2 }}>990 € · 1 490 € · Sur devis</div>
+                    <div style={{ fontSize: 18, fontWeight: 800, color: 'var(--sf)', marginTop: 2 }}>À partir de 990 €</div>
                   </div>
                 </div>
                 <p style={{ fontSize: 14, color: 'var(--sf2)', lineHeight: 1.65, margin: 0 }}>
@@ -1002,7 +1002,7 @@ export default function KyrioVitrine() {
                   </div>
                   <div>
                     <div style={{ fontSize: 11, fontWeight: 800, color: '#22d3ee', textTransform: 'uppercase', letterSpacing: '.08em' }}>Kyrio Flex — mensuel · 0 € d'entrée</div>
-                    <div style={{ fontSize: 18, fontWeight: 800, color: '#fff', marginTop: 2 }}>79 € ou 119 €/mois × 12</div>
+                    <div style={{ fontSize: 18, fontWeight: 800, color: '#fff', marginTop: 2 }}>79 € ou 119 €/mois · engagement 12 mois</div>
                   </div>
                 </div>
                 <p style={{ fontSize: 14, color: 'rgba(255,255,255,.6)', lineHeight: 1.65, margin: 0 }}>
@@ -1118,7 +1118,7 @@ export default function KyrioVitrine() {
                         <div style={{ fontSize: 10, fontWeight: 800, color: f.color, textTransform: 'uppercase', letterSpacing: '.08em', marginBottom: 2 }}>{f.nom}</div>
                         <div style={{ display: 'flex', alignItems: 'baseline', gap: 5 }}>
                           <span style={{ fontSize: 32, fontWeight: 900, color: '#fff', letterSpacing: '-0.04em', lineHeight: 1 }}>{f.prixMensuel} €</span>
-                          <span style={{ fontSize: 13, color: 'rgba(255,255,255,.4)', fontWeight: 500 }}>/mois × 12</span>
+                          <span style={{ fontSize: 13, color: 'rgba(255,255,255,.4)', fontWeight: 500 }}>/mois · engagement 12 mois</span>
                         </div>
                       </div>
                       {/* Badge économie vs one-shot */}
