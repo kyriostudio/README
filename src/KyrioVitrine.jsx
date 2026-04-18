@@ -1,6 +1,6 @@
-﻿import { useState, useEffect, useRef, useMemo } from 'react';
+﻿import { useState, useEffect, useRef, useMemo, memo } from 'react';
 import { Link } from 'react-router-dom';
-import { motion, useReducedMotion } from 'framer-motion';
+import { motion } from 'framer-motion';
 
 /* ── Intersection observer hook ── */
 function useVisible(threshold = 0.15) {
@@ -23,24 +23,51 @@ function Reveal({ children, delay = 0, y = 24 }) {
   );
 }
 
-/* ── ElegantShape — floating pill for hero ── */
-function ElegantShape({ className, delay = 0, width = 400, height = 100, rotate = 0, gradient, style: extraStyle = {} }) {
-  const prefersReduced = useReducedMotion();
+/* ── Boxes — isometric grid background (aceternity-style) ── */
+const BOX_COLORS = [
+  'rgb(125 211 252)', 'rgb(249 168 212)', 'rgb(134 239 172)',
+  'rgb(253 224 71)',  'rgb(252 165 165)', 'rgb(216 180 254)',
+  'rgb(147 197 253)', 'rgb(165 180 252)', 'rgb(196 181 253)',
+];
+const randBoxColor = () => BOX_COLORS[Math.floor(Math.random() * BOX_COLORS.length)];
+
+function BoxesCore({ style: extraStyle = {} }) {
+  const rows = useMemo(() => new Array(80).fill(1), []);
+  const cols = useMemo(() => new Array(40).fill(1), []);
   return (
-    <motion.div
-      initial={{ opacity: 0, y: -150, rotate: rotate - 15 }}
-      animate={{ opacity: 1, y: 0, rotate }}
-      transition={{ duration: 2.4, delay, ease: [0.23, 0.86, 0.39, 0.96], opacity: { duration: 1.2 } }}
-      style={{ position: 'absolute', pointerEvents: 'none', ...extraStyle }}
+    <div
+      style={{
+        position: 'absolute', left: '25%', top: '-25%', width: '100%', height: '100%', zIndex: 0,
+        padding: 16, display: 'flex',
+        transform: 'translate(-50%,-50%) translate(-40%,-60%) skewX(-48deg) skewY(14deg) scale(0.675) rotate(0deg) translateZ(0)',
+        ...extraStyle,
+      }}
     >
-      <motion.div
-        animate={prefersReduced ? {} : { y: [0, 15, 0] }}
-        transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
-        style={{ width, height, borderRadius: 9999, background: gradient, border: '1px solid rgba(255,255,255,0.12)', boxShadow: '0 8px 32px rgba(0,0,0,0.2)' }}
-      />
-    </motion.div>
+      {rows.map((_, i) => (
+        <motion.div key={`row-${i}`} style={{ width: 64, height: 32, borderLeft: '1px solid #334155', position: 'relative' }}>
+          {cols.map((_, j) => (
+            <motion.div
+              key={`col-${j}`}
+              whileHover={{ backgroundColor: randBoxColor(), transition: { duration: 0 } }}
+              animate={{ transition: { duration: 2 } }}
+              style={{ width: 64, height: 32, borderRight: '1px solid #334155', borderTop: '1px solid #334155', position: 'relative' }}
+            >
+              {j % 2 === 0 && i % 2 === 0 ? (
+                <svg
+                  xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="#334155"
+                  style={{ position: 'absolute', height: 24, width: 40, top: -14, left: -22, pointerEvents: 'none' }}
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v12m6-6H6" />
+                </svg>
+              ) : null}
+            </motion.div>
+          ))}
+        </motion.div>
+      ))}
+    </div>
   );
 }
+const Boxes = memo(BoxesCore);
 
 /* ── Helpers ── */
 const eur = n => Number(n).toLocaleString('fr-FR') + ' €';
@@ -797,51 +824,26 @@ export default function KyrioVitrine() {
       )}
 
       {/* ══ HERO ══ */}
-      <section className="hero-section" style={{ minHeight: '100vh', background: 'linear-gradient(135deg, #030303 0%, #0a0a12 50%, #0d0a1a 100%)', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center', padding: '120px 24px 80px', position: 'relative', overflow: 'hidden' }}>
+      <section className="hero-section" style={{ minHeight: '100vh', background: '#0f172a', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center', padding: '120px 24px 80px', position: 'relative', overflow: 'hidden' }}>
 
-        {/* ── Floating pill shapes ── */}
-        {/* Top-left large indigo pill */}
-        <ElegantShape
-          width={600} height={140} rotate={-15} delay={0.3}
-          gradient="linear-gradient(135deg, rgba(99,102,241,0.15) 0%, rgba(99,102,241,0) 100%)"
-          style={{ top: '8%', left: '-8%' }}
-        />
-        {/* Top-right rose pill */}
-        <ElegantShape
-          width={500} height={120} rotate={15} delay={0.5}
-          gradient="linear-gradient(135deg, rgba(236,72,153,0.15) 0%, rgba(236,72,153,0) 100%)"
-          style={{ top: '15%', right: '-6%' }}
-        />
-        {/* Bottom-left violet pill */}
-        <ElegantShape
-          width={300} height={80} rotate={-8} delay={0.4}
-          gradient="linear-gradient(135deg, rgba(139,92,246,0.15) 0%, rgba(139,92,246,0) 100%)"
-          style={{ bottom: '28%', left: '-4%' }}
-        />
-        {/* Bottom-right amber pill */}
-        <ElegantShape
-          width={200} height={60} rotate={20} delay={0.6}
-          gradient="linear-gradient(135deg, rgba(245,158,11,0.18) 0%, rgba(245,158,11,0) 100%)"
-          style={{ bottom: '20%', right: '4%' }}
-        />
-        {/* Center-top cyan accent */}
-        <ElegantShape
-          width={160} height={50} rotate={-5} delay={0.7}
-          gradient="linear-gradient(135deg, rgba(6,182,212,0.18) 0%, rgba(6,182,212,0) 100%)"
-          style={{ top: '32%', right: '18%' }}
-        />
+        {/* Isometric boxes background */}
+        <Boxes />
 
-        {/* Grille de points décorative */}
-        <div style={{ position: 'absolute', inset: 0, backgroundImage: 'radial-gradient(circle, rgba(255,255,255,.04) 1px, transparent 1px)', backgroundSize: '32px 32px', pointerEvents: 'none' }} />
-
-        {/* Radial glow central */}
-        <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', width: 700, height: 700, background: 'radial-gradient(ellipse at center, rgba(99,102,241,0.07) 0%, transparent 70%)', pointerEvents: 'none' }} />
+        {/* Slate-900 overlay masked by radial gradient (center transparent, edges opaque) → vignette */}
+        <div
+          style={{
+            position: 'absolute', inset: 0, width: '100%', height: '100%',
+            background: '#0f172a', zIndex: 20, pointerEvents: 'none',
+            maskImage: 'radial-gradient(transparent, white)',
+            WebkitMaskImage: 'radial-gradient(transparent, white)',
+          }}
+        />
 
         {/* Separator bottom */}
-        <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: 1, background: 'linear-gradient(90deg, transparent, rgba(255,255,255,.06), transparent)' }} />
+        <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: 1, background: 'linear-gradient(90deg, transparent, rgba(255,255,255,.06), transparent)', zIndex: 25 }} />
 
         {/* ── Content — fade-up via framer-motion ── */}
-        <div style={{ position: 'relative', zIndex: 10, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+        <div style={{ position: 'relative', zIndex: 30, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
 
           {/* Badge */}
           <motion.div
