@@ -635,23 +635,15 @@ export default function KyrioVitrine() {
           0%   { background-position: 0% 50%; }
           100% { background-position: 300% 50%; }
         }
+        /* Bleu univers → cyan → vert fluo (couleurs du logo Kyrio : K bleu, . vert) */
         .kyrio-neon-text {
-          background-image: linear-gradient(90deg, #39ff14, #00ffff, #ff6ec7, #faff00, #00f0ff, #ff073a, #39ff14);
+          background-image: linear-gradient(90deg, #4f46e5, #6366f1, #818cf8, #22d3ee, #67e8f9, #4ade80, #39ff14, #4ade80, #67e8f9, #22d3ee, #818cf8, #6366f1, #4f46e5);
           background-size: 300% 100%;
           -webkit-background-clip: text;
           background-clip: text;
           color: transparent;
           -webkit-text-fill-color: transparent;
-          animation: kyrio-hue-shift 8s linear infinite;
-        }
-        .kyrio-neon-text-slow {
-          background-image: linear-gradient(90deg, #faff00, #00f0ff, #39ff14, #ff6ec7, #ff073a, #00ffff, #faff00);
-          background-size: 300% 100%;
-          -webkit-background-clip: text;
-          background-clip: text;
-          color: transparent;
-          -webkit-text-fill-color: transparent;
-          animation: kyrio-hue-shift 12s linear infinite;
+          animation: kyrio-hue-shift 9s linear infinite;
         }
         .hero-corner-plus { position: absolute; width: 28px; height: 28px; color: #6366f1; pointer-events: none; }
 
@@ -896,11 +888,23 @@ export default function KyrioVitrine() {
             <Plus strokeWidth={1.5} className="hero-corner-plus" style={{ bottom: -14, left: -14 }} />
             <Plus strokeWidth={1.5} className="hero-corner-plus" style={{ bottom: -14, right: -14 }} />
 
-            <h1 className="hero-title" style={{ userSelect: 'none', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 6, fontSize: 'clamp(56px, 11vw, 128px)', fontWeight: 900, lineHeight: 0.95, letterSpacing: '-0.045em', margin: 0 }}>
+            <h1 className="hero-title" style={{ userSelect: 'none', display: 'flex', justifyContent: 'center', fontSize: 'clamp(72px, 14vw, 168px)', fontWeight: 900, lineHeight: 0.95, letterSpacing: '-0.045em', margin: 0 }}>
               <span className="kyrio-neon-text" style={{ padding: '0 12px' }}>Kyrio.</span>
-              <span className="kyrio-neon-text-slow" style={{ padding: '0 12px', fontSize: '0.55em', letterSpacing: '-0.025em' }}>Livré en 7 jours.</span>
             </h1>
           </motion.div>
+
+          {/* Tagline */}
+          <motion.p
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, delay: 0.85, ease: [0.21, 0.47, 0.32, 0.98] }}
+            className="hero-sub"
+            style={{ fontSize: 'clamp(16px, 1.6vw, 19px)', color: 'rgba(255,255,255,.55)', maxWidth: 640, lineHeight: 1.65, marginBottom: 44, marginTop: -16 }}
+          >
+            On accompagne artisans, commerçants et TPE du{' '}
+            <strong style={{ color: 'rgba(255,255,255,.82)', fontWeight: 600 }}>Calvados, de la Manche et de l'Orne</strong>.{' '}
+            SEO inclus, tarifs affichés, livraison en 7 jours — et on décroche encore le téléphone après.
+          </motion.p>
 
           {/* CTAs */}
           <motion.div
