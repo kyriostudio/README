@@ -12,19 +12,6 @@
     "siteUrl": "https://carentanlesmarais.fr",
     "heroImage": "/carentan/hero-place-republique.webp"
   },
-  "design-contemporain": {
-    "slug": "design-contemporain",
-    "order": 1,
-    "template": "design-contemporain",
-    "name": "Design Contemporain",
-    "tagline": "Mobilier haut de gamme — Showroom à Caen",
-    "primaryColor": "#b8915a",
-    "sector": "Mobilier Design",
-    "phone": "02 31 74 76 90",
-    "address": "173, rue Saint Jean — 14000 Caen",
-    "siteUrl": "https://www.design-contemporain.fr",
-    "heroImage": "https://images.unsplash.com/photo-1618220252344-8ec99ec624b1?w=800&q=80"
-  },
   "arc-en-ciel-proprete": {
     "slug": "arc-en-ciel-proprete",
     "order": 0,
@@ -154,7 +141,7 @@
       }
     ],
     "logo": "/images/arcenciel/logo.png",
-    "heroImage": "/images/arcenciel/hero.png",
+    "heroImage": "https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=800&q=80",
     "photoServices": "/images/arcenciel/photo-services.png",
     "carteImg": "/images/arcenciel/carte-caen.png",
     "galerieAvantApres": [
@@ -201,18 +188,5 @@
     "address": "Z.A Objectif Sud, 4 Bd Paul Boucherot — 14123 Ifs",
     "siteUrl": "https://www.difamex.fr",
     "heroImage": "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1200&q=80"
-  },
-  "site-vitrine": {
-    "slug": "site-vitrine",
-    "order": 3,
-    "template": "site-vitrine",
-    "name": "Site Vitrine Demo",
-    "tagline": "Template de site vitrine professionnel",
-    "primaryColor": "#2563eb",
-    "sector": "Template Demo",
-    "phone": "01 23 45 67 89",
-    "address": "123 Rue de la Demo ? 75001 Paris",
-    "siteUrl": "#",
-    "heroImage": "https://images.unsplash.com/photo-1497366216548-37526070297c?w=1200&q=80"
   }
 }

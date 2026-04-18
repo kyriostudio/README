@@ -497,8 +497,7 @@ export default function KyrioVitrine() {
   }, [demoClients]);
 
   const PORTFOLIO_FALLBACK = [
-    { nom: 'Arc en Ciel Propreté', secteur: 'Nettoyage professionnel', couleur: '#C5007F', slug: 'arc-en-ciel-proprete', img: '/images/arcenciel/hero.png' },
-    { nom: 'Design Contemporain', secteur: 'Mobilier haut de gamme', couleur: '#b8915a', slug: 'design-contemporain', img: 'https://images.unsplash.com/photo-1618220252344-8ec99ec624b1?w=600&q=75' },
+    { nom: 'Arc en Ciel Propreté', secteur: 'Nettoyage professionnel', couleur: '#C5007F', slug: 'arc-en-ciel-proprete', img: 'https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=600&q=75' },
     { nom: 'Mairie de Carentan-les-Marais', secteur: 'Collectivité territoriale', couleur: '#005A70', slug: 'carentan', img: '/carentan/hero-place-republique.webp' },
     { nom: 'Difamex', secteur: 'Aménagement extérieur', couleur: '#6B8E5A', slug: 'difamex', img: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=600&q=75' },
   ];
