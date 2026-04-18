@@ -903,7 +903,7 @@ export default function KyrioVitrine() {
           >
             On accompagne artisans, commerçants et TPE du{' '}
             <strong style={{ color: 'rgba(255,255,255,.82)', fontWeight: 600 }}>Calvados, de la Manche et de l'Orne</strong>.{' '}
-            SEO inclus, tarifs affichés — et on décroche encore le téléphone après. Une espèce en voie de disparition dans ce secteur.
+            SEO inclus, tarifs affichés — et quand c'est livré, on ne disparaît pas dans la nature comme 80 % des agences web.
           </motion.p>
 
           {/* CTAs */}
