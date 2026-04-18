@@ -216,38 +216,26 @@ const WHY = [
   { titre: 'Des chiffres. Même quand ça pique.', desc: "Stats, rapports, courbes — on vous montre ce qui marche. Et ce qui devrait prendre sa retraite.", icon: 'chart' },
 ];
 
-/* Matrice comparative des offres one-shot (lignes = fonctionnalités, colonnes = offres).
-   Valeurs possibles : true, false, ou une chaîne (ex. "5", "Illimité"). */
+/* Matrice comparative — one-shot uniquement (12 lignes, 3 groupes).
+   Flex est présenté séparément via une carte dédiée. */
 const FEATURES_MATRIX = [
   { group: 'Site & design', items: [
-    { label: 'Nombre de pages',                 essentiel: '5',         pro: '10',        signature: 'Illimité' },
-    { label: 'Design responsive mobile/desktop',essentiel: true,        pro: true,        signature: true       },
-    { label: 'Design premium personnalisé',     essentiel: false,       pro: true,        signature: true       },
-    { label: 'Animations & effets premium',     essentiel: false,       pro: false,       signature: true       },
-    { label: 'Galerie photos / avant-après',    essentiel: false,       pro: true,        signature: true       },
-    { label: 'Réservation en ligne ou boutique',essentiel: false,       pro: false,       signature: true       },
-  ]},
-  { group: 'Contenu & fonctionnalités', items: [
-    { label: 'Formulaire de contact',           essentiel: true,        pro: true,        signature: true       },
-    { label: 'Intégration Google Maps',         essentiel: true,        pro: true,        signature: true       },
-    { label: 'Blog (3 articles de lancement)',  essentiel: false,       pro: true,        signature: true       },
-    { label: 'Contenu rédactionnel sur-mesure', essentiel: false,       pro: false,       signature: true       },
+    { label: 'Nombre de pages',                  essentiel: '5',   pro: '10',   signature: 'Illimité' },
+    { label: 'Design premium sur-mesure',         essentiel: false, pro: true,   signature: true       },
+    { label: 'Animations & effets premium',       essentiel: false, pro: false,  signature: true       },
+    { label: 'Réservation en ligne / boutique',   essentiel: false, pro: false,  signature: true       },
   ]},
   { group: 'SEO & visibilité', items: [
-    { label: 'SEO de base (balises, métadonnées)',  essentiel: true,    pro: true,        signature: true       },
-    { label: 'Google Search Console configurée',    essentiel: true,    pro: true,        signature: true       },
-    { label: 'Fiche Google Business optimisée',     essentiel: false,   pro: true,        signature: true       },
-    { label: 'SEO avancé (mots-clés, structure)',   essentiel: false,   pro: true,        signature: true       },
-    { label: 'Stratégie de contenu SEO premium',    essentiel: false,   pro: false,       signature: true       },
-    { label: 'Google Analytics 4 configuré',        essentiel: false,   pro: true,        signature: true       },
+    { label: 'SEO local inclus dès J+1',          essentiel: true,  pro: true,   signature: true       },
+    { label: 'Google Business optimisé',          essentiel: false, pro: true,   signature: true       },
+    { label: 'Google Analytics 4',               essentiel: false, pro: true,   signature: true       },
+    { label: 'Stratégie contenu SEO',             essentiel: false, pro: false,  signature: true       },
   ]},
-  { group: 'Accompagnement & suivi', items: [
-    { label: 'Mise en ligne incluse',           essentiel: true,        pro: true,        signature: true       },
-    { label: 'Hébergement 1 an offert',         essentiel: false,       pro: true,        signature: true       },
-    { label: 'Suivi 30 jours post-lancement',   essentiel: false,       pro: true,        signature: true       },
-    { label: 'Formation client (2 h)',          essentiel: false,       pro: false,       signature: true       },
-    { label: 'Rapport mensuel de performance',  essentiel: false,       pro: false,       signature: true       },
-    { label: 'Priorité absolue & accès direct', essentiel: false,       pro: false,       signature: true       },
+  { group: 'Livraison & suivi', items: [
+    { label: 'Hébergement 1 an offert',           essentiel: false, pro: true,   signature: true       },
+    { label: 'Blog (3 articles offerts)',          essentiel: false, pro: true,   signature: true       },
+    { label: 'Suivi 30 j post-lancement',         essentiel: false, pro: true,   signature: true       },
+    { label: 'Formation client (2 h)',             essentiel: false, pro: false,  signature: true       },
   ]},
 ];
 
@@ -290,15 +278,6 @@ const ZONE_BN = {
   deplacement: 'Déplacement offert dans tout le Calvados, la Manche et l\'Orne. Rendez-vous visio partout ailleurs.',
 };
 
-const PACK_LANCEMENT = {
-  prix: 490,
-  features: [
-    'Logo professionnel (3 propositions)',
-    'Fiche Google Business complète & optimisée',
-    'Kit réseaux sociaux (bannières, visuels profil)',
-    "Photos produits/services retouchées (jusqu'à 10)",
-  ],
-};
 
 ﻿/* ══════════════════════════════════════════════════
    AVANT / APRÈS — Comparateur drag (horizontal)
@@ -526,7 +505,7 @@ export default function KyrioVitrine() {
 
   const portfolioRows = portfolioList && portfolioList.length > 0 ? portfolioList : PORTFOLIO_FALLBACK;
 
-  const NAV_LINKS = [['offres', 'Offres'], ['flex', 'Flex'], ['zone', 'Zone'], ['maintenance', 'Maintenance'], ['processus', 'Processus'], ['demos', 'Réalisations']];
+  const NAV_LINKS = [['offres', 'Offres'], ['maintenance', 'Maintenance'], ['zone', 'Zone'], ['processus', 'Processus'], ['demos', 'Réalisations']];
 
   const scrollTo = (id) => {
     document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
@@ -683,8 +662,9 @@ export default function KyrioVitrine() {
           .offers-grid { grid-template-columns: 1fr !important; gap: 16px !important; }
           .offer-card { border-radius: 22px !important; padding: 28px 20px 24px !important; }
           .offer-card.popular { padding-top: 44px !important; }
-          .pack-kyrio { padding: 24px 18px !important; flex-direction: column !important; align-items: stretch !important; text-align: center; gap: 20px !important; }
-          .pack-kyrio h3 { font-size: 20px !important; }
+          .two-modes-grid { grid-template-columns: 1fr !important; gap: 12px !important; }
+          .flex-compact-card { flex-direction: column !important; align-items: stretch !important; gap: 20px !important; }
+          .flex-compact-card button { width: 100% !important; }
           .maintenance-grid { grid-template-columns: 1fr !important; gap: 14px !important; }
           .maint-card { padding: 24px 18px !important; border-radius: 18px !important; }
           .steps-grid { grid-template-columns: 1fr !important; gap: 0 !important; }
@@ -869,73 +849,120 @@ export default function KyrioVitrine() {
         </div>
       </section>
 
-      {/* ══ OFFRES ══ */}
+      {/* ══ OFFRES — One-shot & Flex réunis ══ */}
       <section id="offres" className="section-pad" style={{ padding: '160px 24px', background: 'var(--sb)', transition: 'background .35s' }}>
         <div style={{ maxWidth: 1100, margin: '0 auto' }}>
+
+          {/* Header */}
           <Reveal>
-            <div className="section-head" style={{ textAlign: 'center', marginBottom: 72 }}>
+            <div className="section-head" style={{ textAlign: 'center', marginBottom: 56 }}>
               <div style={{ fontSize: 12, fontWeight: 700, letterSpacing: '.1em', textTransform: 'uppercase', color: 'var(--sf3)', marginBottom: 14 }}>Les offres Kyrio</div>
               <h2 style={{ fontSize: 'clamp(32px, 5vw, 52px)', fontWeight: 900, color: 'var(--sf)', letterSpacing: '-0.02em', lineHeight: 1.1, marginBottom: 18 }}>
-                Pas de surprise.<br />Juste le bon forfait.
+                Votre site pro.<br />À votre rythme.
               </h2>
-              <p style={{ fontSize: 17, color: 'var(--sf2)', maxWidth: 500, margin: '0 auto', lineHeight: 1.7 }}>
-                Chez Kyrio, les tarifs sont affichés. Vous choisissez votre niveau d&apos;ambition — on s&apos;occupe du reste (et du café).
+              <p style={{ fontSize: 17, color: 'var(--sf2)', maxWidth: 560, margin: '0 auto', lineHeight: 1.7 }}>
+                Deux façons d'accéder à un site pro. Un seul niveau de qualité — tarifs affichés, délais tenus, SEO toujours inclus.
               </p>
             </div>
           </Reveal>
 
-          {/* Tableau récapitulatif unifié — header offres + matrice fonctionnalités */}
+          {/* ── Deux modes : One-shot vs Flex ── */}
           <Reveal delay={0.05}>
-            <div className="offers-table-wrap" style={{ background: 'var(--scard)', border: '1px solid var(--scbdr)', borderRadius: 24, overflow: 'hidden', boxShadow: '0 24px 60px rgba(0,0,0,.08)' }}>
-              {/* HEADER — 3 offres en colonnes */}
-              <div className="offers-table-head" style={{ display: 'grid', gridTemplateColumns: '1.4fr 1fr 1fr 1fr' }}>
-                <div style={{ padding: '28px 24px', background: 'var(--sb2)', borderBottom: '1px solid var(--sbdr)', borderRight: '1px solid var(--sbdr)' }}>
-                  <div style={{ fontSize: 11, fontWeight: 800, color: 'var(--sf3)', textTransform: 'uppercase', letterSpacing: '.08em', marginBottom: 8 }}>Comparatif</div>
-                  <div style={{ fontSize: 15, fontWeight: 700, color: 'var(--sf)', lineHeight: 1.45 }}>Choisissez votre niveau d'ambition.</div>
-                  <div style={{ fontSize: 13, color: 'var(--sf2)', marginTop: 6, lineHeight: 1.55 }}>Tout est inclus dans le prix. Pas d'option cachée.</div>
+            <div className="two-modes-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16, marginBottom: 48 }}>
+              {/* One-shot */}
+              <div style={{ background: 'var(--scard)', border: '1px solid var(--scbdr)', borderRadius: 20, padding: '28px 32px', display: 'flex', flexDirection: 'column', gap: 14 }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+                  <div style={{ width: 40, height: 40, borderRadius: 12, background: 'rgba(99,102,241,.12)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    <KIcon name="check" size={18} color="#6366f1" strokeWidth={2.5} />
+                  </div>
+                  <div>
+                    <div style={{ fontSize: 11, fontWeight: 800, color: '#6366f1', textTransform: 'uppercase', letterSpacing: '.08em' }}>Achat unique</div>
+                    <div style={{ fontSize: 18, fontWeight: 800, color: 'var(--sf)', marginTop: 2 }}>À partir de 990 €</div>
+                  </div>
+                </div>
+                <p style={{ fontSize: 14, color: 'var(--sf2)', lineHeight: 1.65, margin: 0 }}>
+                  Vous payez une fois, vous possédez le site dès le premier jour. Trois niveaux — <strong style={{ color: 'var(--sf)' }}>Essentiel, Pro ou Signature</strong> — selon votre ambition. Idéal si vous disposez de la trésorerie et voulez une immobilisation comptable.
+                </p>
+                <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
+                  {OFFRES.map(o => (
+                    <span key={o.nom} style={{ fontSize: 12, fontWeight: 700, color: o.color, background: o.color + '14', borderRadius: 50, padding: '4px 12px' }}>
+                      {o.nom} — {eur(o.prix)}
+                    </span>
+                  ))}
+                </div>
+              </div>
+
+              {/* Kyrio Flex */}
+              <div style={{ background: 'linear-gradient(135deg, #150d1f 0%, #0f0f1a 100%)', border: '1px solid rgba(236,72,153,.35)', borderRadius: 20, padding: '28px 32px', display: 'flex', flexDirection: 'column', gap: 14, position: 'relative', overflow: 'hidden' }}>
+                <div style={{ position: 'absolute', top: 0, right: 0, width: 160, height: 160, background: 'radial-gradient(circle at top right, rgba(236,72,153,.14), transparent 70%)', pointerEvents: 'none' }} />
+                <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+                  <div style={{ width: 40, height: 40, borderRadius: 12, background: 'rgba(236,72,153,.15)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    <KIcon name="growth" size={18} color="#ec4899" strokeWidth={2} />
+                  </div>
+                  <div>
+                    <div style={{ fontSize: 11, fontWeight: 800, color: '#ec4899', textTransform: 'uppercase', letterSpacing: '.08em' }}>Abonnement mensuel · Exclusif Kyrio</div>
+                    <div style={{ fontSize: 18, fontWeight: 800, color: '#fff', marginTop: 2 }}>89 €/mois · 0 € à l'entrée</div>
+                  </div>
+                </div>
+                <p style={{ fontSize: 14, color: 'rgba(255,255,255,.6)', lineHeight: 1.65, margin: 0 }}>
+                  Pas de budget à sortir d'un coup ? <strong style={{ color: '#fff' }}>89 €/mois pendant 12 mois</strong> — site livré en 7 jours, maintenance et hébergement inclus. Vous êtes propriétaire au terme du contrat. Passé en charge mensuelle, entièrement déductible.
+                </p>
+                <button onClick={() => scrollTo('contact')} style={{ alignSelf: 'flex-start', background: '#ec4899', color: '#fff', border: 'none', borderRadius: 50, padding: '10px 22px', fontSize: 13, fontWeight: 700, cursor: 'pointer', fontFamily: 'inherit', transition: 'all .2s', boxShadow: '0 6px 20px rgba(236,72,153,.3)' }}
+                  onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-2px)'; e.currentTarget.style.boxShadow = '0 10px 28px rgba(236,72,153,.45)'; }}
+                  onMouseLeave={e => { e.currentTarget.style.transform = 'none'; e.currentTarget.style.boxShadow = '0 6px 20px rgba(236,72,153,.3)'; }}>
+                  Démarrer avec Flex →
+                </button>
+              </div>
+            </div>
+          </Reveal>
+
+          {/* ── Tableau one-shot simplifié ── */}
+          <Reveal delay={0.08}>
+            <div style={{ fontSize: 12, fontWeight: 700, color: 'var(--sf3)', textTransform: 'uppercase', letterSpacing: '.08em', marginBottom: 16 }}>
+              Comparez les formules achat unique
+            </div>
+            <div className="offers-table-wrap" style={{ background: 'var(--scard)', border: '1px solid var(--scbdr)', borderRadius: 24, overflow: 'hidden', boxShadow: '0 16px 48px rgba(0,0,0,.07)' }}>
+              {/* HEADER colonnes */}
+              <div style={{ display: 'grid', gridTemplateColumns: '1.6fr 1fr 1fr 1fr' }}>
+                <div style={{ padding: '22px 24px', background: 'var(--sb2)', borderBottom: '1px solid var(--sbdr)', borderRight: '1px solid var(--sbdr)' }}>
+                  <div style={{ fontSize: 13, fontWeight: 700, color: 'var(--sf)', lineHeight: 1.4 }}>Tout inclus dans le prix affiché.</div>
+                  <div style={{ fontSize: 12, color: 'var(--sf3)', marginTop: 4 }}>Aucune option cachée.</div>
                 </div>
                 {OFFRES.map((o) => (
-                  <div key={o.nom} style={{ padding: '28px 20px 22px', textAlign: 'center', background: o.popular ? 'linear-gradient(180deg, #0a0a0a, #1a1a2e)' : 'var(--scard)', borderBottom: '1px solid var(--sbdr)', borderRight: '1px solid var(--sbdr)', position: 'relative' }}>
-                    <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 4, background: `linear-gradient(90deg, ${o.color}, ${o.color}88)` }} />
+                  <div key={o.nom} style={{ padding: '22px 16px 18px', textAlign: 'center', background: o.popular ? 'linear-gradient(180deg, #0d0d1e, #141430)' : 'var(--scard)', borderBottom: '1px solid var(--sbdr)', borderRight: '1px solid var(--sbdr)', position: 'relative' }}>
+                    <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 3, background: o.color }} />
                     {o.popular && (
-                      <div style={{ position: 'absolute', top: -12, left: '50%', transform: 'translateX(-50%)', background: 'linear-gradient(135deg, #6366f1, #06b6d4)', color: '#fff', borderRadius: 50, padding: '5px 14px', fontSize: 10, fontWeight: 800, letterSpacing: '.06em', whiteSpace: 'nowrap', textTransform: 'uppercase', display: 'inline-flex', alignItems: 'center', gap: 5, boxShadow: '0 6px 20px rgba(99,102,241,.35)' }}>
-                        <KIcon name="star" size={10} color="#fff" strokeWidth={2.5} /> Le plus choisi
+                      <div style={{ position: 'absolute', top: -11, left: '50%', transform: 'translateX(-50%)', background: 'linear-gradient(135deg, #6366f1, #06b6d4)', color: '#fff', borderRadius: 50, padding: '4px 12px', fontSize: 9, fontWeight: 800, letterSpacing: '.06em', whiteSpace: 'nowrap', textTransform: 'uppercase', boxShadow: '0 4px 14px rgba(99,102,241,.4)' }}>
+                        ★ Le plus choisi
                       </div>
                     )}
-                    <div style={{ display: 'inline-block', background: o.color + (o.popular ? '2a' : '18'), color: o.color, borderRadius: 8, padding: '4px 12px', fontSize: 11, fontWeight: 800, letterSpacing: '.04em', marginBottom: 14, marginTop: o.popular ? 8 : 0, textTransform: 'uppercase' }}>{o.nom}</div>
-                    <div style={{ fontSize: 32, fontWeight: 900, color: o.popular ? '#fff' : 'var(--sf)', letterSpacing: '-0.03em', lineHeight: 1 }}>{eur(o.prix)}</div>
-                    <div style={{ fontSize: 12, color: o.popular ? 'rgba(255,255,255,.5)' : 'var(--sf3)', marginTop: 8, display: 'inline-flex', alignItems: 'center', gap: 5 }}>
-                      <KIcon name="clock" size={12} color={o.popular ? 'rgba(255,255,255,.5)' : 'var(--sf3)'} />
-                      Livré en {o.delai}
+                    <div style={{ fontSize: 10, fontWeight: 800, color: o.color, textTransform: 'uppercase', letterSpacing: '.06em', marginBottom: 6, marginTop: o.popular ? 6 : 0 }}>{o.nom}</div>
+                    <div style={{ fontSize: 26, fontWeight: 900, color: o.popular ? '#fff' : 'var(--sf)', letterSpacing: '-0.03em', lineHeight: 1 }}>{eur(o.prix)}</div>
+                    <div style={{ fontSize: 11, color: o.popular ? 'rgba(255,255,255,.45)' : 'var(--sf3)', marginTop: 6, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 4 }}>
+                      <KIcon name="clock" size={10} color={o.popular ? 'rgba(255,255,255,.45)' : 'var(--sf3)'} />
+                      {o.delai}
                     </div>
                   </div>
                 ))}
               </div>
 
-              {/* MATRICE — groupes et lignes */}
+              {/* MATRICE */}
               {FEATURES_MATRIX.map((grp) => (
                 <div key={grp.group}>
-                  <div style={{ display: 'grid', gridTemplateColumns: '1.4fr 1fr 1fr 1fr', background: 'var(--sb2)' }}>
-                    <div style={{ gridColumn: '1 / -1', padding: '14px 24px', fontSize: 11, fontWeight: 800, color: '#6366f1', textTransform: 'uppercase', letterSpacing: '.1em', borderTop: '1px solid var(--sbdr)', borderBottom: '1px solid var(--sbdr)' }}>{grp.group}</div>
-                  </div>
+                  <div style={{ padding: '11px 24px', fontSize: 10, fontWeight: 800, color: '#6366f1', textTransform: 'uppercase', letterSpacing: '.1em', background: 'var(--sb2)', borderTop: '1px solid var(--sbdr)', borderBottom: '1px solid var(--sbdr)' }}>{grp.group}</div>
                   {grp.items.map((row, idx) => (
-                    <div key={row.label} className="offers-row" style={{ display: 'grid', gridTemplateColumns: '1.4fr 1fr 1fr 1fr', borderBottom: idx < grp.items.length - 1 ? '1px solid var(--sbdr)' : 'none', fontSize: 14, transition: 'background .15s' }}
+                    <div key={row.label} style={{ display: 'grid', gridTemplateColumns: '1.6fr 1fr 1fr 1fr', borderBottom: idx < grp.items.length - 1 ? '1px solid var(--sbdr)' : 'none', fontSize: 13, transition: 'background .12s' }}
                       onMouseEnter={e => e.currentTarget.style.background = 'rgba(99,102,241,.03)'}
                       onMouseLeave={e => e.currentTarget.style.background = 'transparent'}>
-                      <div style={{ padding: '14px 24px', color: 'var(--sf)', fontWeight: 500, borderRight: '1px solid var(--sbdr)' }}>{row.label}</div>
+                      <div style={{ padding: '13px 24px', color: 'var(--sf)', fontWeight: 500, borderRight: '1px solid var(--sbdr)' }}>{row.label}</div>
                       {['essentiel', 'pro', 'signature'].map((key, i) => {
                         const val = row[key];
                         const offre = OFFRES[i];
-                        const isPopular = offre.popular;
                         return (
-                          <div key={key} style={{ padding: '14px 20px', textAlign: 'center', borderRight: '1px solid var(--sbdr)', background: isPopular ? 'rgba(99,102,241,.04)' : 'transparent' }}>
-                            {val === true ? (
-                              <KIcon name="tick" size={18} color={offre.color} strokeWidth={3} />
-                            ) : val === false ? (
-                              <span style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', width: 18, height: 18, color: 'var(--sf3)', fontSize: 16, fontWeight: 300, opacity: .5 }}>—</span>
-                            ) : (
-                              <span style={{ fontSize: 13, fontWeight: 700, color: offre.color, background: offre.color + '12', borderRadius: 50, padding: '3px 12px', display: 'inline-block' }}>{val}</span>
-                            )}
+                          <div key={key} style={{ padding: '13px 12px', textAlign: 'center', borderRight: '1px solid var(--sbdr)', background: offre.popular ? 'rgba(99,102,241,.04)' : 'transparent' }}>
+                            {val === true  ? <KIcon name="tick" size={16} color={offre.color} strokeWidth={3} />
+                            : val === false ? <span style={{ color: 'var(--sf3)', opacity: .4, fontSize: 15, fontWeight: 300 }}>—</span>
+                            : <span style={{ fontSize: 12, fontWeight: 700, color: offre.color, background: offre.color + '14', borderRadius: 50, padding: '2px 10px', display: 'inline-block' }}>{val}</span>}
                           </div>
                         );
                       })}
@@ -944,16 +971,16 @@ export default function KyrioVitrine() {
                 </div>
               ))}
 
-              {/* FOOTER — CTAs */}
-              <div style={{ display: 'grid', gridTemplateColumns: '1.4fr 1fr 1fr 1fr', background: 'var(--sb2)', borderTop: '1px solid var(--sbdr)' }}>
-                <div style={{ padding: '22px 24px', fontSize: 13, color: 'var(--sf2)', fontStyle: 'italic', borderRight: '1px solid var(--sbdr)', display: 'flex', alignItems: 'center' }}>
-                  Besoin d'un conseil ? On répond en &lt; 24 h.
+              {/* FOOTER CTAs */}
+              <div style={{ display: 'grid', gridTemplateColumns: '1.6fr 1fr 1fr 1fr', background: 'var(--sb2)', borderTop: '1px solid var(--sbdr)' }}>
+                <div style={{ padding: '18px 24px', fontSize: 13, color: 'var(--sf2)', fontStyle: 'italic', borderRight: '1px solid var(--sbdr)', display: 'flex', alignItems: 'center' }}>
+                  Devis gratuit en &lt; 24 h.
                 </div>
                 {OFFRES.map((o) => (
-                  <div key={o.nom} style={{ padding: '18px 14px', borderRight: '1px solid var(--sbdr)' }}>
-                    <button onClick={() => scrollTo('contact')} style={{ width: '100%', background: o.popular ? 'linear-gradient(135deg, #6366f1, #06b6d4)' : 'transparent', color: o.popular ? '#fff' : 'var(--sf)', border: o.popular ? 'none' : `1.5px solid ${o.color}55`, borderRadius: 50, padding: '12px 14px', fontSize: 13, fontWeight: 700, cursor: 'pointer', fontFamily: 'inherit', transition: 'all .2s' }}
-                      onMouseEnter={e => { if (!o.popular) { e.currentTarget.style.borderColor = o.color; e.currentTarget.style.background = o.color + '10'; } }}
-                      onMouseLeave={e => { if (!o.popular) { e.currentTarget.style.borderColor = o.color + '55'; e.currentTarget.style.background = 'transparent'; } }}>
+                  <div key={o.nom} style={{ padding: '16px 12px', borderRight: '1px solid var(--sbdr)' }}>
+                    <button onClick={() => scrollTo('contact')} style={{ width: '100%', background: o.popular ? 'linear-gradient(135deg, #6366f1, #06b6d4)' : 'transparent', color: o.popular ? '#fff' : 'var(--sf)', border: o.popular ? 'none' : `1.5px solid ${o.color}50`, borderRadius: 50, padding: '11px 8px', fontSize: 12, fontWeight: 700, cursor: 'pointer', fontFamily: 'inherit', transition: 'all .2s' }}
+                      onMouseEnter={e => { if (!o.popular) { e.currentTarget.style.borderColor = o.color; e.currentTarget.style.background = o.color + '10'; }}}
+                      onMouseLeave={e => { if (!o.popular) { e.currentTarget.style.borderColor = o.color + '50'; e.currentTarget.style.background = 'transparent'; }}}>
                       {o.cta}
                     </button>
                   </div>
@@ -962,105 +989,42 @@ export default function KyrioVitrine() {
             </div>
           </Reveal>
 
-          {/* Descriptions courtes sous le tableau — rappel émotionnel */}
-          <Reveal delay={0.15}>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 20, marginTop: 32 }} className="offers-recap-desc">
-              {OFFRES.map(o => (
-                <div key={o.nom} style={{ padding: '16px 20px', borderLeft: `3px solid ${o.color}`, background: 'var(--scard)', borderRadius: '0 12px 12px 0' }}>
-                  <div style={{ fontSize: 12, fontWeight: 800, color: o.color, textTransform: 'uppercase', letterSpacing: '.06em', marginBottom: 6 }}>{o.nom}</div>
-                  <p style={{ fontSize: 13, color: 'var(--sf2)', lineHeight: 1.6, margin: 0 }}>{o.desc}</p>
+          {/* ── Carte Flex compacte (récurrent) ── */}
+          <Reveal delay={0.14}>
+            <div style={{ marginTop: 20, background: 'linear-gradient(135deg, #0f0f1a 0%, #0a0a10 100%)', border: '1px solid rgba(236,72,153,.3)', borderRadius: 20, padding: '32px 36px', display: 'flex', alignItems: 'center', gap: 32, flexWrap: 'wrap', position: 'relative', overflow: 'hidden' }} className="flex-compact-card">
+              <div style={{ position: 'absolute', top: 0, right: 0, width: 280, height: 280, background: 'radial-gradient(circle at top right, rgba(236,72,153,.1), transparent 65%)', pointerEvents: 'none' }} />
+              {/* Prix */}
+              <div style={{ flexShrink: 0 }}>
+                <div style={{ fontSize: 11, fontWeight: 800, color: '#ec4899', textTransform: 'uppercase', letterSpacing: '.08em', marginBottom: 4 }}>Kyrio Flex · Mensuel</div>
+                <div style={{ display: 'flex', alignItems: 'baseline', gap: 6 }}>
+                  <span style={{ fontSize: 44, fontWeight: 900, color: '#fff', letterSpacing: '-0.04em', lineHeight: 1 }}>89 €</span>
+                  <span style={{ fontSize: 15, color: 'rgba(255,255,255,.45)', fontWeight: 500 }}>/mois × 12</span>
                 </div>
-              ))}
-            </div>
-          </Reveal>
-
-          {/* Pack Lancement */}
-          <Reveal delay={0.2}>
-            <div className="pack-kyrio" style={{ marginTop: 40, background: 'linear-gradient(135deg, #0a0a0a, #141428)', borderRadius: 24, padding: '36px 40px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 32, flexWrap: 'wrap' }}>
-              <div>
-                <div style={{ fontSize: 12, fontWeight: 700, color: '#6366f1', letterSpacing: '.08em', textTransform: 'uppercase', marginBottom: 10 }}>Le Pack Kyrio</div>
-                <h3 style={{ fontSize: 24, fontWeight: 800, color: '#fff', marginBottom: 8 }}>Pack Lancement — {eur(PACK_LANCEMENT.prix)}</h3>
-                <p style={{ fontSize: 14, color: 'rgba(255,255,255,.5)', marginBottom: 0 }}>Logo, Google Business, réseaux, photos retouchées — le starter pack du pro qui assume (oui, même le lundi).</p>
+                <div style={{ fontSize: 12, color: 'rgba(255,255,255,.4)', marginTop: 4 }}>0 € à la signature · Propriétaire après 1 an</div>
               </div>
-              <div style={{ display: 'flex', gap: 20, flexWrap: 'wrap' }}>
+              {/* Points clés */}
+              <div style={{ flex: 1, display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '8px 24px', minWidth: 260 }}>
                 {[
-                  { f: 'Logo professionnel (3 propositions)', icon: 'star', color: '#6366f1' },
-                  { f: 'Fiche Google Business complète & optimisée', icon: 'search', color: '#10b981' },
-                  { f: 'Kit réseaux sociaux (bannières, visuels profil)', icon: 'globe', color: '#ec4899' },
-                  { f: "Photos produits/services retouchées (jusqu'à 10)", icon: 'camera', color: '#f59e0b' },
-                ].map(({ f, icon, color }) => (
-                  <div key={f} style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 13, color: 'rgba(255,255,255,.65)' }}>
-                    <KIcon name={icon} size={14} color={color} />
-                    {f}
+                  { t: '0 € de trésorerie à sortir',       c: '#6366f1' },
+                  { t: 'Site livré en 7 jours',             c: '#06b6d4' },
+                  { t: 'Maintenance + hébergement inclus',  c: '#10b981' },
+                  { t: 'Charge mensuelle déductible',       c: '#f59e0b' },
+                ].map(({ t, c }) => (
+                  <div key={t} style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 13, color: 'rgba(255,255,255,.7)' }}>
+                    <KIcon name="tick" size={13} color={c} strokeWidth={2.5} />
+                    {t}
                   </div>
                 ))}
               </div>
-              <button onClick={() => scrollTo('contact')} className="kyrio-btn-dark" style={{ flexShrink: 0 }}>
-                Ajouter au projet
+              {/* CTA */}
+              <button onClick={() => scrollTo('contact')} style={{ flexShrink: 0, background: '#ec4899', color: '#fff', border: 'none', borderRadius: 50, padding: '14px 28px', fontSize: 14, fontWeight: 700, cursor: 'pointer', fontFamily: 'inherit', transition: 'all .2s', boxShadow: '0 8px 24px rgba(236,72,153,.35)', whiteSpace: 'nowrap' }}
+                onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-2px)'; e.currentTarget.style.boxShadow = '0 12px 32px rgba(236,72,153,.5)'; }}
+                onMouseLeave={e => { e.currentTarget.style.transform = 'none'; e.currentTarget.style.boxShadow = '0 8px 24px rgba(236,72,153,.35)'; }}>
+                Je démarre avec Flex →
               </button>
             </div>
           </Reveal>
-        </div>
-      </section>
 
-      {/* ══ KYRIO FLEX — Abonnement 0 € d'entrée ══ */}
-      <section id="flex" className="section-pad" style={{ padding: '140px 24px', background: 'linear-gradient(135deg, #0f0f19 0%, #111 50%, #0a0a0f 100%)', position: 'relative', overflow: 'hidden' }}>
-        <div style={{ position: 'absolute', top: '-20%', right: '-10%', width: 600, height: 600, background: 'radial-gradient(circle, rgba(236,72,153,.08) 0%, transparent 70%)', pointerEvents: 'none' }} />
-        <div style={{ position: 'absolute', bottom: '-10%', left: '-10%', width: 500, height: 500, background: 'radial-gradient(circle, rgba(99,102,241,.08) 0%, transparent 70%)', pointerEvents: 'none' }} />
-        <div style={{ maxWidth: 1100, margin: '0 auto', position: 'relative' }}>
-          <Reveal>
-            <div className="section-head" style={{ textAlign: 'center', marginBottom: 48 }}>
-              <div style={{ display: 'inline-block', fontSize: 11, fontWeight: 800, letterSpacing: '.12em', textTransform: 'uppercase', color: '#ec4899', background: 'rgba(236,72,153,.1)', border: '1px solid rgba(236,72,153,.3)', padding: '6px 14px', borderRadius: 50, marginBottom: 18 }}>Nouveau · exclusif Kyrio</div>
-              <h2 style={{ fontSize: 'clamp(32px, 5vw, 52px)', fontWeight: 900, color: '#fff', letterSpacing: '-0.02em', lineHeight: 1.1, marginBottom: 18 }}>
-                Kyrio Flex.<br /><span style={{ color: '#ec4899' }}>0 € à la signature.</span>
-              </h2>
-              <p style={{ fontSize: 17, color: 'rgba(255,255,255,.55)', maxWidth: 620, margin: '0 auto', lineHeight: 1.7 }}>
-                Les agences veulent 3 000 à 5 000 € d'un coup. On a inventé autre chose : <strong style={{ color: '#fff' }}>89 €/mois pendant 12 mois</strong>, site livré en 7 jours, maintenance incluse, vous possédez tout au terme. Le moyen le plus accessible d'avoir un site pro en Basse-Normandie.
-              </p>
-            </div>
-          </Reveal>
-          <Reveal delay={0.1}>
-            <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1.1fr) minmax(0, 1fr)', gap: 32, alignItems: 'stretch' }} className="flex-grid">
-              {/* Carte principale Flex */}
-              <div style={{ background: 'linear-gradient(135deg, #1a0d1f 0%, #0f0f19 100%)', border: '1px solid rgba(236,72,153,.3)', borderRadius: 28, padding: '44px 40px', position: 'relative', overflow: 'hidden' }}>
-                <div style={{ position: 'absolute', top: 0, right: 0, width: 200, height: 200, background: 'radial-gradient(circle at top right, rgba(236,72,153,.15), transparent 70%)', pointerEvents: 'none' }} />
-                <div style={{ display: 'flex', alignItems: 'baseline', gap: 8, marginBottom: 8 }}>
-                  <span style={{ fontSize: 56, fontWeight: 900, color: '#fff', letterSpacing: '-0.04em', lineHeight: 1 }}>89 €</span>
-                  <span style={{ fontSize: 18, color: 'rgba(255,255,255,.5)', fontWeight: 600 }}>/mois</span>
-                </div>
-                <div style={{ fontSize: 13, color: '#ec4899', fontWeight: 700, letterSpacing: '.06em', textTransform: 'uppercase', marginBottom: 24 }}>Engagement 12 mois · 0 € à l'entrée</div>
-                <ul style={{ listStyle: 'none', padding: 0, margin: '0 0 28px 0' }}>
-                  {OFFRE_FLEX.features.map(f => (
-                    <li key={f} style={{ display: 'flex', gap: 12, fontSize: 14, color: 'rgba(255,255,255,.75)', padding: '10px 0', borderBottom: '1px solid rgba(255,255,255,.05)', alignItems: 'flex-start', lineHeight: 1.5 }}>
-                      <span style={{ flexShrink: 0, marginTop: 2 }}><KIcon name="tick" size={14} color="#ec4899" strokeWidth={2.5} /></span>{f}
-                    </li>
-                  ))}
-                </ul>
-                <button onClick={() => scrollTo('contact')} style={{ width: '100%', background: '#ec4899', color: '#fff', border: 'none', borderRadius: 50, padding: '16px', fontSize: 15, fontWeight: 700, cursor: 'pointer', fontFamily: 'inherit', transition: 'all .2s', boxShadow: '0 10px 30px rgba(236,72,153,.3)' }}
-                  onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-2px)'; e.currentTarget.style.boxShadow = '0 14px 40px rgba(236,72,153,.45)'; }}
-                  onMouseLeave={e => { e.currentTarget.style.transform = 'none'; e.currentTarget.style.boxShadow = '0 10px 30px rgba(236,72,153,.3)'; }}>
-                  Je démarre avec Flex →
-                </button>
-              </div>
-              {/* Pourquoi Flex */}
-              <div style={{ display: 'flex', flexDirection: 'column', gap: 14, justifyContent: 'center' }}>
-                {[
-                  { t: 'Pas de trésorerie à sortir', d: "Idéal pour les artisans et commerçants qui ne veulent pas grever leur BFR pour un site.", c: '#6366f1' },
-                  { t: 'Prix lissé, charges déductibles', d: "Passé en charge mensuelle (comme votre forfait téléphonique). Bien plus léger comptablement.", c: '#06b6d4' },
-                  { t: 'Maintenance incluse, zéro stress', d: "Mises à jour, sécurité, sauvegardes, 1 h de retouches/mois. Vous ne touchez à rien, ça tourne.", c: '#10b981' },
-                  { t: 'Propriétaire au bout d\'un an', d: "Après 12 mois, le site est 100 % à vous. Vous restez avec nous ou vous partez — votre choix.", c: '#f59e0b' },
-                ].map((x) => (
-                  <div key={x.t} style={{ background: 'rgba(255,255,255,.03)', border: '1px solid rgba(255,255,255,.08)', borderRadius: 16, padding: '18px 22px' }}>
-                    <div style={{ fontSize: 15, fontWeight: 700, color: '#fff', marginBottom: 4, display: 'flex', alignItems: 'center', gap: 10 }}>
-                      <span style={{ width: 6, height: 6, borderRadius: '50%', background: x.c, boxShadow: `0 0 10px ${x.c}` }} />
-                      {x.t}
-                    </div>
-                    <div style={{ fontSize: 13, color: 'rgba(255,255,255,.5)', lineHeight: 1.6 }}>{x.d}</div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </Reveal>
         </div>
       </section>
 
