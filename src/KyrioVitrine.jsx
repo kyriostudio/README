@@ -889,7 +889,7 @@ export default function KyrioVitrine() {
             <Plus strokeWidth={1.5} className="hero-corner-plus" style={{ bottom: -14, right: -14 }} />
 
             <h1 className="hero-title" style={{ userSelect: 'none', display: 'flex', justifyContent: 'center', fontSize: 'clamp(72px, 14vw, 168px)', fontWeight: 900, lineHeight: 0.95, letterSpacing: '-0.045em', margin: 0 }}>
-              <span className="kyrio-neon-text" style={{ padding: '0 12px' }}>Kyrio.</span>
+              <span className="kyrio-neon-text" style={{ padding: '0 0 0 12px' }}>Kyrio</span><span style={{ color: '#39ff14', WebkitTextFillColor: '#39ff14' }}>.</span>
             </h1>
           </motion.div>
 
@@ -903,7 +903,7 @@ export default function KyrioVitrine() {
           >
             On accompagne artisans, commerçants et TPE du{' '}
             <strong style={{ color: 'rgba(255,255,255,.82)', fontWeight: 600 }}>Calvados, de la Manche et de l'Orne</strong>.{' '}
-            SEO inclus, tarifs affichés, livraison en 7 jours — et on décroche encore le téléphone après.
+            SEO inclus, tarifs affichés — et on décroche encore le téléphone après. Une espèce en voie de disparition dans ce secteur.
           </motion.p>
 
           {/* CTAs */}
