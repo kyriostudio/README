@@ -195,9 +195,9 @@ const OFFRES = [
 ];
 
 const MAINTENANCE = [
-  { nom: 'Kyrio Gardien',   prix: 49,  desc: "On veille comme un chat sur un clavier — sauf qu'on met à jour vos plugins, pas les vidéos de moustaches.",                                                           features: ['Mises à jour CMS & plugins', 'Sauvegardes quotidiennes', 'Surveillance sécurité 24h/24', 'Certificat SSL maintenu'],                                color: '#10b981', icon: 'guardian' },
-  { nom: 'Kyrio Croissance', prix: 89,  desc: "Un site qui ne bouge pas, c'est du patrimoine. Sauf que Google ne collectionne pas les antiquités.",                                           features: ['Tout le Gardien inclus', '2h de modifications/mois', 'Rapport SEO mensuel', 'Fiche Google Business suivi'],                                       color: '#06b6d4', icon: 'growth'   },
-  { nom: 'Kyrio Partenaire', prix: 179, desc: "Votre équipe marketing, sans les frais de plantes au bureau. Stratégie, contenu, ads — sans recruter.",                                              features: ['Tout Croissance inclus', '4h création contenu/mois', 'Gestion Google Ads', 'Réunion mensuelle bilan'],                                            color: '#f59e0b', icon: 'partner'  },
+  { nom: 'Kyrio Gardien',    prix: 39,  desc: "On veille comme un chat sur un clavier — sauf qu'on met à jour vos plugins, pas les vidéos de moustaches.",              features: ['Mises à jour CMS & plugins', 'Sauvegardes quotidiennes', 'Surveillance sécurité 24h/24', 'Certificat SSL maintenu'],              color: '#10b981', icon: 'guardian' },
+  { nom: 'Kyrio Croissance', prix: 69,  desc: "Un site qui ne bouge pas, c'est du patrimoine. Sauf que Google ne collectionne pas les antiquités.",                     features: ['Tout le Gardien inclus', '2 h de modifications/mois', 'Rapport SEO mensuel', 'Fiche Google Business suivi'],                     color: '#06b6d4', icon: 'growth'   },
+  { nom: 'Kyrio Partenaire', prix: null, desc: "Stratégie, contenu, ads — votre équipe marketing sans les frais de plantes au bureau. Tarif sur mesure selon le projet.", features: ['Tout Croissance inclus', '4 h création contenu/mois', 'Gestion Google Ads', 'Réunion mensuelle bilan'],                     color: '#f59e0b', icon: 'partner'  },
 ];
 
 const STEPS = [
@@ -239,32 +239,40 @@ const FEATURES_MATRIX = [
   ]},
 ];
 
-/* Offre signature : l'abonnement "Kyrio Flex" — 0 € à l'entrée, engagement 12 mois.
-   Différenciateur clé face aux agences qui demandent 3-5 k€ cash. */
-const OFFRE_FLEX = {
-  nom: 'Kyrio Flex',
-  prixMensuel: 89,
-  engagement: 12,
-  setup: 0,
-  desc: "Pas de budget pour sortir 1 500 € d'un coup ? Kyrio Flex : 0 € à la signature, 89 €/mois pendant 12 mois. Site livré en 7 jours, maintenance et hébergement inclus. Vous possédez le site au bout d'un an.",
-  features: [
-    '0 € de frais de lancement',
-    'Site pro livré en 7 jours',
-    '89 €/mois × 12 mois (engagement 1 an)',
-    'Hébergement + nom de domaine inclus',
-    'Maintenance Kyrio Gardien incluse',
-    '1 h de modifications par mois',
-    'Propriétaire du site au terme du contrat',
-    'Résiliation à 12 mois, sans frais',
-  ],
-};
+/* Kyrio Flex — deux formules liées aux one-shots correspondants.
+   Flex Essentiel (79 €/mois) < Essentiel one-shot (990 €) sur 12 mois : argument offensif.
+   Flex Pro (119 €/mois) < Pro one-shot (1 490 €) sur 12 mois. */
+const OFFRES_FLEX = [
+  {
+    nom: 'Flex Essentiel',
+    basedOn: 'Essentiel',
+    prixMensuel: 79,
+    totalAn: 948,
+    oneShotRef: 990,
+    economie: '−42 €',
+    color: '#6366f1',
+    pitch: "Moins cher que d'acheter l'Essentiel — et la maintenance 1 an est déjà dedans.",
+    features: ['Site Essentiel (5 pages) livré en 7 j', 'Hébergement + domaine inclus', 'Maintenance Gardien incluse', '1 h de retouches/mois', 'Propriétaire après 12 mois'],
+  },
+  {
+    nom: 'Flex Pro',
+    basedOn: 'Pro',
+    prixMensuel: 119,
+    totalAn: 1428,
+    oneShotRef: 1490,
+    economie: '−62 €',
+    color: '#ec4899',
+    pitch: "Votre site Pro à 1 490 € ? Ou 119 €/mois — moins cher en total, 0 € ce mois-ci.",
+    features: ['Site Pro (10 pages) livré en 14 j', 'Hébergement + domaine inclus', 'Maintenance Croissance incluse', '2 h de retouches/mois', 'Propriétaire après 12 mois'],
+  },
+];
 
 /* Comparatif marché — chiffres sourcés moyennes FR 2026 */
 const VS_MARCHE = [
   { label: 'Site 10 pages + SEO',       freelance: '2 200 €',   agence: '3 800 €',   kyrio: '1 490 €', economie: '−61 %' },
   { label: 'Délai moyen de livraison',  freelance: '4 semaines',agence: '8 semaines',kyrio: '7 jours', economie: '8× plus vite' },
   { label: 'SEO local inclus',          freelance: 'Option',    agence: 'Option',    kyrio: 'Inclus',  economie: '+400 € économisés' },
-  { label: 'Maintenance mensuelle',     freelance: 'Rarement',  agence: '120 €/mois',kyrio: '49 €/mois', economie: '−59 %' },
+  { label: 'Maintenance mensuelle',     freelance: 'Rarement',  agence: '120 €/mois',kyrio: '39 €/mois', economie: '−68 %' },
   { label: 'Abonnement 0 € d\'entrée',  freelance: 'Non',       agence: 'Non',       kyrio: 'Oui (Flex)', economie: 'Exclu. Kyrio' },
 ];
 
@@ -662,8 +670,7 @@ export default function KyrioVitrine() {
           .offer-card { border-radius: 22px !important; padding: 28px 20px 24px !important; }
           .offer-card.popular { padding-top: 44px !important; }
           .two-modes-grid { grid-template-columns: 1fr !important; gap: 12px !important; }
-          .flex-compact-card { flex-direction: column !important; align-items: stretch !important; gap: 20px !important; }
-          .flex-compact-card button { width: 100% !important; }
+          .flex-two-grid { grid-template-columns: 1fr !important; gap: 12px !important; }
           .maintenance-grid { grid-template-columns: 1fr !important; gap: 14px !important; }
           .maint-card { padding: 24px 18px !important; border-radius: 18px !important; }
           .steps-grid { grid-template-columns: 1fr !important; gap: 0 !important; }
@@ -875,12 +882,12 @@ export default function KyrioVitrine() {
                     <KIcon name="check" size={18} color="#6366f1" strokeWidth={2.5} />
                   </div>
                   <div>
-                    <div style={{ fontSize: 11, fontWeight: 800, color: '#6366f1', textTransform: 'uppercase', letterSpacing: '.08em' }}>Achat unique</div>
-                    <div style={{ fontSize: 18, fontWeight: 800, color: 'var(--sf)', marginTop: 2 }}>À partir de 990 €</div>
+                    <div style={{ fontSize: 11, fontWeight: 800, color: '#6366f1', textTransform: 'uppercase', letterSpacing: '.08em' }}>Achat unique — propriétaire dès J+1</div>
+                    <div style={{ fontSize: 18, fontWeight: 800, color: 'var(--sf)', marginTop: 2 }}>990 € → 2 490 €</div>
                   </div>
                 </div>
                 <p style={{ fontSize: 14, color: 'var(--sf2)', lineHeight: 1.65, margin: 0 }}>
-                  Vous payez une fois, vous possédez le site dès le premier jour. Trois niveaux — <strong style={{ color: 'var(--sf)' }}>Essentiel, Pro ou Signature</strong> — selon votre ambition. Idéal si vous disposez de la trésorerie et voulez une immobilisation comptable.
+                  Vous payez une fois, le site vous appartient dès la livraison. Immobilisable comptablement, sans engagement mensuel. Idéal si vous avez la trésorerie disponible.
                 </p>
                 <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
                   {OFFRES.map(o => (
@@ -899,18 +906,20 @@ export default function KyrioVitrine() {
                     <KIcon name="growth" size={18} color="#ec4899" strokeWidth={2} />
                   </div>
                   <div>
-                    <div style={{ fontSize: 11, fontWeight: 800, color: '#ec4899', textTransform: 'uppercase', letterSpacing: '.08em' }}>Abonnement mensuel · Exclusif Kyrio</div>
-                    <div style={{ fontSize: 18, fontWeight: 800, color: '#fff', marginTop: 2 }}>89 €/mois · 0 € à l'entrée</div>
+                    <div style={{ fontSize: 11, fontWeight: 800, color: '#ec4899', textTransform: 'uppercase', letterSpacing: '.08em' }}>Kyrio Flex — mensuel · 0 € d'entrée</div>
+                    <div style={{ fontSize: 18, fontWeight: 800, color: '#fff', marginTop: 2 }}>79 € ou 119 €/mois × 12</div>
                   </div>
                 </div>
                 <p style={{ fontSize: 14, color: 'rgba(255,255,255,.6)', lineHeight: 1.65, margin: 0 }}>
-                  Pas de budget à sortir d'un coup ? <strong style={{ color: '#fff' }}>89 €/mois pendant 12 mois</strong> — site livré en 7 jours, maintenance et hébergement inclus. Vous êtes propriétaire au terme du contrat. Passé en charge mensuelle, entièrement déductible.
+                  Le <strong style={{ color: '#fff' }}>même site</strong>, financé sur 12 mois — et même moins cher qu'en one-shot. 0 € à la signature, maintenance incluse, propriétaire au terme. Charge mensuelle 100 % déductible.
                 </p>
-                <button onClick={() => scrollTo('contact')} style={{ alignSelf: 'flex-start', background: '#ec4899', color: '#fff', border: 'none', borderRadius: 50, padding: '10px 22px', fontSize: 13, fontWeight: 700, cursor: 'pointer', fontFamily: 'inherit', transition: 'all .2s', boxShadow: '0 6px 20px rgba(236,72,153,.3)' }}
-                  onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-2px)'; e.currentTarget.style.boxShadow = '0 10px 28px rgba(236,72,153,.45)'; }}
-                  onMouseLeave={e => { e.currentTarget.style.transform = 'none'; e.currentTarget.style.boxShadow = '0 6px 20px rgba(236,72,153,.3)'; }}>
-                  Démarrer avec Flex →
-                </button>
+                <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
+                  {OFFRES_FLEX.map(f => (
+                    <span key={f.nom} style={{ fontSize: 12, fontWeight: 700, color: f.color, background: f.color + '18', borderRadius: 50, padding: '4px 12px' }}>
+                      {f.nom} — {f.prixMensuel} €/mois
+                    </span>
+                  ))}
+                </div>
               </div>
             </div>
           </Reveal>
@@ -988,39 +997,55 @@ export default function KyrioVitrine() {
             </div>
           </Reveal>
 
-          {/* ── Carte Flex compacte (récurrent) ── */}
+          {/* ── Kyrio Flex — 2 formules liées aux one-shots ── */}
           <Reveal delay={0.14}>
-            <div style={{ marginTop: 20, background: 'linear-gradient(135deg, #0f0f1a 0%, #0a0a10 100%)', border: '1px solid rgba(236,72,153,.3)', borderRadius: 20, padding: '32px 36px', display: 'flex', alignItems: 'center', gap: 32, flexWrap: 'wrap', position: 'relative', overflow: 'hidden' }} className="flex-compact-card">
-              <div style={{ position: 'absolute', top: 0, right: 0, width: 280, height: 280, background: 'radial-gradient(circle at top right, rgba(236,72,153,.1), transparent 65%)', pointerEvents: 'none' }} />
-              {/* Prix */}
-              <div style={{ flexShrink: 0 }}>
-                <div style={{ fontSize: 11, fontWeight: 800, color: '#ec4899', textTransform: 'uppercase', letterSpacing: '.08em', marginBottom: 4 }}>Kyrio Flex · Mensuel</div>
-                <div style={{ display: 'flex', alignItems: 'baseline', gap: 6 }}>
-                  <span style={{ fontSize: 44, fontWeight: 900, color: '#fff', letterSpacing: '-0.04em', lineHeight: 1 }}>89 €</span>
-                  <span style={{ fontSize: 15, color: 'rgba(255,255,255,.45)', fontWeight: 500 }}>/mois × 12</span>
+            <div style={{ marginTop: 20, background: 'linear-gradient(135deg, #0f0f1a 0%, #0a0a10 100%)', border: '1px solid rgba(236,72,153,.25)', borderRadius: 20, padding: '28px 32px', position: 'relative', overflow: 'hidden' }}>
+              <div style={{ position: 'absolute', top: 0, right: 0, width: 300, height: 200, background: 'radial-gradient(circle at top right, rgba(236,72,153,.1), transparent 65%)', pointerEvents: 'none' }} />
+
+              {/* Header */}
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 12, marginBottom: 20 }}>
+                <div>
+                  <div style={{ fontSize: 11, fontWeight: 800, color: '#ec4899', textTransform: 'uppercase', letterSpacing: '.1em', marginBottom: 4 }}>Kyrio Flex · Mensuel · 0 € à l'entrée</div>
+                  <div style={{ fontSize: 15, fontWeight: 700, color: 'rgba(255,255,255,.75)' }}>Le même site — financé sur 12 mois et même moins cher qu'en one-shot.</div>
                 </div>
-                <div style={{ fontSize: 12, color: 'rgba(255,255,255,.4)', marginTop: 4 }}>0 € à la signature · Propriétaire après 1 an</div>
+                <div style={{ fontSize: 12, color: 'rgba(255,255,255,.35)', fontStyle: 'italic' }}>Charge mensuelle · 100 % déductible · Propriétaire après 1 an</div>
               </div>
-              {/* Points clés */}
-              <div style={{ flex: 1, display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '8px 24px', minWidth: 260 }}>
-                {[
-                  { t: '0 € de trésorerie à sortir',       c: '#6366f1' },
-                  { t: 'Site livré en 7 jours',             c: '#06b6d4' },
-                  { t: 'Maintenance + hébergement inclus',  c: '#10b981' },
-                  { t: 'Charge mensuelle déductible',       c: '#f59e0b' },
-                ].map(({ t, c }) => (
-                  <div key={t} style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 13, color: 'rgba(255,255,255,.7)' }}>
-                    <KIcon name="tick" size={13} color={c} strokeWidth={2.5} />
-                    {t}
+
+              {/* Les 2 formules Flex */}
+              <div className="flex-two-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14 }}>
+                {OFFRES_FLEX.map(f => (
+                  <div key={f.nom} style={{ background: 'rgba(255,255,255,.04)', border: `1px solid ${f.color}30`, borderRadius: 14, padding: '20px 22px' }}>
+                    {/* Prix + comparatif */}
+                    <div style={{ display: 'flex', alignItems: 'flex-end', gap: 10, marginBottom: 6 }}>
+                      <div>
+                        <div style={{ fontSize: 10, fontWeight: 800, color: f.color, textTransform: 'uppercase', letterSpacing: '.08em', marginBottom: 2 }}>{f.nom}</div>
+                        <div style={{ display: 'flex', alignItems: 'baseline', gap: 5 }}>
+                          <span style={{ fontSize: 32, fontWeight: 900, color: '#fff', letterSpacing: '-0.04em', lineHeight: 1 }}>{f.prixMensuel} €</span>
+                          <span style={{ fontSize: 13, color: 'rgba(255,255,255,.4)', fontWeight: 500 }}>/mois × 12</span>
+                        </div>
+                      </div>
+                      {/* Badge économie vs one-shot */}
+                      <div style={{ marginLeft: 'auto', textAlign: 'right', flexShrink: 0 }}>
+                        <div style={{ fontSize: 10, color: 'rgba(255,255,255,.35)', marginBottom: 2 }}>vs one-shot {eur(f.oneShotRef)}</div>
+                        <div style={{ fontSize: 13, fontWeight: 800, color: '#10b981', background: 'rgba(16,185,129,.12)', borderRadius: 50, padding: '3px 10px', display: 'inline-block' }}>{f.economie} / an</div>
+                      </div>
+                    </div>
+                    <div style={{ fontSize: 12, color: 'rgba(255,255,255,.45)', lineHeight: 1.5, marginBottom: 14, fontStyle: 'italic' }}>{f.pitch}</div>
+                    <ul style={{ listStyle: 'none', padding: 0, margin: '0 0 16px', display: 'flex', flexDirection: 'column', gap: 7 }}>
+                      {f.features.map(ft => (
+                        <li key={ft} style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 12, color: 'rgba(255,255,255,.65)' }}>
+                          <KIcon name="tick" size={12} color={f.color} strokeWidth={2.5} />{ft}
+                        </li>
+                      ))}
+                    </ul>
+                    <button onClick={() => scrollTo('contact')} style={{ width: '100%', background: f.color, color: '#fff', border: 'none', borderRadius: 50, padding: '11px', fontSize: 13, fontWeight: 700, cursor: 'pointer', fontFamily: 'inherit', transition: 'all .2s', boxShadow: `0 6px 18px ${f.color}40` }}
+                      onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-2px)'; e.currentTarget.style.filter = 'brightness(1.1)'; }}
+                      onMouseLeave={e => { e.currentTarget.style.transform = 'none'; e.currentTarget.style.filter = 'none'; }}>
+                      Démarrer en {f.nom} →
+                    </button>
                   </div>
                 ))}
               </div>
-              {/* CTA */}
-              <button onClick={() => scrollTo('contact')} style={{ flexShrink: 0, background: '#ec4899', color: '#fff', border: 'none', borderRadius: 50, padding: '14px 28px', fontSize: 14, fontWeight: 700, cursor: 'pointer', fontFamily: 'inherit', transition: 'all .2s', boxShadow: '0 8px 24px rgba(236,72,153,.35)', whiteSpace: 'nowrap' }}
-                onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-2px)'; e.currentTarget.style.boxShadow = '0 12px 32px rgba(236,72,153,.5)'; }}
-                onMouseLeave={e => { e.currentTarget.style.transform = 'none'; e.currentTarget.style.boxShadow = '0 8px 24px rgba(236,72,153,.35)'; }}>
-                Je démarre avec Flex →
-              </button>
             </div>
           </Reveal>
 
@@ -1101,8 +1126,14 @@ export default function KyrioVitrine() {
                       <span style={{ color: m.color, fontSize: 13, fontWeight: 700 }}>{m.nom}</span>
                     </div>
                     <div style={{ textAlign: 'right' }}>
-                      <span style={{ fontSize: 28, fontWeight: 900, color: '#fff', letterSpacing: '-0.03em' }}>{eur(m.prix)}</span>
-                      <span style={{ fontSize: 12, color: 'rgba(255,255,255,.3)', display: 'block' }}>/mois</span>
+                      {m.prix !== null ? (
+                        <>
+                          <span style={{ fontSize: 28, fontWeight: 900, color: '#fff', letterSpacing: '-0.03em' }}>{eur(m.prix)}</span>
+                          <span style={{ fontSize: 12, color: 'rgba(255,255,255,.3)', display: 'block' }}>/mois</span>
+                        </>
+                      ) : (
+                        <span style={{ fontSize: 18, fontWeight: 800, color: m.color, letterSpacing: '-0.02em' }}>Sur devis</span>
+                      )}
                     </div>
                   </div>
                   <p style={{ fontSize: 13.5, color: 'rgba(255,255,255,.45)', lineHeight: 1.65, marginBottom: 24 }}>{m.desc}</p>
@@ -1116,7 +1147,7 @@ export default function KyrioVitrine() {
                   <button onClick={() => scrollTo('contact')} style={{ background: 'transparent', color: m.color, border: `1.5px solid ${m.color}30`, borderRadius: 50, padding: '12px', fontSize: 13, fontWeight: 700, cursor: 'pointer', fontFamily: 'inherit', transition: 'all .2s', width: '100%' }}
                     onMouseEnter={e => { e.target.style.background = m.color + '12'; e.target.style.borderColor = m.color + '60'; }}
                     onMouseLeave={e => { e.target.style.background = 'transparent'; e.target.style.borderColor = m.color + '30'; }}>
-                    Choisir {m.nom}
+                    {m.prix !== null ? `Choisir ${m.nom}` : 'En parler →'}
                   </button>
                 </div>
               </Reveal>
