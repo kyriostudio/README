@@ -1,4 +1,4 @@
-﻿# SPA React (Vite) — kyrio.fr / IONOS (Apache)
+# SPA React (Vite) — kyrio.fr / IONOS (Apache)
 # Pas de RewriteBase / (souvent source de 500 sur hébergement mutualisé si mal calé)
 <IfModule mod_rewrite.c>
   RewriteEngine On
