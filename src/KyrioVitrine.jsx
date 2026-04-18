@@ -207,7 +207,7 @@ const OFFRES = [
     prix: 1490,
     delai: '14 jours',
     desc: "Là où la concurrence facture 3 500 € pour 10 pages, Kyrio en demande 1 490 €. Même qualité, même SEO — juste sans la marge « agence parisienne ». Choisi par 7 clients sur 10.",
-    color: '#06b6d4',
+    color: '#22d3ee',
     features: [
       '10 pages sur-mesure',
       'Design premium personnalisé',
@@ -226,7 +226,7 @@ const OFFRES = [
     prix: null,
     delai: '~21 jours',
     desc: "Le site XXL sur-mesure — pages illimitées, boutique, animations premium, stratégie SEO. Chaque projet est unique, le tarif aussi. On en discute autour d'un café.",
-    color: '#f59e0b',
+    color: '#10b981',
     features: [
       'Pages illimitées',
       'Animations & effets premium',
@@ -243,9 +243,9 @@ const OFFRES = [
 ];
 
 const MAINTENANCE = [
-  { nom: 'Kyrio Gardien',    prix: 39,  desc: "On veille comme un chat sur un clavier — sauf qu'on met à jour vos plugins, pas les vidéos de moustaches.",              features: ['Mises à jour CMS & plugins', 'Sauvegardes quotidiennes', 'Surveillance sécurité 24h/24', 'Certificat SSL maintenu'],              color: '#10b981', icon: 'guardian' },
-  { nom: 'Kyrio Croissance', prix: 69,  desc: "Un site qui ne bouge pas, c'est du patrimoine. Sauf que Google ne collectionne pas les antiquités.",                     features: ['Tout le Gardien inclus', '2 h de modifications/mois', 'Rapport SEO mensuel', 'Fiche Google Business suivi'],                     color: '#06b6d4', icon: 'growth'   },
-  { nom: 'Kyrio Partenaire', prix: null, desc: "Stratégie, contenu, ads — votre équipe marketing sans les frais de plantes au bureau. Tarif sur mesure selon le projet.", features: ['Tout Croissance inclus', '4 h création contenu/mois', 'Gestion Google Ads', 'Réunion mensuelle bilan'],                     color: '#f59e0b', icon: 'partner'  },
+  { nom: 'Kyrio Gardien',    prix: 39,  desc: "On veille comme un chat sur un clavier — sauf qu'on met à jour vos plugins, pas les vidéos de moustaches.",              features: ['Mises à jour CMS & plugins', 'Sauvegardes quotidiennes', 'Surveillance sécurité 24h/24', 'Certificat SSL maintenu'],              color: '#6366f1', icon: 'guardian' },
+  { nom: 'Kyrio Croissance', prix: 69,  desc: "Un site qui ne bouge pas, c'est du patrimoine. Sauf que Google ne collectionne pas les antiquités.",                     features: ['Tout le Gardien inclus', '2 h de modifications/mois', 'Rapport SEO mensuel', 'Fiche Google Business suivi'],                     color: '#22d3ee', icon: 'growth'   },
+  { nom: 'Kyrio Partenaire', prix: null, desc: "Stratégie, contenu, ads — votre équipe marketing sans les frais de plantes au bureau. Tarif sur mesure selon le projet.", features: ['Tout Croissance inclus', '4 h création contenu/mois', 'Gestion Google Ads', 'Réunion mensuelle bilan'],                     color: '#10b981', icon: 'partner'  },
 ];
 
 const STEPS = [
@@ -309,7 +309,7 @@ const OFFRES_FLEX = [
     totalAn: 1428,
     oneShotRef: 1490,
     economie: '−62 €',
-    color: '#ec4899',
+    color: '#22d3ee',
     pitch: "Votre site Pro à 1 490 € ? Ou 119 €/mois — moins cher en total, 0 € ce mois-ci.",
     features: ['Site Pro (10 pages) livré en 14 j', 'Hébergement + domaine inclus', 'Maintenance Croissance incluse', '2 h de retouches/mois', 'Propriétaire après 12 mois'],
   },
@@ -934,9 +934,9 @@ export default function KyrioVitrine() {
           >
             {[
               { val: '7j', label: 'Délai moyen (oui, on tient nos promesses)', icon: 'clock', color: '#6366f1' },
-              { val: '100%', label: 'Clients qui reviennent (on ne les a pas ligotés)', icon: 'check', color: '#10b981' },
-              { val: '3 ans', label: 'Dans les tranchées du web (café : illimité)', icon: 'lock', color: '#f59e0b' },
-              { val: 'SEO', label: 'Toujours inclus. Même le lundi.', icon: 'search', color: '#ec4899' },
+              { val: '100%', label: 'Clients qui reviennent (on ne les a pas ligotés)', icon: 'check', color: '#22d3ee' },
+              { val: '3 ans', label: 'Dans les tranchées du web (café : illimité)', icon: 'lock', color: '#10b981' },
+              { val: 'SEO', label: 'Toujours inclus. Même le lundi.', icon: 'search', color: '#39ff14' },
             ].map((s, i) => (
               <div key={s.label} style={{ padding: '0 40px', textAlign: 'center', borderRight: i < 3 ? '1px solid rgba(255,255,255,.06)' : 'none' }}>
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, marginBottom: 6 }}>
@@ -998,10 +998,10 @@ export default function KyrioVitrine() {
                 <div style={{ position: 'absolute', top: 0, right: 0, width: 160, height: 160, background: 'radial-gradient(circle at top right, rgba(236,72,153,.14), transparent 70%)', pointerEvents: 'none' }} />
                 <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
                   <div style={{ width: 40, height: 40, borderRadius: 12, background: 'rgba(236,72,153,.15)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                    <KIcon name="growth" size={18} color="#ec4899" strokeWidth={2} />
+                    <KIcon name="growth" size={18} color="#22d3ee" strokeWidth={2} />
                   </div>
                   <div>
-                    <div style={{ fontSize: 11, fontWeight: 800, color: '#ec4899', textTransform: 'uppercase', letterSpacing: '.08em' }}>Kyrio Flex — mensuel · 0 € d'entrée</div>
+                    <div style={{ fontSize: 11, fontWeight: 800, color: '#22d3ee', textTransform: 'uppercase', letterSpacing: '.08em' }}>Kyrio Flex — mensuel · 0 € d'entrée</div>
                     <div style={{ fontSize: 18, fontWeight: 800, color: '#fff', marginTop: 2 }}>79 € ou 119 €/mois × 12</div>
                   </div>
                 </div>
@@ -1102,7 +1102,7 @@ export default function KyrioVitrine() {
               {/* Header */}
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 12, marginBottom: 20 }}>
                 <div>
-                  <div style={{ fontSize: 11, fontWeight: 800, color: '#ec4899', textTransform: 'uppercase', letterSpacing: '.1em', marginBottom: 4 }}>Kyrio Flex · Mensuel · 0 € à l'entrée</div>
+                  <div style={{ fontSize: 11, fontWeight: 800, color: '#22d3ee', textTransform: 'uppercase', letterSpacing: '.1em', marginBottom: 4 }}>Kyrio Flex · Mensuel · 0 € à l'entrée</div>
                   <div style={{ fontSize: 15, fontWeight: 700, color: 'rgba(255,255,255,.75)' }}>Le même site — financé sur 12 mois et même moins cher qu'en one-shot.</div>
                 </div>
                 <div style={{ fontSize: 12, color: 'rgba(255,255,255,.35)', fontStyle: 'italic' }}>Charge mensuelle · 100 % déductible · Propriétaire après 1 an</div>
@@ -1196,7 +1196,7 @@ export default function KyrioVitrine() {
       {/* ══ MAINTENANCE ══ */}
       <section id="maintenance" className="section-pad" style={{ padding: '160px 24px', background: '#0a0a0a', position: 'relative', overflow: 'hidden' }}>
         <div className="float" style={{ position: 'absolute', top: '10%', right: '-5%', width: 400, height: 400, background: 'radial-gradient(circle, rgba(99,102,241,.1) 0%, transparent 70%)', pointerEvents: 'none' }} />
-        <div className="float-b" style={{ position: 'absolute', bottom: '10%', left: '-5%', width: 350, height: 350, background: 'radial-gradient(circle, rgba(245,158,11,.07) 0%, transparent 70%)', pointerEvents: 'none' }} />
+        <div className="float-b" style={{ position: 'absolute', bottom: '10%', left: '-5%', width: 350, height: 350, background: 'radial-gradient(circle, rgba(16,185,129,.07) 0%, transparent 70%)', pointerEvents: 'none' }} />
         <div style={{ maxWidth: 1100, margin: '0 auto' }}>
           <Reveal>
             <div className="section-head" style={{ textAlign: 'center', marginBottom: 72 }}>
@@ -1269,7 +1269,7 @@ export default function KyrioVitrine() {
           </Reveal>
           <div className="zone-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 20, marginBottom: 32 }}>
             {ZONE_BN.departements.map((d, i) => {
-              const colors = ['#10b981', '#06b6d4', '#f59e0b'];
+              const colors = ['#6366f1', '#22d3ee', '#10b981'];
               const c = colors[i];
               return (
                 <Reveal key={d.code} delay={i * 0.1}>
