@@ -843,7 +843,8 @@ export default function KyrioVitrine() {
         <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: 1, background: 'linear-gradient(90deg, transparent, rgba(255,255,255,.06), transparent)', zIndex: 25 }} />
 
         {/* ── Content — fade-up via framer-motion ── */}
-        <div style={{ position: 'relative', zIndex: 30, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+        {/* pointerEvents:none sur le wrapper → laisse passer le hover vers les Boxes ; réactivé sur les CTAs/liens */}
+        <div style={{ position: 'relative', zIndex: 30, display: 'flex', flexDirection: 'column', alignItems: 'center', pointerEvents: 'none' }}>
 
           {/* Badge */}
           <motion.div
@@ -896,7 +897,7 @@ export default function KyrioVitrine() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 1.1, ease: [0.21, 0.47, 0.32, 0.98] }}
             className="hero-cta"
-            style={{ display: 'flex', gap: 14, flexWrap: 'wrap', justifyContent: 'center', alignItems: 'center' }}
+            style={{ display: 'flex', gap: 14, flexWrap: 'wrap', justifyContent: 'center', alignItems: 'center', pointerEvents: 'auto' }}
           >
             <button onClick={() => scrollTo('offres')} className="kyrio-btn-dark" style={{ fontSize: 16, padding: '16px 36px' }}>
               Voir les offres
