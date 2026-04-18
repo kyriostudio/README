@@ -1,9 +1,8 @@
-﻿# SPA React (Vite) - kyrio.fr sur IONOS (Apache)
+﻿# SPA React (Vite) — kyrio.fr / IONOS (Apache)
+# Pas de RewriteBase / (souvent source de 500 sur hébergement mutualisé si mal calé)
 <IfModule mod_rewrite.c>
   RewriteEngine On
-  RewriteBase /
-  RewriteRule ^index\.html$ - [L]
   RewriteCond %{REQUEST_FILENAME} !-f
   RewriteCond %{REQUEST_FILENAME} !-d
-  RewriteRule . /index.html [L]
+  RewriteRule ^ index.html [QSA,L]
 </IfModule>
