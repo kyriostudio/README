@@ -175,9 +175,9 @@ const OFFRES = [
   },
   {
     nom: 'Signature',
-    prix: 2490,
-    delai: '21 jours',
-    desc: "Le site XXL — équivalent à un projet agence à 5 000 – 6 000 €, chez nous à 2 490 €. Même ambition, même finition, deux fois moins cher. Parce que la Basse-Normandie, c'est pas la Silicon Valley.",
+    prix: null,
+    delai: '~21 jours',
+    desc: "Le site XXL sur-mesure — pages illimitées, boutique, animations premium, stratégie SEO. Chaque projet est unique, le tarif aussi. On en discute autour d'un café.",
     color: '#f59e0b',
     features: [
       'Pages illimitées',
@@ -189,7 +189,7 @@ const OFFRES = [
       'Hébergement 1 an offert',
       'Priorité absolue & accès direct',
     ],
-    cta: "On en parle autour d'un café",
+    cta: "On en parle →",
     popular: false,
   },
 ];
@@ -883,7 +883,7 @@ export default function KyrioVitrine() {
                   </div>
                   <div>
                     <div style={{ fontSize: 11, fontWeight: 800, color: '#6366f1', textTransform: 'uppercase', letterSpacing: '.08em' }}>Achat unique — propriétaire dès J+1</div>
-                    <div style={{ fontSize: 18, fontWeight: 800, color: 'var(--sf)', marginTop: 2 }}>990 € → 2 490 €</div>
+                    <div style={{ fontSize: 18, fontWeight: 800, color: 'var(--sf)', marginTop: 2 }}>990 € · 1 490 € · Sur devis</div>
                   </div>
                 </div>
                 <p style={{ fontSize: 14, color: 'var(--sf2)', lineHeight: 1.65, margin: 0 }}>
@@ -892,7 +892,7 @@ export default function KyrioVitrine() {
                 <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
                   {OFFRES.map(o => (
                     <span key={o.nom} style={{ fontSize: 12, fontWeight: 700, color: o.color, background: o.color + '14', borderRadius: 50, padding: '4px 12px' }}>
-                      {o.nom} — {eur(o.prix)}
+                      {o.nom} — {o.prix !== null ? eur(o.prix) : 'Sur devis'}
                     </span>
                   ))}
                 </div>
@@ -945,7 +945,9 @@ export default function KyrioVitrine() {
                       </div>
                     )}
                     <div style={{ fontSize: 10, fontWeight: 800, color: o.color, textTransform: 'uppercase', letterSpacing: '.06em', marginBottom: 6, marginTop: o.popular ? 6 : 0 }}>{o.nom}</div>
-                    <div style={{ fontSize: 26, fontWeight: 900, color: o.popular ? '#fff' : 'var(--sf)', letterSpacing: '-0.03em', lineHeight: 1 }}>{eur(o.prix)}</div>
+                    <div style={{ fontSize: o.prix === null ? 18 : 26, fontWeight: 900, color: o.popular ? '#fff' : (o.prix === null ? o.color : 'var(--sf)'), letterSpacing: '-0.03em', lineHeight: 1 }}>
+                      {o.prix !== null ? eur(o.prix) : 'Sur devis'}
+                    </div>
                     <div style={{ fontSize: 11, color: o.popular ? 'rgba(255,255,255,.45)' : 'var(--sf3)', marginTop: 6, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 4 }}>
                       <KIcon name="clock" size={10} color={o.popular ? 'rgba(255,255,255,.45)' : 'var(--sf3)'} />
                       {o.delai}
