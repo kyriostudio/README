@@ -1,6 +1,7 @@
 ﻿import { useState, useEffect, useRef, useMemo, memo } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import { Plus } from 'lucide-react';
 
 /* ── Intersection observer hook ── */
 function useVisible(threshold = 0.15) {
@@ -628,6 +629,32 @@ export default function KyrioVitrine() {
         @keyframes kyrio-dot-orbit { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
         @keyframes spin-slow { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
         @keyframes pulse-badge { 0%,100% { box-shadow: 0 0 0 0 rgba(99,102,241,.4); } 50% { box-shadow: 0 0 0 8px rgba(99,102,241,.0); } }
+
+        /* ── Hero neon gradient text (adapté de text-color.tsx) ── */
+        @keyframes kyrio-hue-shift {
+          0%   { background-position: 0% 50%; }
+          100% { background-position: 300% 50%; }
+        }
+        .kyrio-neon-text {
+          background-image: linear-gradient(90deg, #39ff14, #00ffff, #ff6ec7, #faff00, #00f0ff, #ff073a, #39ff14);
+          background-size: 300% 100%;
+          -webkit-background-clip: text;
+          background-clip: text;
+          color: transparent;
+          -webkit-text-fill-color: transparent;
+          animation: kyrio-hue-shift 8s linear infinite;
+        }
+        .kyrio-neon-text-slow {
+          background-image: linear-gradient(90deg, #faff00, #00f0ff, #39ff14, #ff6ec7, #ff073a, #00ffff, #faff00);
+          background-size: 300% 100%;
+          -webkit-background-clip: text;
+          background-clip: text;
+          color: transparent;
+          -webkit-text-fill-color: transparent;
+          animation: kyrio-hue-shift 12s linear infinite;
+        }
+        .hero-corner-plus { position: absolute; width: 28px; height: 28px; color: #6366f1; pointer-events: none; }
+
         .fade-up { animation: fadeUp .8s ease forwards; }
         .fade-up-2 { animation: fadeUp .8s .15s ease forwards; opacity: 0; }
         .fade-up-3 { animation: fadeUp .8s .3s ease forwards; opacity: 0; }
@@ -851,51 +878,35 @@ export default function KyrioVitrine() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 0.5, ease: [0.21, 0.47, 0.32, 0.98] }}
-            style={{ display: 'inline-flex', alignItems: 'center', gap: 8, background: 'rgba(99,102,241,.1)', border: '1px solid rgba(99,102,241,.25)', borderRadius: 50, padding: '7px 18px', fontSize: 12, fontWeight: 700, color: '#6366f1', letterSpacing: '.06em', textTransform: 'uppercase', marginBottom: 32 }}
+            style={{ display: 'inline-flex', alignItems: 'center', gap: 8, background: 'rgba(99,102,241,.1)', border: '1px solid rgba(99,102,241,.25)', borderRadius: 50, padding: '7px 18px', fontSize: 11, fontWeight: 700, color: '#6366f1', letterSpacing: '.08em', textTransform: 'uppercase', marginBottom: 40 }}
           >
             <span style={{ width: 7, height: 7, borderRadius: '50%', background: '#6366f1', display: 'inline-block', boxShadow: '0 0 6px #6366f1' }} />
-            Kyrio — Agence web basée en Basse-Normandie · Caen · Site pro en 7 jours
+            Agence web · Basse-Normandie
           </motion.div>
 
-          {/* Heading */}
-          <motion.h1
+          {/* Heading — neon gradient animé + Plus aux coins */}
+          <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 0.7, ease: [0.21, 0.47, 0.32, 0.98] }}
-            className="hero-title"
-            style={{ fontSize: 'clamp(48px, 7vw, 88px)', fontWeight: 900, color: '#fff', lineHeight: 1.05, letterSpacing: '-0.03em', maxWidth: 900, marginBottom: 28 }}
+            style={{ position: 'relative', padding: '32px 24px', marginBottom: 48, border: '1px solid rgba(255,255,255,0.08)', maskImage: 'radial-gradient(200rem 24rem at center, white, transparent)', WebkitMaskImage: 'radial-gradient(200rem 24rem at center, white, transparent)' }}
           >
-            Votre site web.<br />
-            <span
-              className="squiggle"
-              style={{ background: 'linear-gradient(135deg, #6366f1 0%, #ec4899 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}
-            >
-              Livré en 7 jours.
-            </span>
-            <br />
-            <span style={{ color: 'rgba(255,255,255,0.5)', fontSize: '0.58em', fontWeight: 500, letterSpacing: '-0.01em' }}>
-              Sans vous prendre la tête — trop.
-            </span>
-          </motion.h1>
+            <Plus strokeWidth={1.5} className="hero-corner-plus" style={{ top: -14, left: -14 }} />
+            <Plus strokeWidth={1.5} className="hero-corner-plus" style={{ top: -14, right: -14 }} />
+            <Plus strokeWidth={1.5} className="hero-corner-plus" style={{ bottom: -14, left: -14 }} />
+            <Plus strokeWidth={1.5} className="hero-corner-plus" style={{ bottom: -14, right: -14 }} />
 
-          {/* Subtitle */}
-          <motion.p
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, delay: 0.9, ease: [0.21, 0.47, 0.32, 0.98] }}
-            className="hero-sub"
-            style={{ fontSize: 'clamp(16px, 2vw, 20px)', color: 'rgba(255,255,255,.45)', maxWidth: 580, lineHeight: 1.75, marginBottom: 48 }}
-          >
-            Des sites qui bossent pour vous — pas des vitrines qui accumulent la poussière numérique. On accompagne les artisans, commerçants et TPE du{' '}
-            <strong style={{ color: 'rgba(255,255,255,.72)', fontWeight: 600 }}>Calvados, de la Manche et de l'Orne</strong>.{' '}
-            SEO inclus, tarifs affichés, et on décroche encore le téléphone après la livraison.
-          </motion.p>
+            <h1 className="hero-title" style={{ userSelect: 'none', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 6, fontSize: 'clamp(56px, 11vw, 128px)', fontWeight: 900, lineHeight: 0.95, letterSpacing: '-0.045em', margin: 0 }}>
+              <span className="kyrio-neon-text" style={{ padding: '0 12px' }}>Kyrio.</span>
+              <span className="kyrio-neon-text-slow" style={{ padding: '0 12px', fontSize: '0.55em', letterSpacing: '-0.025em' }}>Livré en 7 jours.</span>
+            </h1>
+          </motion.div>
 
           {/* CTAs */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, delay: 1.1, ease: [0.21, 0.47, 0.32, 0.98] }}
+            transition={{ duration: 1, delay: 0.9, ease: [0.21, 0.47, 0.32, 0.98] }}
             className="hero-cta"
             style={{ display: 'flex', gap: 14, flexWrap: 'wrap', justifyContent: 'center', alignItems: 'center', pointerEvents: 'auto' }}
           >
@@ -907,22 +918,6 @@ export default function KyrioVitrine() {
                 Voir les réalisations →
               </button>
             </Link>
-            <div style={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 10, marginTop: 4 }}>
-              <Link to="/demos/carentan" style={{ textAlign: 'center' }}>
-                <span style={{ fontSize: 14, fontWeight: 600, color: 'rgba(255,255,255,.38)', letterSpacing: '.02em', textDecoration: 'none', borderBottom: '1px solid rgba(255,255,255,.15)', paddingBottom: 2, transition: 'color .2s, border-color .2s' }}
-                  onMouseEnter={(e) => { e.currentTarget.style.color = '#22d3ee'; e.currentTarget.style.borderBottomColor = '#22d3ee'; }}
-                  onMouseLeave={(e) => { e.currentTarget.style.color = 'rgba(255,255,255,.38)'; e.currentTarget.style.borderBottomColor = 'rgba(255,255,255,.15)'; }}>
-                  Démo site mairie — Carentan-les-Marais →
-                </span>
-              </Link>
-              <Link to="/demos/difamex" style={{ textAlign: 'center' }}>
-                <span style={{ fontSize: 14, fontWeight: 600, color: 'rgba(255,255,255,.38)', letterSpacing: '.02em', textDecoration: 'none', borderBottom: '1px solid rgba(255,255,255,.15)', paddingBottom: 2, transition: 'color .2s, border-color .2s' }}
-                  onMouseEnter={(e) => { e.currentTarget.style.color = '#84cc16'; e.currentTarget.style.borderBottomColor = '#84cc16'; }}
-                  onMouseLeave={(e) => { e.currentTarget.style.color = 'rgba(255,255,255,.38)'; e.currentTarget.style.borderBottomColor = 'rgba(255,255,255,.15)'; }}>
-                  Démo distributeur — Difamex (Ifs & Valognes) →
-                </span>
-              </Link>
-            </div>
           </motion.div>
 
           {/* Stats */}
