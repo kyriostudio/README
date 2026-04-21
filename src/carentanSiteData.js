@@ -88,16 +88,16 @@ export const DEMARCHES_LINKS = [
 ];
 
 export const INFOS_LINKS = [
-  { t: 'Eau & assainissement', d: 'Service des eaux', href: LINKS.eau, img: ASSETS.partenaireAquadick, icon: 'droplet' },
-  { t: 'Éducation & jeunesse', d: 'Écoles, menus, loisirs', href: LINKS.educationJeunesse, img: ASSETS.heroSecondaire, icon: 'school' },
-  { t: 'CCAS & solidarité', d: 'Aides, accompagnement', href: LINKS.ccas, img: ASSETS.logoCarre, icon: 'heart' },
-  { t: 'Collectes & déchets', d: 'Calendriers, déchets verts', href: LINKS.collectes, img: ASSETS.partenaireBaie, icon: 'recycle' },
+  { t: 'Eau & assainissement', d: 'Service des eaux', href: LINKS.eau, img: ASSETS.partenaireAquadick, icon: 'droplet', tag: 'Régie municipale' },
+  { t: 'Éducation & jeunesse', d: 'Écoles, menus, loisirs', href: LINKS.educationJeunesse, img: ASSETS.heroSecondaire, icon: 'school', tag: '6 écoles' },
+  { t: 'CCAS & solidarité', d: 'Aides, accompagnement', href: LINKS.ccas, img: ASSETS.logoCarre, icon: 'heart', tag: 'Accueil social' },
+  { t: 'Collectes & déchets', d: 'Calendriers, déchets verts', href: LINKS.collectes, img: ASSETS.partenaireBaie, icon: 'recycle', tag: 'Calendrier PDF' },
 ];
 
 export const PATRIMOINE_LINKS = [
-  { t: 'Venir à Carentan-les-Marais', d: 'Accès, transports', href: LINKS.venir, img: ASSETS.heroPrincipal },
-  { t: 'Office de tourisme', d: 'Baie du Cotentin', href: LINKS.officeTourisme, img: ASSETS.partenaireBaie },
-  { t: 'Le port de plaisance', d: 'Base nautique', href: LINKS.port, img: ASSETS.slideHaut },
-  { t: 'Parc des Marais', d: 'Patrimoine naturel', href: LINKS.parcMarais, img: ASSETS.heroSecondaire },
-  { t: 'Musées', d: 'D-Day Experience, Normandy Victory Museum…', href: LINKS.musees, img: ASSETS.mapping },
+  { t: 'Venir à Carentan-les-Marais', d: 'Accès, transports', href: LINKS.venir, img: ASSETS.heroPrincipal, tags: [{ icon: 'mapPin', label: 'Cotentin · Manche' }, { icon: 'signpost', label: 'RN13 · SNCF' }] },
+  { t: 'Office de tourisme', d: 'Baie du Cotentin', href: LINKS.officeTourisme, img: ASSETS.partenaireBaie, tags: [{ icon: 'church', label: 'Centre-ville' }, { icon: 'book', label: 'Guides & plans' }] },
+  { t: 'Le port de plaisance', d: 'Base nautique', href: LINKS.port, img: ASSETS.slideHaut, tags: [{ icon: 'droplet', label: '250 anneaux' }, { icon: 'mapPin', label: 'Face à la baie' }] },
+  { t: 'Parc des Marais', d: 'Patrimoine naturel', href: LINKS.parcMarais, img: ASSETS.heroSecondaire, tags: [{ icon: 'heart', label: 'PNR classé' }, { icon: 'signpost', label: '145 000 ha' }] },
+  { t: 'Musées', d: 'D-Day Experience, Normandy Victory Museum…', href: LINKS.musees, img: ASSETS.mapping, tags: [{ icon: 'parachute', label: 'Juin 1944' }, { icon: 'book', label: '2 musées' }] },
 ];
