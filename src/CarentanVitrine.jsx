@@ -769,6 +769,15 @@ export default function CarentanVitrine({ client: clientIn }) {
           .car-egg-btn {
             animation: none !important;
           }
+          .car-card,
+          .car-form-input,
+          .car-form-textarea,
+          .car-form-submit {
+            transition: none !important;
+          }
+          .car-rose {
+            animation: none !important;
+          }
         }
 
 
@@ -1322,13 +1331,24 @@ export default function CarentanVitrine({ client: clientIn }) {
           border: 1px solid rgba(28,25,23,.07);
           border-radius: 16px;
           padding: 26px 24px;
-          transition: transform 0.35s cubic-bezier(.22,1,.36,1), box-shadow 0.35s ease, border-color 0.35s ease;
+          transition: transform 0.3s cubic-bezier(.22,1,.36,1), box-shadow 0.3s ease, border-color 0.3s ease;
           box-shadow: 0 2px 12px rgba(28,25,23,.04);
+          cursor: pointer;
+          -webkit-tap-highlight-color: transparent;
+          position: relative;
         }
         .car-card:hover {
-          transform: translateY(-5px);
-          box-shadow: 0 16px 40px rgba(0,90,112,.14);
-          border-color: rgba(82,209,163,.35);
+          transform: translateY(-4px);
+          box-shadow: 0 12px 32px rgba(0,90,112,.12);
+          border-color: rgba(82,209,163,.28);
+        }
+        .car-card:active {
+          transform: translateY(-2px);
+          transition: transform 0.15s cubic-bezier(.22,1,.36,1), box-shadow 0.15s ease;
+        }
+        .car-card:focus-visible {
+          outline: 2px solid #005A70;
+          outline-offset: 2px;
         }
 
         .car-section-title {
@@ -1364,9 +1384,20 @@ export default function CarentanVitrine({ client: clientIn }) {
           }
         }
 
+        @media (max-width: 768px) {
+          .car-pat-row {
+            grid-template-columns: 1fr !important;
+          }
+          .car-memoire-split {
+            grid-template-columns: 1fr !important;
+          }
+          .car-marees-inner {
+            flex-direction: column;
+            gap: 12px !important;
+          }
+        }
+
         @media (max-width: 640px) {
-          .car-pat-row { grid-template-columns: 1fr !important; }
-          .car-memoire-split { grid-template-columns: 1fr !important; }
           .car-hero-dark {
             padding: max(88px, calc(env(safe-area-inset-top, 0px) + 72px)) max(16px, env(safe-area-inset-right, 0px)) clamp(48px, 12vw, 72px) max(16px, env(safe-area-inset-left, 0px));
             min-height: min(88vh, 720px);
@@ -1377,11 +1408,484 @@ export default function CarentanVitrine({ client: clientIn }) {
           .car-section-title {
             font-size: clamp(1.45rem, 6vw, 1.9rem);
           }
+          .car-postcard {
+            transform: rotate(-0.4deg);
+            padding: 24px 20px 28px;
+          }
+          .car-postcard-title {
+            padding-right: 0;
+            padding-top: 100px;
+          }
+          .car-postcard-wrap {
+            padding-bottom: 60px;
+          }
+          .car-form-actions {
+            flex-direction: column;
+            align-items: stretch;
+          }
+          .car-form-submit {
+            width: 100%;
+          }
         }
 
         @media (max-width: 380px) {
           .car-brand-img {
             max-width: min(160px, calc(100vw - 100px));
+          }
+          .car-rose {
+            width: 80px;
+            height: 80px;
+          }
+        }
+
+        /* === Traitement duotone + tags sur les cartes === */
+        .car-card-iconwrap { isolation: isolate; }
+        .car-card-iconwrap img {
+          filter: saturate(0.78) contrast(1.05);
+          transition: filter .4s ease, transform .6s cubic-bezier(.22,1,.36,1);
+        }
+        .car-card-iconwrap::after {
+          content: '';
+          position: absolute;
+          inset: 0 0 10px 0;
+          border-radius: 10px;
+          background: linear-gradient(150deg, rgba(0,90,112,.22) 0%, rgba(82,209,163,.1) 55%, transparent 100%);
+          pointer-events: none;
+          mix-blend-mode: multiply;
+          transition: opacity .4s ease;
+        }
+        .car-card:hover .car-card-iconwrap img { filter: saturate(1) contrast(1); transform: scale(1.03); }
+        .car-card:hover .car-card-iconwrap::after { opacity: 0.25; }
+
+        .car-card-tag {
+          display: inline-flex; align-items: center; gap: 6px;
+          margin-top: 10px;
+          padding: 4px 10px 4px 8px;
+          border-radius: 999px;
+          background: rgba(82,209,163,.14);
+          border: 1px solid rgba(0,90,112,.14);
+          font-size: 11px;
+          font-weight: 600;
+          letter-spacing: .02em;
+          color: var(--car-forest);
+        }
+
+        /* === Tags Patrimoine (chips avec icônes) === */
+        .car-pat-tags {
+          display: flex; flex-wrap: wrap; gap: 8px;
+          margin-top: 14px;
+        }
+        .car-pat-tag {
+          display: inline-flex; align-items: center; gap: 6px;
+          padding: 5px 12px 5px 10px;
+          border-radius: 999px;
+          background: #fff;
+          border: 1px solid rgba(0,90,112,.18);
+          font-size: 12px;
+          font-weight: 600;
+          color: var(--car-forest);
+          box-shadow: 0 1px 0 rgba(255,255,255,.8) inset, 0 2px 6px rgba(0,60,80,.06);
+        }
+        .car-pat-tag svg { flex-shrink: 0; }
+        .car-pat-row img {
+          filter: saturate(.85);
+          transition: filter .6s ease, transform .8s cubic-bezier(.22,1,.36,1);
+        }
+        .car-pat-row:hover img {
+          filter: saturate(1);
+          transform: scale(1.02);
+        }
+        .car-pat-row > a {
+          position: relative;
+          isolation: isolate;
+        }
+        .car-pat-row > a::after {
+          content: '';
+          position: absolute; inset: 0;
+          background: linear-gradient(160deg, rgba(0,90,112,.12) 0%, transparent 40%, rgba(82,209,163,.08) 100%);
+          mix-blend-mode: multiply;
+          pointer-events: none;
+          transition: opacity .5s ease;
+        }
+        .car-pat-row:hover > a::after { opacity: 0.5; }
+
+        /* === Rose des vents (ornement discret) === */
+        .car-rose {
+          position: absolute;
+          width: 120px; height: 120px;
+          opacity: 0.08;
+          pointer-events: none;
+          color: var(--car-forest);
+          animation: carRoseTurn 120s linear infinite;
+        }
+        @keyframes carRoseTurn {
+          to { transform: rotate(360deg); }
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .car-rose { animation: none !important; }
+        }
+
+        /* === Bandeau marée/météo Cotentin === */
+        .car-marees {
+          background: linear-gradient(180deg, #f0f8f5 0%, #e4f0ec 100%);
+          border-top: 1px solid rgba(0,90,112,.12);
+          border-bottom: 1px solid rgba(0,90,112,.12);
+          position: relative;
+          overflow: hidden;
+        }
+        .car-marees::before {
+          content: '';
+          position: absolute; inset: 0;
+          background-image:
+            repeating-linear-gradient(135deg, transparent 0 8px, rgba(0,90,112,.03) 8px 9px);
+          pointer-events: none;
+        }
+        .car-marees-inner {
+          max-width: 1120px; margin: 0 auto;
+          padding: 14px clamp(20px, 4vw, 40px);
+          display: flex; align-items: center; gap: clamp(14px, 3vw, 32px);
+          flex-wrap: wrap;
+          font-family: 'Source Sans 3', system-ui, sans-serif;
+          font-size: 13px;
+          color: var(--car-ink);
+          position: relative;
+          z-index: 1;
+        }
+        .car-marees-item {
+          display: flex; align-items: center; gap: 8px;
+          white-space: nowrap;
+        }
+        .car-marees-label {
+          font-size: 10px;
+          font-weight: 700;
+          letter-spacing: .15em;
+          text-transform: uppercase;
+          color: var(--car-muted);
+        }
+        .car-marees-val {
+          font-family: 'Merriweather', Georgia, serif;
+          font-weight: 600;
+          color: var(--car-forest);
+        }
+        .car-marees-sep {
+          width: 1px; height: 18px;
+          background: rgba(0,90,112,.18);
+        }
+        @media (max-width: 640px) {
+          .car-marees-sep { display: none; }
+          .car-marees-inner { gap: 12px 20px; }
+        }
+
+        /* === Carte postale 1944 === */
+        .car-postcard-wrap {
+          position: relative;
+          padding: 28px 20px 36px;
+        }
+        .car-postcard {
+          position: relative;
+          max-width: 640px;
+          margin: 0 auto;
+          background:
+            radial-gradient(ellipse 120% 90% at 0% 0%, #fdf5e2 0%, transparent 55%),
+            radial-gradient(ellipse 100% 80% at 100% 100%, #f5e6c6 0%, transparent 50%),
+            #f9eed4;
+          border: 1px solid rgba(120,80,20,.2);
+          border-radius: 4px;
+          padding: 28px 32px 32px;
+          transform: rotate(-0.7deg);
+          box-shadow:
+            0 1px 0 rgba(255,255,255,.6) inset,
+            0 2px 0 rgba(120,80,20,.08),
+            0 22px 52px rgba(60,30,10,.15),
+            0 8px 18px rgba(60,30,10,.08);
+          font-family: 'Source Sans 3', system-ui, sans-serif;
+        }
+        .car-postcard::before {
+          content: '';
+          position: absolute; inset: 6px;
+          border: 1px dashed rgba(120,80,20,.25);
+          border-radius: 2px;
+          pointer-events: none;
+        }
+        .car-postcard-stamp {
+          position: absolute;
+          top: 18px; right: 22px;
+          width: 74px; height: 88px;
+          background:
+            linear-gradient(135deg, rgba(0,35,149,.14) 0%, rgba(225,0,15,.12) 100%),
+            #fefaf0;
+          border: 1px dashed rgba(120,80,20,.35);
+          border-radius: 3px;
+          display: flex; flex-direction: column; align-items: center; justify-content: center;
+          gap: 4px;
+          transform: rotate(4deg);
+          box-shadow: 0 3px 8px rgba(60,30,10,.12);
+          font-family: 'Merriweather', Georgia, serif;
+          font-size: 10px;
+          color: #4a2d0e;
+          text-align: center;
+          padding: 6px;
+          line-height: 1.2;
+        }
+        .car-postcard-stamp strong {
+          font-size: 13px;
+          letter-spacing: .05em;
+        }
+        .car-postcard-kicker {
+          font-size: 10px;
+          font-weight: 700;
+          letter-spacing: .22em;
+          text-transform: uppercase;
+          color: #8a5a1f;
+          margin-bottom: 10px;
+        }
+        .car-postcard-title {
+          font-family: 'Merriweather', Georgia, serif;
+          font-style: italic;
+          font-weight: 700;
+          font-size: clamp(1.35rem, 3vw, 1.75rem);
+          color: #3d2410;
+          line-height: 1.2;
+          margin: 0 0 12px;
+          padding-right: 90px;
+          letter-spacing: -.01em;
+        }
+        .car-postcard-text {
+          font-family: 'Merriweather', Georgia, serif;
+          font-style: italic;
+          font-size: 14.5px;
+          line-height: 1.75;
+          color: #4a3118;
+          margin: 0 0 14px;
+        }
+        .car-postcard-sign {
+          display: block;
+          text-align: right;
+          font-family: 'Merriweather', Georgia, serif;
+          font-size: 12px;
+          font-style: italic;
+          color: #7a4f20;
+          letter-spacing: .02em;
+        }
+        .car-postcard-tampon {
+          position: absolute;
+          bottom: -14px; left: 24px;
+          width: 96px; height: 96px;
+          border: 2px solid rgba(140,20,20,.55);
+          border-radius: 50%;
+          display: grid; place-items: center;
+          transform: rotate(-12deg);
+          background: rgba(255,240,230,.4);
+          color: rgba(140,20,20,.7);
+          font-family: 'Merriweather', Georgia, serif;
+          font-weight: 700;
+          font-size: 9px;
+          text-transform: uppercase;
+          letter-spacing: .15em;
+          text-align: center;
+          line-height: 1.15;
+          padding: 6px;
+          box-shadow: inset 0 0 0 2px rgba(140,20,20,.08);
+        }
+        .car-postcard-tampon span { display: block; }
+        .car-postcard-tampon .big {
+          font-size: 16px;
+          letter-spacing: .05em;
+          margin: 2px 0;
+        }
+        @media (max-width: 520px) {
+          .car-postcard { transform: rotate(-0.4deg); padding: 24px 20px 28px; }
+          .car-postcard-title { padding-right: 0; padding-top: 100px; }
+          .car-postcard-stamp { top: 14px; right: 50%; transform: translateX(50%) rotate(4deg); }
+          .car-postcard-tampon { left: 50%; transform: translateX(-50%) rotate(-8deg); bottom: -48px; }
+          .car-postcard-wrap { padding-bottom: 60px; }
+        }
+
+        /* === Timeline Histoire === */
+        .car-timeline {
+          position: relative;
+          margin: 24px 0 32px;
+          padding-left: 0;
+          list-style: none;
+        }
+        .car-timeline::before {
+          content: '';
+          position: absolute;
+          left: 9px; top: 8px; bottom: 8px;
+          width: 2px;
+          background: linear-gradient(180deg,
+            rgba(0,35,149,.35) 0%,
+            rgba(82,209,163,.6) 50%,
+            rgba(225,0,15,.35) 100%);
+          border-radius: 2px;
+        }
+        .car-timeline-item {
+          position: relative;
+          padding: 0 0 18px 32px;
+        }
+        .car-timeline-item:last-child { padding-bottom: 0; }
+        .car-timeline-item::before {
+          content: '';
+          position: absolute;
+          left: 4px; top: 6px;
+          width: 12px; height: 12px;
+          border-radius: 50%;
+          background: #fff;
+          border: 2px solid var(--car-forest);
+          box-shadow: 0 0 0 3px rgba(82,209,163,.18);
+        }
+        .car-timeline-date {
+          font-family: 'Merriweather', Georgia, serif;
+          font-style: italic;
+          font-weight: 700;
+          font-size: 13px;
+          color: var(--car-forest);
+          letter-spacing: .02em;
+          margin-bottom: 2px;
+        }
+        .car-timeline-title {
+          font-family: 'Merriweather', Georgia, serif;
+          font-weight: 600;
+          font-size: 15px;
+          color: var(--car-ink);
+          margin-bottom: 2px;
+        }
+        .car-timeline-text {
+          font-size: 13.5px;
+          color: var(--car-muted);
+          line-height: 1.6;
+          margin: 0;
+        }
+
+        /* === Séparateur bocage === */
+        .car-bocage-sep {
+          height: 38px;
+          position: relative;
+          overflow: hidden;
+          pointer-events: none;
+        }
+        .car-bocage-sep svg {
+          position: absolute;
+          bottom: 0; left: 0;
+          width: 100%;
+          height: 38px;
+          opacity: 0.55;
+        }
+
+        /* === Formulaire Contact Accessible === */
+        .car-form-group {
+          display: flex;
+          flex-direction: column;
+          gap: 6px;
+          margin-bottom: 20px;
+        }
+        .car-form-label {
+          font-family: 'Source Sans 3', system-ui, sans-serif;
+          font-size: 14px;
+          font-weight: 600;
+          color: var(--car-ink);
+          display: flex;
+          align-items: center;
+          gap: 6px;
+        }
+        .car-form-label .required {
+          color: #e74c3c;
+          font-size: 16px;
+          line-height: 1;
+        }
+        .car-form-input,
+        .car-form-textarea {
+          font-family: 'Source Sans 3', system-ui, sans-serif;
+          font-size: 16px;
+          padding: 12px 14px;
+          border: 1px solid rgba(0,90,112,.18);
+          border-radius: 10px;
+          background: #fff;
+          color: var(--car-ink);
+          transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+          -webkit-appearance: none;
+          appearance: none;
+        }
+        .car-form-input:focus,
+        .car-form-textarea:focus {
+          outline: none;
+          border-color: #005A70;
+          box-shadow: 0 0 0 3px rgba(0,90,112,.1), inset 0 1px 0 rgba(255,255,255,.8);
+          background: #fafbfc;
+        }
+        .car-form-input:disabled,
+        .car-form-textarea:disabled {
+          background: rgba(0,90,112,.04);
+          color: var(--car-muted);
+          cursor: not-allowed;
+          opacity: 0.6;
+        }
+        .car-form-textarea {
+          resize: vertical;
+          min-height: 100px;
+          line-height: 1.5;
+        }
+        .car-form-helper {
+          font-size: 12px;
+          color: var(--car-muted);
+          line-height: 1.4;
+        }
+        .car-form-error {
+          font-size: 13px;
+          color: #e74c3c;
+          font-weight: 500;
+          display: none;
+        }
+        .car-form-group.has-error .car-form-error {
+          display: block;
+        }
+        .car-form-group.has-error .car-form-input,
+        .car-form-group.has-error .car-form-textarea {
+          border-color: #e74c3c;
+          box-shadow: 0 0 0 3px rgba(231,76,60,.08);
+        }
+        .car-form-actions {
+          display: flex;
+          gap: 12px;
+          margin-top: 28px;
+          flex-wrap: wrap;
+        }
+        .car-form-submit {
+          font-family: 'Source Sans 3', system-ui, sans-serif;
+          font-size: 14px;
+          font-weight: 700;
+          letter-spacing: 0.05em;
+          padding: 14px 28px;
+          border-radius: 10px;
+          border: none;
+          background: #005A70;
+          color: #fff;
+          cursor: pointer;
+          transition: background 0.2s ease, box-shadow 0.2s ease, transform 0.15s ease;
+          box-shadow: 0 4px 12px rgba(0,90,112,.2);
+        }
+        .car-form-submit:hover {
+          background: #004050;
+          box-shadow: 0 6px 16px rgba(0,90,112,.28);
+          transform: translateY(-1px);
+        }
+        .car-form-submit:active {
+          transform: translateY(0);
+          box-shadow: 0 2px 8px rgba(0,90,112,.15);
+        }
+        .car-form-submit:disabled {
+          opacity: 0.6;
+          cursor: not-allowed;
+          transform: none;
+        }
+        .car-form-submit:focus-visible {
+          outline: 2px solid #005A70;
+          outline-offset: 2px;
+        }
+        @media (max-width: 640px) {
+          .car-form-input,
+          .car-form-textarea {
+            font-size: 16px;
           }
         }
       `}</style>
@@ -1518,14 +2022,14 @@ export default function CarentanVitrine({ client: clientIn }) {
         </div>
       </div>
 
-      <header id="accueil" className="car-hero-dark">
-        <div className="car-hero-bg" aria-hidden>
+      <header id="accueil" className="car-hero-dark" role="banner">
+        <div className="car-hero-bg" aria-hidden="true">
           <div className="car-hero-bg-slides">
             {HERO_TITLE_SLIDE_URLS.map((src, i) => (
               <img
                 key={`${i}-${src}`}
                 src={src}
-                alt=""
+                alt={`Diaporama Carentan — image ${i + 1}`}
                 className={i === heroTitleSlide ? "is-active" : ""}
                 decoding="async"
               />
@@ -1535,7 +2039,7 @@ export default function CarentanVitrine({ client: clientIn }) {
         </div>
         <div className="car-hero-in car-hero-inner">
           <p className="car-hero-eyebrow car-hero-eyebrow--egg">
-            <span className="car-hero-eyebrow-line" aria-hidden />
+            <span className="car-hero-eyebrow-line" aria-hidden="true" />
             Normandie · Manche · Cotentin
             <span className="car-egg-slot">
               {eggsFor("hero").map((egg) => (
@@ -1550,25 +2054,63 @@ export default function CarentanVitrine({ client: clientIn }) {
             démarches, l&apos;agenda et toute la vie de votre commune.
           </p>
           <div className="car-hero-actions">
-            <button type="button" className="car-hero-btn car-hero-btn-primary" onClick={() => scrollTo('demarches')}>
+            <button
+              type="button"
+              className="car-hero-btn car-hero-btn-primary"
+              onClick={() => scrollTo('demarches')}
+              aria-label="Accéder à la section Mes démarches"
+            >
               Accéder à mes démarches
             </button>
-            <button type="button" className="car-hero-btn car-hero-btn-ghost" onClick={() => scrollTo('patrimoine')}>
+            <button
+              type="button"
+              className="car-hero-btn car-hero-btn-ghost"
+              onClick={() => scrollTo('patrimoine')}
+              aria-label="Découvrir le patrimoine et tourisme"
+            >
               Découvrir la ville
             </button>
           </div>
         </div>
       </header>
 
-      <main>
-        <section id="acces-rapides" className="car-reveal" style={{ maxWidth: 1120, margin: '0 auto', padding: 'clamp(72px, 9vw, 112px) clamp(24px, 5vw, 48px) 88px' }}>
+      <div className="car-marees" aria-label="Repères du jour à Carentan">
+        <div className="car-marees-inner">
+          <div className="car-marees-item" title="Marée haute · port de Carentan">
+            <Icon name="droplet" size={16} color="#005A70" />
+            <span className="car-marees-label">PM</span>
+            <span className="car-marees-val">07h42 · 6,90 m</span>
+          </div>
+          <span className="car-marees-sep" aria-hidden />
+          <div className="car-marees-item" title="Marée basse">
+            <Icon name="droplet" size={16} color="#52D1A3" />
+            <span className="car-marees-label">BM</span>
+            <span className="car-marees-val">14h18 · 1,60 m</span>
+          </div>
+          <span className="car-marees-sep" aria-hidden />
+          <div className="car-marees-item">
+            <Icon name="signpost" size={16} color="#005A70" />
+            <span className="car-marees-label">Ciel</span>
+            <span className="car-marees-val">Éclaircies · 15°C</span>
+          </div>
+          <span className="car-marees-sep" aria-hidden />
+          <div className="car-marees-item">
+            <Icon name="calendar" size={16} color="#005A70" />
+            <span className="car-marees-label">Marché</span>
+            <span className="car-marees-val">Lundi · Place de la République</span>
+          </div>
+        </div>
+      </div>
+
+      <main role="main" style={{ position: 'relative' }}>
+        <section id="acces-rapides" className="car-reveal" aria-labelledby="acces-title" style={{ maxWidth: 1120, margin: '0 auto', padding: 'clamp(72px, 9vw, 112px) clamp(24px, 5vw, 48px) 88px' }}>
           <p className="car-kicker">Comme sur le site officiel</p>
           <div className="car-egg-inline">
             {eggsFor("acces").map((egg) => (
               <CarHistoryEgg key={egg.id} {...egg} openId={openEggId} setOpenId={setOpenEggId} />
             ))}
           </div>
-          <h2 className="car-section-title">Accès rapides</h2>
+          <h2 id="acces-title" className="car-section-title">Accès rapides</h2>
           <p style={{ color: 'var(--car-muted)', lineHeight: 1.65, maxWidth: 560, marginBottom: 28, fontSize: 15 }}>
             Raccourcis vers les services les plus demandés — démarches, vie quotidienne, infos locales.
           </p>
@@ -1686,7 +2228,7 @@ export default function CarentanVitrine({ client: clientIn }) {
             </div>
             <h2 className="car-section-title">Informations pratiques</h2>
             <div style={{ display: 'grid', gap: 18, gridTemplateColumns: 'repeat(auto-fill, minmax(240px, 1fr))' }}>
-              {INFOS_LINKS.map(({ t, d, href, img, icon }) => (
+              {INFOS_LINKS.map(({ t, d, href, img, icon, tag }) => (
                 <a key={t} href={href} target="_blank" rel="noopener noreferrer" className="car-card" style={{ display: 'block', color: 'inherit' }}>
                   <span className="car-card-iconwrap">
                     <span className="car-card-iconbadge" aria-hidden>
@@ -1696,6 +2238,7 @@ export default function CarentanVitrine({ client: clientIn }) {
                   </span>
                   <div className="car-display" style={{ fontSize: 18, fontWeight: 600, marginBottom: 8, color: primaryColor }}>{t}</div>
                   <p style={{ margin: 0, fontSize: 14, color: 'var(--car-muted)', lineHeight: 1.45 }}>{d}</p>
+                  {tag ? <span className="car-card-tag"><Icon name={icon} size={12} />{tag}</span> : null}
                 </a>
               ))}
             </div>
@@ -1711,7 +2254,7 @@ export default function CarentanVitrine({ client: clientIn }) {
           </div>
           <h2 className="car-section-title">Patrimoine & tourisme</h2>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 28 }}>
-            {PATRIMOINE_LINKS.map(({ t, d, href, img }, i) => (
+            {PATRIMOINE_LINKS.map(({ t, d, href, img, tags }, i) => (
               <div
                 key={t}
                 className="car-pat-row"
@@ -1744,11 +2287,40 @@ export default function CarentanVitrine({ client: clientIn }) {
                     </a>
                   </h3>
                   <p style={{ color: 'var(--car-muted)', lineHeight: 1.65, margin: 0, fontSize: 15 }}>{d}</p>
+                  {tags && tags.length > 0 ? (
+                    <div className="car-pat-tags">
+                      {tags.map((tg) => (
+                        <span key={tg.label} className="car-pat-tag">
+                          <Icon name={tg.icon} size={13} />
+                          {tg.label}
+                        </span>
+                      ))}
+                    </div>
+                  ) : null}
                 </div>
               </div>
             ))}
           </div>
         </section>
+
+        <div className="car-bocage-sep" aria-hidden>
+          <svg viewBox="0 0 1200 38" preserveAspectRatio="none">
+            <defs>
+              <linearGradient id="carBocGrad" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stopColor="#52D1A3" stopOpacity="0.4" />
+                <stop offset="100%" stopColor="#005A70" stopOpacity="0.5" />
+              </linearGradient>
+            </defs>
+            <path
+              d="M0,38 L0,28 C30,20 60,14 90,18 C120,22 150,8 180,10 C210,12 240,4 270,12 C300,20 330,10 360,14 C390,18 420,6 450,12 C480,18 510,8 540,14 C570,20 600,4 630,10 C660,16 690,22 720,14 C750,6 780,18 810,14 C840,10 870,22 900,18 C930,14 960,6 990,12 C1020,18 1050,10 1080,16 C1110,22 1140,8 1170,14 C1185,17 1200,24 1200,28 L1200,38 Z"
+              fill="url(#carBocGrad)"
+            />
+            <path
+              d="M140,22 L148,10 L156,22 M310,24 L318,12 L326,24 M520,22 L528,8 L536,22 M730,24 L738,14 L746,24 M920,22 L928,10 L936,22 M1080,24 L1088,12 L1096,24"
+              stroke="#005A70" strokeOpacity="0.25" strokeWidth="1" fill="none" strokeLinecap="round"
+            />
+          </svg>
+        </div>
 
         <section id="culture" className="car-reveal" style={{ background: 'var(--car-paper2)', borderTop: '1px solid rgba(28,25,23,.06)' }}>
           <div style={{ maxWidth: 1120, margin: '0 auto', padding: 'clamp(72px, 9vw, 112px) clamp(24px, 5vw, 48px)' }}>
@@ -1852,8 +2424,8 @@ export default function CarentanVitrine({ client: clientIn }) {
               </a>
             </div>
 
-            <div className="car-memoire-split" style={{ display: 'grid', gap: 16, gridTemplateColumns: '1.2fr .8fr', alignItems: 'start' }}>
-              <div className="car-card" style={{ padding: 20 }}>
+            <div className="car-memoire-split" style={{ display: 'grid', gap: 28, gridTemplateColumns: '1fr 1fr', alignItems: 'start' }}>
+              <div className="car-card" style={{ padding: 22 }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 12 }}>
                   <span style={{ width: 38, height: 38, borderRadius: 12, background: 'rgba(13,60,110,.10)', display: 'grid', placeItems: 'center', color: primaryColor }} aria-hidden>
                     <Icon name="townhall" size={22} />
@@ -1870,20 +2442,27 @@ export default function CarentanVitrine({ client: clientIn }) {
                 </ol>
               </div>
 
-              <div className="car-card" style={{ padding: 20, background: 'linear-gradient(180deg, rgba(13,60,110,.06) 0%, rgba(184,134,11,.08) 100%)' }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 12 }}>
-                  <span style={{ width: 38, height: 38, borderRadius: 12, background: 'rgba(255,255,255,.9)', display: 'grid', placeItems: 'center', color: '#7a5606' }} aria-hidden>
-                    <Icon name="mail" size={22} />
-                  </span>
-                  <div>
-                    <div className="car-display" style={{ fontSize: 18, fontWeight: 700, color: 'var(--car-ink)' }}>Clin d&apos;œil</div>
-                    <div style={{ fontSize: 13, color: 'var(--car-muted)' }}>Carte postale municipale</div>
+              <div className="car-postcard-wrap">
+                <div className="car-postcard">
+                  <div className="car-postcard-stamp" aria-hidden>
+                    <strong>RF</strong>
+                    <span>Carentan</span>
+                    <span>50 c.</span>
+                  </div>
+                  <div className="car-postcard-kicker">Carte postale · Juin 1944</div>
+                  <h3 className="car-postcard-title">Lettre d&apos;un habitant du bocage</h3>
+                  <p className="car-postcard-text">
+                    « Les haies gardent encore la mémoire des jours de juin. Ici, l&apos;Histoire ne se
+                    raconte pas de loin — elle se pose au coin d&apos;un chemin creux, entre les marais et
+                    la mer. »
+                  </p>
+                  <span className="car-postcard-sign">— Extrait d&apos;archives municipales</span>
+                  <div className="car-postcard-tampon" aria-hidden>
+                    <span>Libération</span>
+                    <span className="big">12 · VI</span>
+                    <span>1944</span>
                   </div>
                 </div>
-                <p style={{ margin: 0, color: 'var(--car-muted)', fontSize: 14, lineHeight: 1.65 }}>
-                  "Ici, la France se vit au quotidien — et l&apos;Histoire se raconte à hauteur d&apos;habitants." (Texte fantaisie,
-                  ajustable selon le ton de la présentation.)
-                </p>
               </div>
             </div>
           </div>
@@ -1907,7 +2486,20 @@ export default function CarentanVitrine({ client: clientIn }) {
           </div>
         </section>
 
-        <section id="histoire" className="car-reveal" style={{ maxWidth: 1120, margin: '0 auto', padding: 'clamp(72px, 9vw, 112px) clamp(24px, 5vw, 48px)', background: 'var(--car-paper2)', borderTop: '1px solid rgba(28,25,23,.06)' }}>
+        <section id="histoire" className="car-reveal" style={{ maxWidth: 1120, margin: '0 auto', padding: 'clamp(72px, 9vw, 112px) clamp(24px, 5vw, 48px)', background: 'var(--car-paper2)', borderTop: '1px solid rgba(28,25,23,.06)', position: 'relative' }}>
+          <svg className="car-rose" style={{ top: 40, right: 40 }} viewBox="0 0 100 100" aria-hidden>
+            <circle cx="50" cy="50" r="44" fill="none" stroke="currentColor" strokeWidth="0.8" />
+            <circle cx="50" cy="50" r="30" fill="none" stroke="currentColor" strokeWidth="0.5" />
+            <circle cx="50" cy="50" r="16" fill="none" stroke="currentColor" strokeWidth="0.5" />
+            <path d="M50 6 L54 50 L50 94 L46 50 Z" fill="currentColor" opacity="0.9" />
+            <path d="M6 50 L50 46 L94 50 L50 54 Z" fill="currentColor" opacity="0.6" />
+            <path d="M19 19 L50 48 L81 81 L48 50 Z" fill="currentColor" opacity="0.35" />
+            <path d="M81 19 L52 48 L19 81 L50 52 Z" fill="currentColor" opacity="0.35" />
+            <text x="50" y="12" fontSize="7" fontFamily="Merriweather, serif" textAnchor="middle" fill="currentColor">N</text>
+            <text x="92" y="53" fontSize="7" fontFamily="Merriweather, serif" textAnchor="middle" fill="currentColor">E</text>
+            <text x="50" y="98" fontSize="7" fontFamily="Merriweather, serif" textAnchor="middle" fill="currentColor">S</text>
+            <text x="8" y="53" fontSize="7" fontFamily="Merriweather, serif" textAnchor="middle" fill="currentColor">O</text>
+          </svg>
           <p className="car-kicker">Mémoire</p>
           <h2 className="car-section-title">Histoire de Carentan-les-Marais</h2>
           <div style={{ display: 'grid', gap: 24, gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', alignItems: 'start' }}>
@@ -1941,7 +2533,30 @@ export default function CarentanVitrine({ client: clientIn }) {
               </p>
             </div>
             <div>
-              <h3 className="car-display" style={{ fontSize: 18, marginBottom: 12, color: primaryColor }}>Fiches PDF (site officiel)</h3>
+              <h3 className="car-display" style={{ fontSize: 18, marginBottom: 12, color: primaryColor, fontStyle: 'italic' }}>Repères dans le temps</h3>
+              <ul className="car-timeline">
+                <li className="car-timeline-item">
+                  <div className="car-timeline-date">Moyen Âge</div>
+                  <div className="car-timeline-title">Carrefour des marais</div>
+                  <p className="car-timeline-text">Ville marchande, reliée à la mer par la Douve et la Taute.</p>
+                </li>
+                <li className="car-timeline-item">
+                  <div className="car-timeline-date">1336 – 1453</div>
+                  <div className="car-timeline-title">Guerre de Cent Ans</div>
+                  <p className="car-timeline-text">Carentan, place forte disputée entre Français et Anglais.</p>
+                </li>
+                <li className="car-timeline-item">
+                  <div className="car-timeline-date">12 juin 1944</div>
+                  <div className="car-timeline-title">Libération</div>
+                  <p className="car-timeline-text">Prise de la ville par la 101ᵉ Airborne après de durs combats dans le bocage.</p>
+                </li>
+                <li className="car-timeline-item">
+                  <div className="car-timeline-date">1ᵉʳ janvier 2016</div>
+                  <div className="car-timeline-title">Commune nouvelle</div>
+                  <p className="car-timeline-text">Fusion de 12 communes sous le nom de Carentan-les-Marais.</p>
+                </li>
+              </ul>
+              <h3 className="car-display" style={{ fontSize: 18, marginBottom: 12, marginTop: 22, color: primaryColor }}>Fiches PDF (site officiel)</h3>
               <ul style={{ margin: 0, paddingLeft: 18, color: 'var(--car-muted)', fontSize: 14, lineHeight: 1.8 }}>
                 {HISTOIRE_PDFS.map((doc) => (
                   <li key={doc.href}>
@@ -1962,46 +2577,137 @@ export default function CarentanVitrine({ client: clientIn }) {
               <CarHistoryEgg key={egg.id} {...egg} openId={openEggId} setOpenId={setOpenEggId} />
             ))}
           </div>
-          <h2 className="car-section-title">Contact</h2>
-          <div style={{ display: 'grid', gap: 32, gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', alignItems: 'start' }}>
+          <h2 className="car-section-title">Contact & accueil</h2>
+          <div style={{ display: 'grid', gap: 40, gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', alignItems: 'start' }}>
             <div>
-              <p style={{ fontWeight: 700, marginBottom: 10, color: 'var(--car-ink)' }}>Hôtel de ville</p>
-              <p style={{ color: 'var(--car-muted)', lineHeight: 1.7, marginBottom: 10 }}>{address}</p>
-              <p style={{ color: 'var(--car-muted)' }}>
-                Tél.{' '}
-                <a href={`tel:${phone.replace(/\s/g, '')}`} style={{ color: primaryColor, fontWeight: 600 }}>
-                  {phone}
-                </a>
-              </p>
+              <h3 className="car-display" style={{ fontSize: 18, marginBottom: 14, color: primaryColor }}>Coordonnées</h3>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 18 }}>
+                <div>
+                  <p style={{ fontWeight: 700, marginBottom: 8, color: 'var(--car-ink)', fontSize: 15 }}>Hôtel de ville</p>
+                  <p style={{ color: 'var(--car-muted)', lineHeight: 1.7, fontSize: 14 }}>{address}</p>
+                </div>
+                <div>
+                  <p style={{ fontWeight: 700, marginBottom: 8, color: 'var(--car-ink)', fontSize: 15 }}>Tél. principal</p>
+                  <a href={`tel:${phone.replace(/\s/g, '')}`} style={{ color: primaryColor, fontWeight: 600, fontSize: 16, textDecoration: 'none', display: 'inline-block', padding: '8px 0' }}>
+                    {phone}
+                  </a>
+                </div>
+                <div>
+                  <p style={{ fontWeight: 700, marginBottom: 8, color: 'var(--car-ink)', fontSize: 15 }}>Site officiel</p>
+                  <a href={siteUrl} target="_blank" rel="noopener noreferrer" style={{ color: primaryColor, fontWeight: 600, wordBreak: 'break-word', fontSize: 14, textDecoration: 'none', display: 'inline-block', padding: '8px 0' }}>
+                    {siteUrl.replace(/^https?:\/\//, '')} →
+                  </a>
+                </div>
+              </div>
             </div>
-            <div>
-              <p style={{ fontWeight: 700, marginBottom: 10, color: 'var(--car-ink)' }}>Site officiel</p>
-              <a href={siteUrl} target="_blank" rel="noopener noreferrer" style={{ color: primaryColor, fontWeight: 600, wordBreak: 'break-all' }}>
-                {siteUrl.replace(/^https?:\/\//, '')}
-              </a>
-              <p style={{ marginTop: 14 }}>
-                <a
-                  href={LINKS.nousContacter}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  style={{ color: primaryColor, fontWeight: 600 }}
+
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+                alert('Merci pour votre message. Vous serez recontacté rapidement.');
+                e.target.reset();
+              }}
+              style={{ display: 'flex', flexDirection: 'column' }}
+            >
+              <h3 className="car-display" style={{ fontSize: 18, marginBottom: 20, color: primaryColor }}>Nous contacter</h3>
+
+              <div className="car-form-group">
+                <label htmlFor="contact-name" className="car-form-label">
+                  Votre nom <span className="required">*</span>
+                </label>
+                <input
+                  id="contact-name"
+                  type="text"
+                  name="name"
+                  className="car-form-input"
+                  placeholder="Prénom Nom"
+                  required
+                  aria-required="true"
+                />
+              </div>
+
+              <div className="car-form-group">
+                <label htmlFor="contact-email" className="car-form-label">
+                  E-mail <span className="required">*</span>
+                </label>
+                <input
+                  id="contact-email"
+                  type="email"
+                  name="email"
+                  className="car-form-input"
+                  placeholder="votre.email@domaine.fr"
+                  required
+                  aria-required="true"
+                />
+                <div className="car-form-helper">Nous vous recontacterons à cette adresse.</div>
+              </div>
+
+              <div className="car-form-group">
+                <label htmlFor="contact-subject" className="car-form-label">
+                  Sujet <span className="required">*</span>
+                </label>
+                <input
+                  id="contact-subject"
+                  type="text"
+                  name="subject"
+                  className="car-form-input"
+                  placeholder="Objet de votre demande"
+                  required
+                  aria-required="true"
+                />
+              </div>
+
+              <div className="car-form-group">
+                <label htmlFor="contact-message" className="car-form-label">
+                  Message <span className="required">*</span>
+                </label>
+                <textarea
+                  id="contact-message"
+                  name="message"
+                  className="car-form-textarea"
+                  placeholder="Décrivez votre demande ou remarque…"
+                  required
+                  aria-required="true"
+                />
+                <div className="car-form-helper">Minimum 10 caractères.</div>
+              </div>
+
+              <div className="car-form-actions">
+                <button type="submit" className="car-form-submit">
+                  Envoyer
+                </button>
+                <button
+                  type="reset"
+                  style={{
+                    fontSize: 14,
+                    fontWeight: 600,
+                    padding: '14px 28px',
+                    border: '1px solid rgba(0,90,112,.25)',
+                    background: 'transparent',
+                    color: primaryColor,
+                    borderRadius: 10,
+                    cursor: 'pointer',
+                    transition: 'background 0.2s ease, border-color 0.2s ease',
+                  }}
+                  onMouseEnter={(e) => {
+                    e.target.style.background = 'rgba(0,90,112,.06)';
+                    e.target.style.borderColor = 'rgba(0,90,112,.35)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.target.style.background = 'transparent';
+                    e.target.style.borderColor = 'rgba(0,90,112,.25)';
+                  }}
                 >
-                  Formulaire « Nous contacter » (site officiel) →
-                </a>
-              </p>
-              <p style={{ fontSize: 13, color: 'var(--car-muted)', marginTop: 12, lineHeight: 1.5 }}>
-                Maquette de présentation : structure inspirée de{' '}
-                <a href={siteUrl} target="_blank" rel="noopener noreferrer" style={{ color: primaryColor, fontWeight: 600 }}>
-                  carentanlesmarais.fr
-                </a>
-                . Les médias proviennent du site public lorsque c&apos;est indiqué.
-              </p>
-            </div>
+                  Réinitialiser
+                </button>
+              </div>
+            </form>
           </div>
         </section>
       </main>
 
-      ﻿      <footer
+      <footer
+        role="contentinfo"
         style={{
           background: 'linear-gradient(180deg, #0a1f38 0%, #061428 100%)',
           color: 'rgba(255,255,255,.72)',
