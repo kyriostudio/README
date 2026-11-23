@@ -324,17 +324,6 @@ const VS_MARCHE = [
   { label: 'Abonnement 0 € d\'entrée',  freelance: 'Non',       agence: 'Non',       kyrio: 'Oui (Flex)', economie: 'Exclu. Kyrio' },
 ];
 
-/* Zone d'intervention — Basse-Normandie (Calvados 14, Manche 50, Orne 61) */
-const ZONE_BN = {
-  departements: [
-    { code: '14', nom: 'Calvados', villes: ['Caen', 'Bayeux', 'Lisieux', 'Vire', 'Deauville', 'Honfleur', 'Falaise'] },
-    { code: '50', nom: 'Manche',   villes: ['Cherbourg', 'Saint-Lô', 'Granville', 'Coutances', 'Avranches', 'Carentan'] },
-    { code: '61', nom: 'Orne',     villes: ['Alençon', 'Flers', 'Argentan', 'L\'Aigle', 'Mortagne-au-Perche'] },
-  ],
-  deplacement: 'Déplacement offert dans tout le Calvados, la Manche et l\'Orne. Rendez-vous visio partout ailleurs.',
-};
-
-
 ﻿/* ══════════════════════════════════════════════════
    AVANT / APRÈS — Comparateur drag (horizontal)
 ══════════════════════════════════════════════════ */
@@ -536,31 +525,12 @@ export default function KyrioVitrine() {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  const [demoClients, setDemoClients] = useState(null);
-
-  useEffect(() => {
-    fetch('/clients.json')
-      .then((r) => (r.ok ? r.json() : {}))
-      .then(setDemoClients)
-      .catch(() => setDemoClients({}));
-  }, []);
-
-  const portfolioList = useMemo(() => {
-    if (!demoClients) return null;
-    return Object.values(demoClients)
-      .filter((c) => c.slug)
-      .sort((a, b) => (a.order ?? 99) - (b.order ?? 99));
-  }, [demoClients]);
-
-  const PORTFOLIO_FALLBACK = [
-    { nom: 'Arc en Ciel Propreté', secteur: 'Nettoyage professionnel', couleur: '#C5007F', slug: 'arc-en-ciel-proprete', img: 'https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=600&q=75' },
-    { nom: 'Mairie de Carentan-les-Marais', secteur: 'Collectivité territoriale', couleur: '#005A70', slug: 'carentan', img: '/carentan/hero-place-republique.webp' },
-    { nom: 'Difamex', secteur: 'Aménagement extérieur', couleur: '#6B8E5A', slug: 'difamex', img: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=600&q=75' },
+  const NAV_LINKS = [
+    ['offres', 'Offres'],
+    ['maintenance', 'Maintenance'],
+    ['processus', 'Méthode'],
+    ['pourquoi', 'Pourquoi'],
   ];
-
-  const portfolioRows = portfolioList && portfolioList.length > 0 ? portfolioList : PORTFOLIO_FALLBACK;
-
-  const NAV_LINKS = [['offres', 'Offres'], ['maintenance', 'Maintenance'], ['zone', 'Zone'], ['processus', 'Processus'], ['demos', 'Réalisations']];
 
   const scrollTo = (id) => {
     document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
@@ -740,7 +710,6 @@ export default function KyrioVitrine() {
           .steps-grid > div:last-child { border-bottom: none !important; }
           .why-grid { grid-template-columns: 1fr !important; gap: 0 !important; }
           .why-grid > div { border-right: none !important; padding: 28px 18px !important; border-bottom: 1px solid rgba(255,255,255,.06) !important; }
-          .portfolio-grid { grid-template-columns: 1fr !important; gap: 14px !important; margin-top: 40px !important; }
           .avant-apres-comparator { height: min(52vh, 400px) !important; min-height: 260px; border-radius: 16px !important; }
           .contact-section { padding: 64px max(16px, env(safe-area-inset-left)) 64px max(16px, env(safe-area-inset-right)) !important; }
           .contact-form-inner { padding: 28px 18px !important; border-radius: 20px !important; }
@@ -1225,52 +1194,8 @@ export default function KyrioVitrine() {
         </div>
       </section>
 
-      {/* ══ ZONE D'INTERVENTION — Basse-Normandie ══ */}
-      <section id="zone" className="section-pad" style={{ padding: '140px 24px', background: 'var(--sb2)', transition: 'background .35s', position: 'relative', overflow: 'hidden' }}>
-        <div style={{ maxWidth: 1100, margin: '0 auto', position: 'relative' }}>
-          <Reveal>
-            <div className="section-head" style={{ textAlign: 'center', marginBottom: 56 }}>
-              <div style={{ fontSize: 12, fontWeight: 700, letterSpacing: '.1em', textTransform: 'uppercase', color: 'var(--sf3)', marginBottom: 14 }}>Notre territoire</div>
-              <h2 style={{ fontSize: 'clamp(32px, 5vw, 52px)', fontWeight: 900, color: 'var(--sf)', letterSpacing: '-0.02em', lineHeight: 1.1, marginBottom: 18 }}>
-                Kyrio accompagne les<br /><span style={{ color: '#10b981' }}>entreprises de Basse-Normandie.</span>
-              </h2>
-              <p style={{ fontSize: 17, color: 'var(--sf2)', maxWidth: 620, margin: '0 auto', lineHeight: 1.7 }}>
-                Basée en Basse-Normandie, Kyrio intervient en priorité dans le <strong>Calvados (14)</strong>, la <strong>Manche (50)</strong> et l'<strong>Orne (61)</strong>. On connaît le terrain, les habitudes, le tissu économique local — et on se déplace en vrai.
-              </p>
-            </div>
-          </Reveal>
-          <div className="zone-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 20, marginBottom: 32 }}>
-            {ZONE_BN.departements.map((d, i) => {
-              const colors = ['#6366f1', '#22d3ee', '#10b981'];
-              const c = colors[i];
-              return (
-                <Reveal key={d.code} delay={i * 0.1}>
-                  <div className="card-hover" style={{ background: 'var(--scard)', border: '1px solid var(--scbdr)', borderRadius: 20, padding: '32px 28px', height: '100%', transition: 'all .3s' }}>
-                    <div style={{ display: 'flex', alignItems: 'baseline', gap: 10, marginBottom: 18 }}>
-                      <span style={{ fontSize: 42, fontWeight: 900, color: c, letterSpacing: '-0.03em', fontFamily: 'monospace' }}>{d.code}</span>
-                      <span style={{ fontSize: 22, fontWeight: 800, color: 'var(--sf)' }}>{d.nom}</span>
-                    </div>
-                    <div style={{ fontSize: 11, fontWeight: 700, color: 'var(--sf3)', textTransform: 'uppercase', letterSpacing: '.08em', marginBottom: 12 }}>Villes couvertes</div>
-                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
-                      {d.villes.map(v => (
-                        <span key={v} style={{ fontSize: 13, fontWeight: 600, color: 'var(--sf2)', background: c + '12', border: `1px solid ${c}28`, borderRadius: 50, padding: '5px 12px' }}>{v}</span>
-                      ))}
-                    </div>
-                  </div>
-                </Reveal>
-              );
-            })}
-          </div>
-          <Reveal delay={0.3}>
-            <div style={{ textAlign: 'center', background: 'var(--scard)', border: '1px dashed var(--scbdr)', borderRadius: 16, padding: '20px 28px', fontSize: 14, color: 'var(--sf2)', lineHeight: 1.6 }}>
-              <strong style={{ color: 'var(--sf)' }}>Déplacement offert</strong> dans tout le Calvados, la Manche et l'Orne — on vient vous rencontrer chez vous. Pour les autres régions : rendez-vous visio, même tarif, même qualité.
-            </div>
-          </Reveal>
-        </div>
-      </section>
-
       {/* ══ PROCESSUS ══ */}
-      <section id="processus" className="section-pad" style={{ padding: '160px 24px', background: 'var(--sb)', transition: 'background .35s' }}>
+      <section id="processus" className="section-pad" style={{ padding: '140px 24px', background: 'var(--sb2)', transition: 'background .35s' }}>
         <div style={{ maxWidth: 1100, margin: '0 auto' }}>
           <Reveal>
             <div className="section-head" style={{ textAlign: 'center', marginBottom: 80 }}>
@@ -1307,120 +1232,35 @@ export default function KyrioVitrine() {
       </section>
 
       {/* ══ POURQUOI ══ */}
-      <section className="section-pad" style={{ padding: '160px 24px', background: '#0a0a0a' }}>
+      <section id="pourquoi" className="section-pad" style={{ padding: '140px 24px', background: 'var(--sb)', transition: 'background .35s' }}>
         <div style={{ maxWidth: 1100, margin: '0 auto' }}>
           <Reveal>
-            <div className="section-head" style={{ marginBottom: 72 }}>
-              <div style={{ fontSize: 12, fontWeight: 700, letterSpacing: '.1em', textTransform: 'uppercase', color: 'rgba(255,255,255,.3)', marginBottom: 14 }}>Pourquoi Kyrio</div>
-              <h2 style={{ fontSize: 'clamp(32px, 5vw, 52px)', fontWeight: 900, color: '#fff', letterSpacing: '-0.02em', lineHeight: 1.1, maxWidth: 600 }}>
+            <div className="section-head" style={{ marginBottom: 72, textAlign: 'center' }}>
+              <div style={{ fontSize: 12, fontWeight: 700, letterSpacing: '.1em', textTransform: 'uppercase', color: 'var(--sf3)', marginBottom: 14 }}>Pourquoi Kyrio</div>
+              <h2 style={{ fontSize: 'clamp(32px, 5vw, 52px)', fontWeight: 900, color: 'var(--sf)', letterSpacing: '-0.02em', lineHeight: 1.1, maxWidth: 640, margin: '0 auto' }}>
                 Pourquoi Kyrio<br />et pas l&apos;autre agence ?
               </h2>
-              <p style={{ fontSize: 17, color: 'rgba(255,255,255,.35)', maxWidth: 440, marginTop: 16, lineHeight: 1.7 }}>Bonne question. Voici les vraies réponses — sans slides, sans langue de bois, sans violon.</p>
+              <p style={{ fontSize: 17, color: 'var(--sf2)', maxWidth: 520, margin: '16px auto 0', lineHeight: 1.7 }}>Bonne question. Voici les vraies réponses — sans slides, sans langue de bois, sans violon.</p>
             </div>
           </Reveal>
-          <div className="why-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 2 }}>
+          <div className="why-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 16 }}>
             {WHY.map((w, i) => {
               const whyColors = ['#6366f1','#ec4899','#06b6d4','#10b981','#f59e0b','#a78bfa'];
               const wc = whyColors[i];
               return (
               <Reveal key={w.titre} delay={(i % 3) * 0.1}>
-                <div style={{ padding: '36px 32px', borderBottom: i < 3 ? '1px solid rgba(255,255,255,.05)' : 'none', borderRight: (i + 1) % 3 !== 0 ? '1px solid rgba(255,255,255,.05)' : 'none' }}>
+                <div className="card-hover" style={{ padding: '32px 28px', height: '100%', background: 'var(--scard)', border: '1px solid var(--scbdr)', borderRadius: 20 }}>
                   <div style={{ width: 48, height: 48, borderRadius: 14, background: wc + '15', border: `1px solid ${wc}30`, display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: 20, transition: 'transform .2s' }}
                     onMouseEnter={e => e.currentTarget.style.transform = 'rotate(-8deg) scale(1.12)'}
                     onMouseLeave={e => e.currentTarget.style.transform = 'none'}>
                     <KIcon name={w.icon} size={20} color={wc} />
                   </div>
-                  <h3 style={{ fontSize: 17, fontWeight: 700, color: '#fff', marginBottom: 10, letterSpacing: '-0.01em' }}>{w.titre}</h3>
-                  <p style={{ fontSize: 13.5, color: 'rgba(255,255,255,.4)', lineHeight: 1.7 }}>{w.desc}</p>
+                  <h3 style={{ fontSize: 17, fontWeight: 700, color: 'var(--sf)', marginBottom: 10, letterSpacing: '-0.01em' }}>{w.titre}</h3>
+                  <p style={{ fontSize: 13.5, color: 'var(--sf2)', lineHeight: 1.7 }}>{w.desc}</p>
                 </div>
               </Reveal>
             );})}
           </div>
-        </div>
-      </section>
-
-      {/* ══ RÉALISATIONS ══ */}
-      <section id="demos" className="section-pad" style={{ padding: '160px 24px', background: 'var(--sb2)', transition: 'background .35s' }}>
-        <div style={{ maxWidth: 1100, margin: '0 auto', textAlign: 'center' }}>
-          <Reveal>
-            <div style={{ fontSize: 12, fontWeight: 700, letterSpacing: '.1em', textTransform: 'uppercase', color: 'var(--sf3)', marginBottom: 14 }}>Portfolio</div>
-              <h2 style={{ fontSize: 'clamp(32px, 5vw, 52px)', fontWeight: 900, color: 'var(--sf)', letterSpacing: '-0.02em', marginBottom: 20 }}>
-              Des sites vrais,<br />pour des clients réels.
-            </h2>
-            <p style={{ fontSize: 17, color: 'var(--sf2)', maxWidth: 480, margin: '0 auto 48px', lineHeight: 1.7 }}>
-              Pas des mockups Dribbble jamais livrés. De vraies réalisations — avec de vrais bugs écrasés avant la mise en ligne (on déconne, il n&apos;y en a presque pas).
-            </p>
-            <Link to="/demos">
-              <button className="kyrio-btn-dark" style={{ fontSize: 16, padding: '16px 36px' }}>
-                Voir toutes les réalisations →
-              </button>
-            </Link>
-          </Reveal>
-
-          <Reveal delay={0.15}>
-            <div className="portfolio-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: 16, marginTop: 64 }}>
-              {portfolioRows.map((raw, i) => {
-                const nom = raw.name ?? raw.nom;
-                const secteur = raw.sector ?? raw.secteur;
-                const couleur = raw.primaryColor ?? raw.couleur ?? '#6366f1';
-                const slug = raw.slug;
-                const img = raw.heroImage ?? raw.img ?? null;
-                const key = slug ?? `pf-${i}`;
-                return (
-                <div key={key} className="card-hover" style={{ borderRadius: 20, overflow: 'hidden', background: 'var(--scard)', border: '1px solid var(--scbdr)', opacity: slug ? 1 : 0.35 }}>
-                  {/* Thumbnail */}
-                  <div style={{ height: 160, overflow: 'hidden', position: 'relative', background: `linear-gradient(135deg, ${couleur}22, ${couleur}44)` }}>
-                    {img ? (
-                      <img
-                        src={img}
-                        alt=""
-                        style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block', transition: 'transform .5s ease' }}
-                        onMouseEnter={e => e.currentTarget.style.transform = 'scale(1.05)'}
-                        onMouseLeave={e => e.currentTarget.style.transform = 'scale(1)'}
-                      />
-                    ) : (
-                      <div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                        <div style={{ width: 56, height: 56, background: couleur, borderRadius: 16, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 22, color: '#fff', fontWeight: 800 }}>
-                          {nom[0]}
-                        </div>
-                      </div>
-                    )}
-                    {/* Badge secteur */}
-                    {slug && (
-                      <div style={{
-                        position: 'absolute', top: 10, left: 10,
-                        background: 'rgba(0,0,0,.55)', backdropFilter: 'blur(6px)',
-                        borderRadius: 5, padding: '3px 9px',
-                        fontSize: 10, fontWeight: 600, color: 'rgba(255,255,255,.8)', letterSpacing: '.05em', textTransform: 'uppercase',
-                      }}>
-                        {secteur}
-                      </div>
-                    )}
-                    {/* Dot live */}
-                    {slug && (
-                      <span style={{
-                        position: 'absolute', top: 12, right: 12,
-                        width: 8, height: 8, borderRadius: '50%',
-                        background: '#6366f1', boxShadow: '0 0 8px rgba(99,102,241,.7)',
-                      }} />
-                    )}
-                  </div>
-                  <div style={{ padding: '18px 22px' }}>
-                    <div style={{ fontWeight: 700, fontSize: 15, color: 'var(--sf)', marginBottom: 4 }}>{nom}</div>
-                    {!slug && <div style={{ fontSize: 12, color: 'var(--sf3)' }}>{secteur}</div>}
-                    {slug && (
-                      <Link to={`/demos/${slug}`} style={{ textDecoration: 'none' }}>
-                        <span style={{ fontSize: 13, fontWeight: 600, color: couleur, display: 'inline-flex', alignItems: 'center', gap: 4 }}>
-                          Voir le site
-                          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke={couleur} strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
-                        </span>
-                      </Link>
-                    )}
-                  </div>
-                </div>
-              );})}
-            </div>
-          </Reveal>
         </div>
       </section>
 
@@ -1452,12 +1292,11 @@ export default function KyrioVitrine() {
         <div>
           <KyrioMark size={24} dark opacity={0.6} />
           <div style={{ fontSize: 11, color: 'rgba(255,255,255,.35)', marginTop: 8, letterSpacing: '.04em' }}>
-            Agence web · Basse-Normandie<br />
-            Calvados (14) · Manche (50) · Orne (61)
+            Agence web · Calvados, Manche, Orne
           </div>
         </div>
         <div style={{ display: 'flex', gap: 28, flexWrap: 'wrap' }}>
-          {[['offres', 'Offres'], ['flex', 'Flex'], ['zone', 'Zone'], ['maintenance', 'Maintenance']].map(([id, label]) => (
+          {[['offres', 'Offres'], ['maintenance', 'Maintenance'], ['processus', 'Méthode'], ['contact', 'Contact']].map(([id, label]) => (
             <button key={id} onClick={() => scrollTo(id)} style={{ background: 'transparent', border: 'none', color: 'rgba(255,255,255,.3)', fontSize: 13, cursor: 'pointer', fontFamily: 'inherit', transition: 'color .2s' }}
               onMouseEnter={e => e.target.style.color = 'rgba(255,255,255,.7)'}
               onMouseLeave={e => e.target.style.color = 'rgba(255,255,255,.3)'}>
@@ -1465,10 +1304,10 @@ export default function KyrioVitrine() {
             </button>
           ))}
           <Link to="/demos">
-            <button style={{ background: 'transparent', border: 'none', color: 'rgba(255,255,255,.3)', fontSize: 13, cursor: 'pointer', fontFamily: 'inherit', transition: 'color .2s' }}
+            <button type="button" style={{ background: 'transparent', border: 'none', color: 'rgba(255,255,255,.3)', fontSize: 13, cursor: 'pointer', fontFamily: 'inherit', transition: 'color .2s' }}
               onMouseEnter={e => e.target.style.color = 'rgba(255,255,255,.7)'}
               onMouseLeave={e => e.target.style.color = 'rgba(255,255,255,.3)'}>
-              Réalisations
+              Galerie démos
             </button>
           </Link>
         </div>
