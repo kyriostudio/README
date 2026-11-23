@@ -16,6 +16,10 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     timeout-minutes: 15
+    env:
+      HOST: ${{ secrets.IONOS_SFTP_HOST }}
+      USERNAME: ${{ secrets.IONOS_SFTP_USERNAME }}
+      LFTP_PASSWORD: ${{ secrets.IONOS_SFTP_PASSWORD }}
 
     steps:
       - name: Checkout
@@ -31,29 +35,41 @@ jobs:
         run: |
           npm ci
           npm run build
+          test -f dist/index.html
+          test -f dist/.htaccess
 
-      # ./dist/* n’inclut pas les dotfiles (ex. .htaccess) — sans réécriture Apache, les routes SPA
-      # (/demos/difamex, etc.) renvoient 404 en accès direct ou refresh. Voir wlixcc/SFTP-Deploy-Action#59
-      - name: Deploy dist to IONOS (SFTP)
-        uses: wlixcc/SFTP-Deploy-Action@v1.2.6
-        with:
-          server: ${{ secrets.IONOS_SFTP_HOST }}
-          username: ${{ secrets.IONOS_SFTP_USERNAME }}
-          password: ${{ secrets.IONOS_SFTP_PASSWORD }}
-          port: 22
-          local_path: ./dist/*
-          remote_path: /
-          sftp_only: true
-          sftpArgs: "-o ConnectTimeout=30 -o StrictHostKeyChecking=accept-new"
+      - name: Contrôle des secrets IONOS
+        run: |
+          for v in HOST USERNAME LFTP_PASSWORD; do
+            if [ -z "${!v}" ]; then
+              echo "::error::Secret Actions manquant pour ce dépôt : IONOS_SFTP_* (voir Settings → Secrets → Actions sur kyriostudio/README)" >&2
+              exit 1
+            fi
+          done
 
-      - name: Deploy .htaccess (réécriture SPA)
-        uses: wlixcc/SFTP-Deploy-Action@v1.2.6
-        with:
-          server: ${{ secrets.IONOS_SFTP_HOST }}
-          username: ${{ secrets.IONOS_SFTP_USERNAME }}
-          password: ${{ secrets.IONOS_SFTP_PASSWORD }}
-          port: 22
-          local_path: ./dist/.htaccess
-          remote_path: /
-          sftp_only: true
-          sftpArgs: "-o ConnectTimeout=30 -o StrictHostKeyChecking=accept-new"
+      - name: Outils SFTP
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq lftp sshpass > /dev/null
+
+      - name: Empreinte du serveur
+        run: |
+          mkdir -p ~/.ssh && chmod 700 ~/.ssh
+          ssh-keyscan -T 15 "$HOST" >> ~/.ssh/known_hosts 2>/dev/null
+          test -s ~/.ssh/known_hosts
+
+      - name: Déployer dist/ à la racine du site (SFTP)
+        env:
+          SSHPASS: ${{ secrets.IONOS_SFTP_PASSWORD }}
+        run: |
+          set -euo pipefail
+          lftp -c "
+            set net:max-retries 3;
+            set net:timeout 45;
+            set sftp:auto-confirm no;
+            open --env-password -u \"$USERNAME\" sftp://$HOST;
+            mirror --reverse --delete --parallel=4 --verbose=1 dist/ /;
+          "
+
+      - name: Vérification HTTPS
+        run: |
+          sleep 4
+          curl -fsS --max-time 30 -o /dev/null -w "kyrio.fr → %{http_code}\n" https://kyrio.fr/
