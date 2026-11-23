@@ -8,6 +8,18 @@
 - **Script** : `npm run build:ionos` génère `dist/` + `kyrio-dist-ionos.zip` à la racine du dossier du projet.
 - Scripts de dev déplacés hors de `public/` pour ne pas être publiés par erreur.
 
+## Secrets GitHub (déploiement automatique)
+
+Sur **https://github.com/kyriostudio/README** → *Settings → Secrets and variables → Actions* :
+
+| Secret | Valeur attendue |
+|--------|-----------------|
+| `IONOS_SFTP_HOST` | `access-5020224280.webspace-host.com` |
+| `IONOS_SFTP_USERNAME` | `su247348` (ancien compte `su359443` → ne plus utiliser) |
+| `IONOS_SFTP_PASSWORD` | Mot de passe SFTP IONOS, **sans** retour à la ligne en trop lors du collage |
+
+Si le workflow échoue sur « Test connexion SFTP », rouvrez le secret mot de passe : recopiez-le depuis la fiche IONOS et enregistrez à nouveau.
+
 ## À faire par vous (IONOS + upload)
 
 ### Étape 1 — Domaine

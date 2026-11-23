@@ -19,9 +19,7 @@ jobs:
     env:
       HOST: ${{ secrets.IONOS_SFTP_HOST }}
       USERNAME: ${{ secrets.IONOS_SFTP_USERNAME }}
-      LFTP_PASSWORD: ${{ secrets.IONOS_SFTP_PASSWORD }}
-      # Racine SFTP du site kyrio.fr (souvent « . » ou « / » selon le compte IONOS)
-      WEB_ROOT: ${{ vars.IONOS_WEB_ROOT || '.' }}
+      RAW_PASSWORD: ${{ secrets.IONOS_SFTP_PASSWORD }}
 
     steps:
       - name: Checkout
@@ -42,15 +40,24 @@ jobs:
 
       - name: Contrôle des secrets IONOS
         run: |
-          for v in HOST USERNAME LFTP_PASSWORD; do
+          set -euo pipefail
+          for v in HOST USERNAME RAW_PASSWORD; do
             if [ -z "${!v}" ]; then
-              echo "::error::Secret Actions manquant pour ce dépôt : IONOS_SFTP_* (voir Settings → Secrets → Actions sur kyriostudio/README)" >&2
+              echo "::error::Secret manquant : configurez IONOS_SFTP_HOST, IONOS_SFTP_USERNAME et IONOS_SFTP_PASSWORD sur ce dépôt (Settings → Secrets → Actions)." >&2
               exit 1
             fi
           done
+          echo "::notice::SFTP → ${USERNAME}@${HOST} (port 22)"
+          if [ "${USERNAME}" = "su359443" ]; then
+            echo "::error::IONOS_SFTP_USERNAME encore su359443. Compte actuel IONOS : su247348." >&2
+            exit 1
+          fi
+          if [ "${HOST}" != "access-5020224280.webspace-host.com" ]; then
+            echo "::warning::IONOS_SFTP_HOST=${HOST} — vérifiez qu'il correspond au contrat Web IONOS actuel."
+          fi
 
-      - name: Outils SFTP
-        run: sudo apt-get update -qq && sudo apt-get install -y -qq lftp sshpass > /dev/null
+      - name: Outils SSH
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq sshpass openssh-client > /dev/null
 
       - name: Empreinte du serveur
         run: |
@@ -58,34 +65,54 @@ jobs:
           ssh-keyscan -T 15 "$HOST" >> ~/.ssh/known_hosts 2>/dev/null
           test -s ~/.ssh/known_hosts
 
-      - name: Test connexion SFTP
-        env:
-          SSHPASS: ${{ secrets.IONOS_SFTP_PASSWORD }}
+      - name: Test connexion SFTP (SSH)
         run: |
           set -euo pipefail
-          lftp -c "
-            set net:max-retries 3;
-            set net:timeout 45;
-            set sftp:auto-confirm no;
-            open --env-password -u \"$USERNAME\" sftp://$HOST;
-            pwd;
-            ls -la;
-          "
+          PASS_TRIMMED="$(printf '%s' "$RAW_PASSWORD" | tr -d '\r\n')"
+          export SSHPASS="$PASS_TRIMMED"
+          sshpass -e ssh \
+            -o StrictHostKeyChecking=yes \
+            -o ConnectTimeout=45 \
+            -o PreferredAuthentications=password \
+            -o PubkeyAuthentication=no \
+            -o NumberOfPasswordPrompts=1 \
+            "${USERNAME}@${HOST}" 'echo "OK — répertoire SFTP :" && pwd && ls -1 | head -15' \
+          || {
+            echo "::error::Connexion SFTP refusée. Checklist :" >&2
+            echo "  • IONOS_SFTP_USERNAME = su247348 (pas su359443)" >&2
+            echo "  • mot de passe = celui de la fiche SFTP IONOS (sans espace / retour ligne en trop)" >&2
+            echo "  • secrets définis sur kyriostudio/README, pas seulement sur kyrio-crm" >&2
+            exit 1
+          }
 
-      - name: Déployer dist/ à la racine du site (SFTP)
-        env:
-          SSHPASS: ${{ secrets.IONOS_SFTP_PASSWORD }}
-        run: |
-          set -euo pipefail
-          lftp -c "
-            set net:max-retries 3;
-            set net:timeout 45;
-            set sftp:auto-confirm no;
-            open --env-password -u \"$USERNAME\" sftp://$HOST;
-            mirror --reverse --parallel=2 --verbose=3 dist/ $WEB_ROOT;
-          "
+      # wlixcc : dernier déploiement vert sur ce dépôt (avril 2026)
+      - name: Deploy dist to IONOS (SFTP)
+        uses: wlixcc/SFTP-Deploy-Action@v1.2.6
+        with:
+          server: ${{ secrets.IONOS_SFTP_HOST }}
+          username: ${{ secrets.IONOS_SFTP_USERNAME }}
+          password: ${{ secrets.IONOS_SFTP_PASSWORD }}
+          port: 22
+          local_path: ./dist/*
+          remote_path: /
+          sftp_only: true
+          sftpArgs: "-o ConnectTimeout=45 -o StrictHostKeyChecking=accept-new -o PreferredAuthentications=password -o PubkeyAuthentication=no"
+
+      - name: Deploy .htaccess (réécriture SPA)
+        uses: wlixcc/SFTP-Deploy-Action@v1.2.6
+        with:
+          server: ${{ secrets.IONOS_SFTP_HOST }}
+          username: ${{ secrets.IONOS_SFTP_USERNAME }}
+          password: ${{ secrets.IONOS_SFTP_PASSWORD }}
+          port: 22
+          local_path: ./dist/.htaccess
+          remote_path: /
+          sftp_only: true
+          sftpArgs: "-o ConnectTimeout=45 -o StrictHostKeyChecking=accept-new -o PreferredAuthentications=password -o PubkeyAuthentication=no"
 
       - name: Vérification HTTPS
         run: |
           sleep 4
-          curl -fsS --max-time 30 -o /dev/null -w "kyrio.fr → %{http_code}\n" https://kyrio.fr/
+          CODE=$(curl -sS --max-time 30 -o /dev/null -w "%{http_code}" https://kyrio.fr/)
+          echo "kyrio.fr → HTTP ${CODE}"
+          test "$CODE" = "200"
