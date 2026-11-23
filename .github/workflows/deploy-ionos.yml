@@ -20,6 +20,8 @@ jobs:
       HOST: ${{ secrets.IONOS_SFTP_HOST }}
       USERNAME: ${{ secrets.IONOS_SFTP_USERNAME }}
       LFTP_PASSWORD: ${{ secrets.IONOS_SFTP_PASSWORD }}
+      # Racine SFTP du site kyrio.fr (souvent « . » ou « / » selon le compte IONOS)
+      WEB_ROOT: ${{ vars.IONOS_WEB_ROOT || '.' }}
 
     steps:
       - name: Checkout
@@ -56,6 +58,20 @@ jobs:
           ssh-keyscan -T 15 "$HOST" >> ~/.ssh/known_hosts 2>/dev/null
           test -s ~/.ssh/known_hosts
 
+      - name: Test connexion SFTP
+        env:
+          SSHPASS: ${{ secrets.IONOS_SFTP_PASSWORD }}
+        run: |
+          set -euo pipefail
+          lftp -c "
+            set net:max-retries 3;
+            set net:timeout 45;
+            set sftp:auto-confirm no;
+            open --env-password -u \"$USERNAME\" sftp://$HOST;
+            pwd;
+            ls -la;
+          "
+
       - name: Déployer dist/ à la racine du site (SFTP)
         env:
           SSHPASS: ${{ secrets.IONOS_SFTP_PASSWORD }}
@@ -66,7 +82,7 @@ jobs:
             set net:timeout 45;
             set sftp:auto-confirm no;
             open --env-password -u \"$USERNAME\" sftp://$HOST;
-            mirror --reverse --delete --parallel=4 --verbose=1 dist/ /;
+            mirror --reverse --parallel=2 --verbose=3 dist/ $WEB_ROOT;
           "
 
       - name: Vérification HTTPS
