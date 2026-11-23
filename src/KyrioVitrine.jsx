@@ -724,10 +724,6 @@ export default function KyrioVitrine() {
           .hero-sub { font-size: 16px !important; line-height: 1.65 !important; margin-bottom: 28px !important; padding: 0 2px; }
           .hero-cta { flex-direction: column !important; width: 100%; max-width: 360px; margin-left: auto; margin-right: auto; gap: 10px !important; }
           .hero-cta button { width: 100%; justify-content: center; }
-          .hero-stats { flex-direction: column !important; align-items: stretch !important; gap: 20px !important; margin-top: 44px !important; padding-top: 28px !important; }
-          .hero-stats > div { padding: 0 8px !important; border-right: none !important; border-bottom: 1px solid rgba(255,255,255,.07); padding-bottom: 20px !important; }
-          .hero-stats > div:last-child { border-bottom: none !important; padding-bottom: 0 !important; }
-          .hero-stats > div > div:last-child { font-size: 13px !important; line-height: 1.5 !important; max-width: 280px; margin-left: auto !important; margin-right: auto !important; }
           .section-pad { padding: 64px max(16px, env(safe-area-inset-left)) 64px max(16px, env(safe-area-inset-right)) !important; }
           .section-head { margin-bottom: 40px !important; }
           .section-head h2 { margin-bottom: 14px !important; }
@@ -922,30 +918,6 @@ export default function KyrioVitrine() {
                 Voir les réalisations →
               </button>
             </Link>
-          </motion.div>
-
-          {/* Stats */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, delay: 1.3, ease: [0.21, 0.47, 0.32, 0.98] }}
-            className="hero-stats"
-            style={{ display: 'flex', gap: 0, marginTop: 80, borderTop: '1px solid rgba(255,255,255,.07)', paddingTop: 48, flexWrap: 'wrap', justifyContent: 'center' }}
-          >
-            {[
-              { val: '7j', label: 'Délai moyen (oui, on tient nos promesses)', icon: 'clock', color: '#6366f1' },
-              { val: '100%', label: 'Clients qui reviennent (on ne les a pas ligotés)', icon: 'check', color: '#22d3ee' },
-              { val: '3 ans', label: 'Dans les tranchées du web (café : illimité)', icon: 'lock', color: '#10b981' },
-              { val: 'SEO', label: 'Toujours inclus. Même le lundi.', icon: 'search', color: '#39ff14' },
-            ].map((s, i) => (
-              <div key={s.label} style={{ padding: '0 40px', textAlign: 'center', borderRight: i < 3 ? '1px solid rgba(255,255,255,.06)' : 'none' }}>
-                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, marginBottom: 6 }}>
-                  <KIcon name={s.icon} size={16} color={s.color} />
-                  <span style={{ fontSize: 'clamp(26px, 3.5vw, 38px)', fontWeight: 900, color: '#fff', letterSpacing: '-0.03em' }}>{s.val}</span>
-                </div>
-                <div style={{ fontSize: 12, color: 'rgba(255,255,255,.3)', fontWeight: 500, letterSpacing: '.02em' }}>{s.label}</div>
-              </div>
-            ))}
           </motion.div>
         </div>
       </section>
