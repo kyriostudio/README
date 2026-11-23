@@ -1,5 +1,4 @@
-﻿import { useState, useEffect, useRef, useMemo, memo } from 'react';
-import { Link } from 'react-router-dom';
+﻿import { useState, useEffect, useRef, useMemo, useId, memo } from 'react';
 import { motion } from 'framer-motion';
 import { Plus } from 'lucide-react';
 
@@ -116,7 +115,7 @@ function KyrioMark({ size = 42, dark = true, opacity = 1 }) {
         transition: 'color .3s',
         userSelect: 'none',
       }}>
-        <span style={{ background: dark ? 'linear-gradient(90deg, #818cf8, #22d3ee)' : 'linear-gradient(90deg, #6366f1, #06b6d4)', WebkitBackgroundClip: 'text', backgroundClip: 'text', color: 'transparent' }}>K</span>yrio<span style={{ color: dotColor }}>.</span>
+        <span style={{ color: g1, WebkitTextFillColor: g1 }}>K</span>yrio<span style={{ color: dotColor, WebkitTextFillColor: dotColor }}>.</span>
       </span>
     </div>
   );
@@ -514,9 +513,10 @@ function AvantApres() {
    KYRIO VITRINE
 ══════════════════════════════════════════════════ */
 export default function KyrioVitrine() {
+  const heroGradId = useId().replace(/:/g, '');
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [dark, setDark] = useState(false);
+  const [dark, setDark] = useState(true);
   const [isMobileNav, setIsMobileNav] = useState(() => typeof window !== 'undefined' && window.matchMedia('(max-width: 768px)').matches);
 
   useEffect(() => {
@@ -603,21 +603,7 @@ export default function KyrioVitrine() {
         @keyframes spin-slow { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
         @keyframes pulse-badge { 0%,100% { box-shadow: 0 0 0 0 rgba(99,102,241,.4); } 50% { box-shadow: 0 0 0 8px rgba(99,102,241,.0); } }
 
-        /* ── Hero neon gradient text (adapté de text-color.tsx) ── */
-        @keyframes kyrio-hue-shift {
-          0%   { background-position: 0% 50%; }
-          100% { background-position: 300% 50%; }
-        }
-        /* Bleu univers → cyan → vert fluo (couleurs du logo Kyrio : K bleu, . vert) */
-        .kyrio-neon-text {
-          background-image: linear-gradient(90deg, #4f46e5, #6366f1, #818cf8, #22d3ee, #67e8f9, #4ade80, #39ff14, #4ade80, #67e8f9, #22d3ee, #818cf8, #6366f1, #4f46e5);
-          background-size: 300% 100%;
-          -webkit-background-clip: text;
-          background-clip: text;
-          color: transparent;
-          -webkit-text-fill-color: transparent;
-          animation: kyrio-hue-shift 9s linear infinite;
-        }
+        .hero-title { font-family: Inter, "Helvetica Neue", Arial, sans-serif; font-synthesis: none; }
         .hero-corner-plus { position: absolute; width: 28px; height: 28px; color: #6366f1; pointer-events: none; }
 
         .fade-up { animation: fadeUp .8s ease forwards; }
@@ -877,8 +863,28 @@ export default function KyrioVitrine() {
             <Plus strokeWidth={1.5} className="hero-corner-plus" style={{ bottom: -14, left: -14 }} />
             <Plus strokeWidth={1.5} className="hero-corner-plus" style={{ bottom: -14, right: -14 }} />
 
-            <h1 className="hero-title" style={{ userSelect: 'none', display: 'flex', justifyContent: 'center', fontSize: 'clamp(92px, 20vw, 232px)', fontWeight: 900, lineHeight: 0.92, letterSpacing: '-0.045em', margin: 0 }}>
-              <span className="kyrio-neon-text" style={{ padding: '0 0 0 12px' }}>Kyrio</span><span style={{ color: '#39ff14', WebkitTextFillColor: '#39ff14' }}>.</span>
+            <h1 className="hero-title" style={{ userSelect: 'none', width: 'min(92vw, 1080px)', margin: 0, lineHeight: 0 }}>
+              <svg viewBox="0 0 1080 280" width="100%" height="auto" role="img" aria-label="Kyrio" style={{ display: 'block', overflow: 'visible' }}>
+                <defs>
+                  <linearGradient id={heroGradId} x1="0%" y1="50%" x2="100%" y2="50%">
+                    <stop offset="0%" stopColor="#6366f1" />
+                    <stop offset="42%" stopColor="#22d3ee" />
+                    <stop offset="100%" stopColor="#4ade80" />
+                  </linearGradient>
+                </defs>
+                <text
+                  x="540"
+                  y="210"
+                  textAnchor="middle"
+                  fontFamily="Inter, Helvetica Neue, Arial, sans-serif"
+                  fontSize="250"
+                  fontWeight="800"
+                  letterSpacing="-6"
+                >
+                  <tspan fill={`url(#${heroGradId})`}>Kyrio</tspan>
+                  <tspan fill="#39ff14">.</tspan>
+                </text>
+              </svg>
             </h1>
           </motion.div>
 
@@ -906,11 +912,6 @@ export default function KyrioVitrine() {
             <button onClick={() => scrollTo('offres')} className="kyrio-btn-dark" style={{ fontSize: 16, padding: '16px 36px' }}>
               Voir les offres
             </button>
-            <Link to="/demos">
-              <button className="kyrio-btn-ghost" style={{ fontSize: 16, padding: '16px 32px' }}>
-                Voir les réalisations →
-              </button>
-            </Link>
           </motion.div>
         </div>
       </section>
@@ -1327,13 +1328,6 @@ export default function KyrioVitrine() {
               {label}
             </button>
           ))}
-          <Link to="/demos">
-            <button type="button" style={{ background: 'transparent', border: 'none', color: 'var(--sf3)', fontSize: 13, cursor: 'pointer', fontFamily: 'inherit', transition: 'color .2s' }}
-              onMouseEnter={e => e.target.style.color = 'var(--sf)'}
-              onMouseLeave={e => e.target.style.color = 'var(--sf3)'}>
-              Galerie démos
-            </button>
-          </Link>
         </div>
         <div style={{ fontSize: 12, color: 'var(--sf3)' }}>© {new Date().getFullYear()} Kyrio — Fait avec soin, un peu d&apos;audace, et trop de café</div>
       </footer>
