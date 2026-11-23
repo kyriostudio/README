@@ -32,7 +32,8 @@ const BOX_COLORS = [
 ];
 const randBoxColor = () => BOX_COLORS[Math.floor(Math.random() * BOX_COLORS.length)];
 
-function BoxesCore({ style: extraStyle = {} }) {
+function BoxesCore({ style: extraStyle = {}, light = false }) {
+  const line = light ? '#cbd5e1' : '#475569';
   const rows = useMemo(() => new Array(80).fill(1), []);
   const cols = useMemo(() => new Array(40).fill(1), []);
   return (
@@ -45,17 +46,17 @@ function BoxesCore({ style: extraStyle = {} }) {
       }}
     >
       {rows.map((_, i) => (
-        <motion.div key={`row-${i}`} style={{ width: 64, height: 32, borderLeft: '1px solid #334155', position: 'relative' }}>
+        <motion.div key={`row-${i}`} style={{ width: 64, height: 32, borderLeft: `1px solid ${line}`, position: 'relative' }}>
           {cols.map((_, j) => (
             <motion.div
               key={`col-${j}`}
               whileHover={{ backgroundColor: randBoxColor(), transition: { duration: 0 } }}
               animate={{ transition: { duration: 2 } }}
-              style={{ width: 64, height: 32, borderRight: '1px solid #334155', borderTop: '1px solid #334155', position: 'relative' }}
+              style={{ width: 64, height: 32, borderRight: `1px solid ${line}`, borderTop: `1px solid ${line}`, position: 'relative' }}
             >
               {j % 2 === 0 && i % 2 === 0 ? (
                 <svg
-                  xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="#334155"
+                  xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke={line}
                   style={{ position: 'absolute', height: 24, width: 40, top: -14, left: -22, pointerEvents: 'none' }}
                 >
                   <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v12m6-6H6" />
@@ -515,7 +516,7 @@ function AvantApres() {
 export default function KyrioVitrine() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [dark, setDark] = useState(true);
+  const [dark, setDark] = useState(false);
   const [isMobileNav, setIsMobileNav] = useState(() => typeof window !== 'undefined' && window.matchMedia('(max-width: 768px)').matches);
 
   useEffect(() => {
@@ -565,7 +566,7 @@ export default function KyrioVitrine() {
   }, []);
 
   return (
-    <div className={dark ? 'kr-root kr-dark' : 'kr-root'} style={{ fontFamily: "'DM Sans', system-ui, sans-serif", color: '#111', background: dark ? '#0d0d0d' : '#fff', overflowX: 'hidden', transition: 'background .35s, color .35s' }}>
+    <div className={dark ? 'kr-root kr-dark' : 'kr-root'} style={{ fontFamily: "'DM Sans', system-ui, sans-serif", color: 'var(--sf)', background: dark ? '#141c28' : '#f8fafc', overflowX: 'hidden', transition: 'background .35s, color .35s' }}>
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700;800;900&display=swap');
         * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -580,6 +581,8 @@ export default function KyrioVitrine() {
         .kyrio-btn-dark:hover { transform: translateY(-3px) scale(1.03); box-shadow: 0 12px 40px rgba(99,102,241,.45); }
         .kyrio-btn-ghost { display: inline-flex; align-items: center; gap: 8px; background: transparent; color: #fff; border: 1.5px solid rgba(255,255,255,.3); border-radius: 50px; padding: 13px 28px; font-family: inherit; font-size: 15px; font-weight: 600; cursor: pointer; transition: all .25s; }
         .kyrio-btn-ghost:hover { border-color: rgba(255,255,255,.7); background: rgba(255,255,255,.08); transform: translateY(-2px); }
+        .kr-root:not(.kr-dark) .kyrio-btn-ghost { color: #334155; border-color: rgba(99,102,241,.35); background: rgba(255,255,255,.65); backdrop-filter: blur(8px); }
+        .kr-root:not(.kr-dark) .kyrio-btn-ghost:hover { border-color: #6366f1; background: rgba(99,102,241,.08); color: #1e293b; }
         .kyrio-btn-outline { display: inline-flex; align-items: center; background: transparent; color: #111; border: 1.5px solid #ddd; border-radius: 50px; padding: 13px 28px; font-family: inherit; font-size: 15px; font-weight: 600; cursor: pointer; transition: all .25s; }
         .kyrio-btn-outline:hover { border-color: #111; background: #f5f5f5; transform: translateY(-2px); }
 
@@ -654,10 +657,25 @@ export default function KyrioVitrine() {
         }
 
         /* ── Thème variables ── */
-        .kr-root { --sb:#ffffff; --sb2:#f7f7f7; --sf:#0a0a0a; --sf2:#555; --sf3:#888; --sbdr:#e8e8e8; --scard:#f9f9f9; --scbdr:#e8e8e8; transition: all .35s; }
-        .kr-root.kr-dark { --sb:#111111; --sb2:#0d0d0d; --sf:#ffffff; --sf2:rgba(255,255,255,.55); --sf3:rgba(255,255,255,.28); --sbdr:rgba(255,255,255,.07); --scard:#191919; --scbdr:rgba(255,255,255,.07); }
+        .kr-root { --sb:#ffffff; --sb2:#f1f5f9; --sf:#0f172a; --sf2:#475569; --sf3:#64748b; --sbdr:#e2e8f0; --scard:#ffffff; --scbdr:#e2e8f0; transition: all .35s; }
+        .kr-root.kr-dark { --sb:#1e293b; --sb2:#172033; --sf:#f8fafc; --sf2:rgba(248,250,252,.72); --sf3:rgba(248,250,252,.42); --sbdr:rgba(255,255,255,.1); --scard:#243047; --scbdr:rgba(255,255,255,.08); }
         .theme-toggle { display:flex; align-items:center; justify-content:center; width:36px; height:36px; border-radius:50%; background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.12); cursor:pointer; transition:all .2s; color:#fff; }
         .theme-toggle:hover { background:rgba(255,255,255,.15); border-color:rgba(255,255,255,.25); transform:rotate(15deg); }
+        .kr-root:not(.kr-dark) .theme-toggle { background: rgba(15,23,42,.06); border-color: rgba(15,23,42,.1); }
+        .kr-root:not(.kr-dark) .theme-toggle:hover { background: rgba(99,102,241,.1); border-color: rgba(99,102,241,.25); }
+        .kr-root:not(.kr-dark) .nav-hamburger { background: rgba(15,23,42,.06); border-color: rgba(15,23,42,.1); color: #334155; }
+        .kr-root:not(.kr-dark) .nav-hamburger:hover { background: rgba(99,102,241,.1); border-color: rgba(99,102,241,.22); }
+        .kr-root:not(.kr-dark) .nav-hamburger-line { background: #334155; }
+        .kr-root.kr-dark .nav-hamburger-line { background: #f8fafc; }
+
+        .kr-root:not(.kr-dark) .contact-form-inner { background: #fff; border-color: var(--sbdr); box-shadow: 0 12px 40px rgba(15,23,42,.06); }
+        .kr-root:not(.kr-dark) .contact-form-inner input,
+        .kr-root:not(.kr-dark) .contact-form-inner textarea,
+        .kr-root:not(.kr-dark) .contact-form-inner select { background: #f8fafc !important; border-color: #e2e8f0 !important; color: #0f172a !important; }
+        .kr-root:not(.kr-dark) .contact-form-inner select { color: #0f172a !important; }
+        .kr-root:not(.kr-dark) .contact-form-inner label { color: #64748b !important; }
+        .kr-root:not(.kr-dark) .contact-form-success h3 { color: #0f172a !important; }
+        .kr-root:not(.kr-dark) .contact-form-success p { color: #64748b !important; }
 
         .nav-logo-wrap { display: flex; align-items: center; flex-shrink: 0; }
         .nav-hamburger { display: none; align-items: center; justify-content: center; width: 38px; height: 38px; padding: 0; border-radius: 10px; background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.12); cursor: pointer; color: #fff; flex-shrink: 0; transition: background .2s, border-color .2s; -webkit-tap-highlight-color: transparent; touch-action: manipulation; }
@@ -687,10 +705,9 @@ export default function KyrioVitrine() {
 
 
         @media (max-width: 768px) {
-          .hero-title { font-size: clamp(32px, 9vw, 56px) !important; line-height: 1.08 !important; letter-spacing: -0.025em !important; }
+          .hero-title { font-size: clamp(56px, 16vw, 96px) !important; line-height: 0.95 !important; letter-spacing: -0.04em !important; }
           .hero-section { min-height: auto !important; padding: 76px max(16px, env(safe-area-inset-left)) 56px max(16px, env(safe-area-inset-right)) !important; }
           .hero-orbit { width: min(100vw, 420px) !important; height: min(100vw, 420px) !important; opacity: 0.75; }
-          .hero-badge { font-size: 10px !important; letter-spacing: 0.05em !important; padding: 8px 14px !important; margin-bottom: 22px !important; max-width: 100%; line-height: 1.45 !important; }
           .hero-sub { font-size: 16px !important; line-height: 1.65 !important; margin-bottom: 28px !important; padding: 0 2px; }
           .hero-cta { flex-direction: column !important; width: 100%; max-width: 360px; margin-left: auto; margin-right: auto; gap: 10px !important; }
           .hero-cta button { width: 100%; justify-content: center; }
@@ -709,7 +726,7 @@ export default function KyrioVitrine() {
           .steps-grid > div { border-right: none !important; border-bottom: 1px solid var(--sbdr) !important; padding: 28px 16px 32px !important; }
           .steps-grid > div:last-child { border-bottom: none !important; }
           .why-grid { grid-template-columns: 1fr !important; gap: 0 !important; }
-          .why-grid > div { border-right: none !important; padding: 28px 18px !important; border-bottom: 1px solid rgba(255,255,255,.06) !important; }
+          .why-grid > div { border-right: none !important; padding: 28px 18px !important; border-bottom: 1px solid var(--sbdr) !important; }
           .avant-apres-comparator { height: min(52vh, 400px) !important; min-height: 260px; border-radius: 16px !important; }
           .contact-section { padding: 64px max(16px, env(safe-area-inset-left)) 64px max(16px, env(safe-area-inset-right)) !important; }
           .contact-form-inner { padding: 28px 18px !important; border-radius: 20px !important; }
@@ -731,31 +748,34 @@ export default function KyrioVitrine() {
           .hide-mobile { display: none !important; }
         }
         @media (max-width: 380px) {
-          .hero-title { font-size: clamp(28px, 8.5vw, 44px) !important; }
+          .hero-title { font-size: clamp(48px, 15vw, 84px) !important; }
         }
       `}</style>
 
       {/* ══ NAV ══ */}
       <nav className="nav-bar" style={{
         position: 'fixed', top: 0, left: 0, right: 0, zIndex: 200,
-        background: scrolled ? 'rgba(10,10,10,.96)' : 'transparent',
+        background: scrolled ? (dark ? 'rgba(20,28,40,.94)' : 'rgba(255,255,255,.92)') : 'transparent',
         backdropFilter: scrolled ? 'blur(20px)' : 'none',
-        borderBottom: scrolled ? '1px solid rgba(255,255,255,.06)' : 'none',
+        borderBottom: scrolled ? (dark ? '1px solid rgba(255,255,255,.08)' : '1px solid rgba(15,23,42,.08)') : 'none',
         padding: '0 40px', height: 64,
         display: 'flex', alignItems: 'center', justifyContent: 'space-between',
         transition: 'all .3s ease',
       }}>
         <div className="nav-logo-wrap">
-          <KyrioMark size={42} dark />
+          <KyrioMark size={42} dark={dark} />
         </div>
         <div className="hide-mobile" style={{ display: 'flex', gap: 4, alignItems: 'center' }}>
-          {NAV_LINKS.map(([id, label]) => (
-            <button key={id} onClick={() => scrollTo(id)} style={{ background: 'transparent', border: 'none', color: 'rgba(255,255,255,.65)', fontSize: 14, fontWeight: 500, padding: '8px 14px', cursor: 'pointer', fontFamily: 'inherit', borderRadius: 8, transition: 'color .2s' }}
-              onMouseEnter={e => e.target.style.color = '#fff'}
-              onMouseLeave={e => e.target.style.color = 'rgba(255,255,255,.65)'}>
+          {NAV_LINKS.map(([id, label]) => {
+            const linkColor = dark ? 'rgba(248,250,252,.7)' : '#64748b';
+            const linkHover = dark ? '#f8fafc' : '#0f172a';
+            return (
+            <button key={id} onClick={() => scrollTo(id)} style={{ background: 'transparent', border: 'none', color: linkColor, fontSize: 14, fontWeight: 500, padding: '8px 14px', cursor: 'pointer', fontFamily: 'inherit', borderRadius: 8, transition: 'color .2s' }}
+              onMouseEnter={e => { e.target.style.color = linkHover; }}
+              onMouseLeave={e => { e.target.style.color = linkColor; }}>
               {label}
             </button>
-          ))}
+          );})}
         </div>
         <div className="nav-actions" style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
           <button
@@ -773,7 +793,7 @@ export default function KyrioVitrine() {
             </span>
           </button>
           <button className="theme-toggle" onClick={() => setDark(d => !d)} title={dark ? 'Mode clair' : 'Mode sombre'}>
-            <KIcon name={dark ? 'sun' : 'moon'} size={16} color={dark ? '#6366f1' : 'rgba(255,255,255,.8)'} />
+            <KIcon name={dark ? 'sun' : 'moon'} size={16} color={dark ? '#6366f1' : '#475569'} />
           </button>
           {!isMobileNav && (
           <button onClick={() => scrollTo('contact')} className="kyrio-btn-dark nav-cta nav-desktop-cta" style={{ padding: '10px 22px', fontSize: 13 }}>
@@ -808,52 +828,56 @@ export default function KyrioVitrine() {
       )}
 
       {/* ══ HERO ══ */}
-      <section className="hero-section" style={{ minHeight: '100vh', background: '#0f172a', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center', padding: '120px 24px 80px', position: 'relative', overflow: 'hidden' }}>
+      <section className="hero-section" style={{
+        minHeight: '100vh',
+        background: dark
+          ? 'linear-gradient(180deg, #2a3548 0%, #1e293b 55%, #172033 100%)'
+          : 'linear-gradient(165deg, #e8edff 0%, #f8fafc 45%, #eef2f9 100%)',
+        display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center', padding: '120px 24px 80px', position: 'relative', overflow: 'hidden',
+      }}>
 
         {/* Isometric boxes background */}
-        <Boxes />
+        <Boxes light={!dark} style={{ opacity: dark ? 0.85 : 0.38 }} />
 
-        {/* Slate-900 overlay masked by radial gradient (center transparent, edges opaque) → vignette */}
-        <div
-          style={{
-            position: 'absolute', inset: 0, width: '100%', height: '100%',
-            background: '#0f172a', zIndex: 20, pointerEvents: 'none',
-            maskImage: 'radial-gradient(ellipse at center, transparent 20%, black 80%)',
-            WebkitMaskImage: 'radial-gradient(ellipse at center, transparent 20%, black 80%)',
-          }}
-        />
+        {/* Vignette — centre dégagé */}
+        {dark ? (
+          <div
+            style={{
+              position: 'absolute', inset: 0, width: '100%', height: '100%',
+              background: '#1e293b', zIndex: 20, pointerEvents: 'none',
+              maskImage: 'radial-gradient(ellipse at center, transparent 22%, black 82%)',
+              WebkitMaskImage: 'radial-gradient(ellipse at center, transparent 22%, black 82%)',
+            }}
+          />
+        ) : (
+          <div
+            style={{
+              position: 'absolute', inset: 0, width: '100%', height: '100%', zIndex: 20, pointerEvents: 'none',
+              background: 'radial-gradient(ellipse 85% 70% at 50% 42%, rgba(255,255,255,0) 0%, rgba(248,250,252,.75) 100%)',
+            }}
+          />
+        )}
 
         {/* Separator bottom */}
-        <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: 1, background: 'linear-gradient(90deg, transparent, rgba(255,255,255,.06), transparent)', zIndex: 25 }} />
+        <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: 1, background: dark ? 'linear-gradient(90deg, transparent, rgba(255,255,255,.08), transparent)' : 'linear-gradient(90deg, transparent, rgba(15,23,42,.08), transparent)', zIndex: 25 }} />
 
         {/* ── Content — fade-up via framer-motion ── */}
         {/* pointerEvents:none sur le wrapper → laisse passer le hover vers les Boxes ; réactivé sur les CTAs/liens */}
         <div style={{ position: 'relative', zIndex: 30, display: 'flex', flexDirection: 'column', alignItems: 'center', pointerEvents: 'none' }}>
 
-          {/* Badge */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, delay: 0.5, ease: [0.21, 0.47, 0.32, 0.98] }}
-            style={{ display: 'inline-flex', alignItems: 'center', gap: 8, background: 'rgba(99,102,241,.1)', border: '1px solid rgba(99,102,241,.25)', borderRadius: 50, padding: '7px 18px', fontSize: 11, fontWeight: 700, color: '#6366f1', letterSpacing: '.08em', textTransform: 'uppercase', marginBottom: 40 }}
-          >
-            <span style={{ width: 7, height: 7, borderRadius: '50%', background: '#6366f1', display: 'inline-block', boxShadow: '0 0 6px #6366f1' }} />
-            Agence web · Basse-Normandie
-          </motion.div>
-
           {/* Heading — neon gradient animé + Plus aux coins */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, delay: 0.7, ease: [0.21, 0.47, 0.32, 0.98] }}
-            style={{ position: 'relative', padding: '32px 24px', marginBottom: 48, border: '1px solid rgba(255,255,255,0.08)', maskImage: 'radial-gradient(200rem 24rem at center, white, transparent)', WebkitMaskImage: 'radial-gradient(200rem 24rem at center, white, transparent)' }}
+            transition={{ duration: 1, delay: 0.5, ease: [0.21, 0.47, 0.32, 0.98] }}
+            style={{ position: 'relative', padding: '40px 20px', marginBottom: 40, border: dark ? '1px solid rgba(255,255,255,0.08)' : '1px solid rgba(99,102,241,.12)', maskImage: 'radial-gradient(200rem 24rem at center, white, transparent)', WebkitMaskImage: 'radial-gradient(200rem 24rem at center, white, transparent)' }}
           >
             <Plus strokeWidth={1.5} className="hero-corner-plus" style={{ top: -14, left: -14 }} />
             <Plus strokeWidth={1.5} className="hero-corner-plus" style={{ top: -14, right: -14 }} />
             <Plus strokeWidth={1.5} className="hero-corner-plus" style={{ bottom: -14, left: -14 }} />
             <Plus strokeWidth={1.5} className="hero-corner-plus" style={{ bottom: -14, right: -14 }} />
 
-            <h1 className="hero-title" style={{ userSelect: 'none', display: 'flex', justifyContent: 'center', fontSize: 'clamp(72px, 14vw, 168px)', fontWeight: 900, lineHeight: 0.95, letterSpacing: '-0.045em', margin: 0 }}>
+            <h1 className="hero-title" style={{ userSelect: 'none', display: 'flex', justifyContent: 'center', fontSize: 'clamp(92px, 20vw, 232px)', fontWeight: 900, lineHeight: 0.92, letterSpacing: '-0.045em', margin: 0 }}>
               <span className="kyrio-neon-text" style={{ padding: '0 0 0 12px' }}>Kyrio</span><span style={{ color: '#39ff14', WebkitTextFillColor: '#39ff14' }}>.</span>
             </h1>
           </motion.div>
@@ -864,10 +888,10 @@ export default function KyrioVitrine() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 0.85, ease: [0.21, 0.47, 0.32, 0.98] }}
             className="hero-sub"
-            style={{ fontSize: 'clamp(16px, 1.6vw, 19px)', color: 'rgba(255,255,255,.55)', maxWidth: 640, lineHeight: 1.65, marginBottom: 44, marginTop: -16 }}
+            style={{ fontSize: 'clamp(16px, 1.6vw, 19px)', color: dark ? 'rgba(248,250,252,.65)' : '#475569', maxWidth: 640, lineHeight: 1.65, marginBottom: 44, marginTop: -16 }}
           >
             On accompagne artisans, commerçants et TPE du{' '}
-            <strong style={{ color: 'rgba(255,255,255,.82)', fontWeight: 600 }}>Calvados, de la Manche et de l'Orne</strong>.{' '}
+            <strong style={{ color: dark ? 'rgba(248,250,252,.92)' : '#0f172a', fontWeight: 600 }}>Calvados, de la Manche et de l'Orne</strong>.{' '}
             SEO inclus, tarifs affichés — et une fois en ligne, on reste à vos côtés.
           </motion.p>
 
@@ -1135,18 +1159,18 @@ export default function KyrioVitrine() {
       </section>
 
       {/* ══ MAINTENANCE ══ */}
-      <section id="maintenance" className="section-pad" style={{ padding: '160px 24px', background: '#0a0a0a', position: 'relative', overflow: 'hidden' }}>
+      <section id="maintenance" className="section-pad" style={{ padding: '160px 24px', background: 'var(--sb2)', position: 'relative', overflow: 'hidden', transition: 'background .35s' }}>
         <div className="float" style={{ position: 'absolute', top: '10%', right: '-5%', width: 400, height: 400, background: 'radial-gradient(circle, rgba(99,102,241,.1) 0%, transparent 70%)', pointerEvents: 'none' }} />
         <div className="float-b" style={{ position: 'absolute', bottom: '10%', left: '-5%', width: 350, height: 350, background: 'radial-gradient(circle, rgba(16,185,129,.07) 0%, transparent 70%)', pointerEvents: 'none' }} />
         <div style={{ maxWidth: 1100, margin: '0 auto' }}>
           <Reveal>
             <div className="section-head" style={{ textAlign: 'center', marginBottom: 72 }}>
-              <div style={{ fontSize: 12, fontWeight: 700, letterSpacing: '.1em', textTransform: 'uppercase', color: 'rgba(255,255,255,.3)', marginBottom: 14 }}>Après le lancement</div>
-              <h2 style={{ fontSize: 'clamp(32px, 5vw, 52px)', fontWeight: 900, color: '#fff', letterSpacing: '-0.02em', lineHeight: 1.1, marginBottom: 18 }}>
+              <div style={{ fontSize: 12, fontWeight: 700, letterSpacing: '.1em', textTransform: 'uppercase', color: 'var(--sf3)', marginBottom: 14 }}>Après le lancement</div>
+              <h2 style={{ fontSize: 'clamp(32px, 5vw, 52px)', fontWeight: 900, color: 'var(--sf)', letterSpacing: '-0.02em', lineHeight: 1.1, marginBottom: 18 }}>
                 Les formules Kyrio.<br />
                 <span className="squiggle-cyan" style={{ color: '#6366f1' }}>Votre site ne se gère pas tout seul.</span>
               </h2>
-              <p style={{ fontSize: 17, color: 'rgba(255,255,255,.4)', maxWidth: 520, margin: '0 auto', lineHeight: 1.7 }}>
+              <p style={{ fontSize: 17, color: 'var(--sf2)', maxWidth: 520, margin: '0 auto', lineHeight: 1.7 }}>
                 Un site laissé sans entretien ralentit, vieillit et disparaît de Google. Kyrio s&apos;en charge — vous, vous gérez votre métier (et vos clients).
               </p>
             </div>
@@ -1155,7 +1179,7 @@ export default function KyrioVitrine() {
           <div className="maintenance-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 16 }}>
             {MAINTENANCE.map((m, i) => (
               <Reveal key={m.nom} delay={i * 0.1}>
-                <div className="card-hover maint-card" style={{ background: '#111', border: '1px solid rgba(255,255,255,.06)', borderRadius: 20, padding: '32px', height: '100%', display: 'flex', flexDirection: 'column' }}>
+                <div className="card-hover maint-card" style={{ background: 'var(--scard)', border: '1px solid var(--scbdr)', borderRadius: 20, padding: '32px', height: '100%', display: 'flex', flexDirection: 'column', boxShadow: dark ? 'none' : '0 8px 32px rgba(15,23,42,.05)' }}>
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 20 }}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
                       <div style={{ width: 40, height: 40, borderRadius: 12, background: m.color + '18', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
@@ -1166,18 +1190,18 @@ export default function KyrioVitrine() {
                     <div style={{ textAlign: 'right' }}>
                       {m.prix !== null ? (
                         <>
-                          <span style={{ fontSize: 28, fontWeight: 900, color: '#fff', letterSpacing: '-0.03em' }}>{eur(m.prix)}</span>
-                          <span style={{ fontSize: 12, color: 'rgba(255,255,255,.3)', display: 'block' }}>/mois</span>
+                          <span style={{ fontSize: 28, fontWeight: 900, color: 'var(--sf)', letterSpacing: '-0.03em' }}>{eur(m.prix)}</span>
+                          <span style={{ fontSize: 12, color: 'var(--sf3)', display: 'block' }}>/mois</span>
                         </>
                       ) : (
                         <span style={{ fontSize: 18, fontWeight: 800, color: m.color, letterSpacing: '-0.02em' }}>Sur devis</span>
                       )}
                     </div>
                   </div>
-                  <p style={{ fontSize: 13.5, color: 'rgba(255,255,255,.45)', lineHeight: 1.65, marginBottom: 24 }}>{m.desc}</p>
+                  <p style={{ fontSize: 13.5, color: 'var(--sf2)', lineHeight: 1.65, marginBottom: 24 }}>{m.desc}</p>
                   <ul style={{ listStyle: 'none', flex: 1, marginBottom: 28 }}>
                     {m.features.map(f => (
-                      <li key={f} style={{ display: 'flex', gap: 10, fontSize: 13, color: 'rgba(255,255,255,.6)', padding: '7px 0', borderBottom: '1px solid rgba(255,255,255,.04)', alignItems: 'flex-start' }}>
+                      <li key={f} style={{ display: 'flex', gap: 10, fontSize: 13, color: 'var(--sf2)', padding: '7px 0', borderBottom: '1px solid var(--sbdr)', alignItems: 'flex-start' }}>
                         <span style={{ flexShrink: 0, marginTop: 1 }}><KIcon name="tick" size={13} color={m.color} strokeWidth={2.5} /></span>{f}
                       </li>
                     ))}
@@ -1265,21 +1289,21 @@ export default function KyrioVitrine() {
       </section>
 
       {/* ══ CTA CONTACT ══ */}
-      <section id="contact" className="section-pad contact-section" style={{ padding: '160px 24px', background: '#0a0a0a', textAlign: 'center', position: 'relative', overflow: 'hidden' }}>
+      <section id="contact" className="section-pad contact-section" style={{ padding: '160px 24px', background: 'var(--sb)', textAlign: 'center', position: 'relative', overflow: 'hidden', transition: 'background .35s' }}>
         <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', width: 800, height: 800, background: 'radial-gradient(circle, rgba(99,102,241,.08) 0%, transparent 70%)', pointerEvents: 'none' }} />
         <div className="float" style={{ position: 'absolute', top: '15%', left: '5%', width: 200, height: 200, background: 'radial-gradient(circle, rgba(6,182,212,.12) 0%, transparent 70%)', pointerEvents: 'none' }} />
         <div className="float-b" style={{ position: 'absolute', bottom: '20%', right: '5%', width: 180, height: 180, background: 'radial-gradient(circle, rgba(236,72,153,.1) 0%, transparent 70%)', pointerEvents: 'none' }} />
         <div style={{ maxWidth: 700, margin: '0 auto', position: 'relative' }}>
           <Reveal>
-            <div style={{ fontSize: 12, fontWeight: 700, letterSpacing: '.1em', textTransform: 'uppercase', color: 'rgba(255,255,255,.3)', marginBottom: 20 }}>On se lance avec Kyrio ?</div>
-            <h2 style={{ fontSize: 'clamp(36px, 6vw, 64px)', fontWeight: 900, color: '#fff', letterSpacing: '-0.03em', lineHeight: 1.05, marginBottom: 24 }}>
+            <div style={{ fontSize: 12, fontWeight: 700, letterSpacing: '.1em', textTransform: 'uppercase', color: 'var(--sf3)', marginBottom: 20 }}>On se lance avec Kyrio ?</div>
+            <h2 style={{ fontSize: 'clamp(36px, 6vw, 64px)', fontWeight: 900, color: 'var(--sf)', letterSpacing: '-0.03em', lineHeight: 1.05, marginBottom: 24 }}>
               Votre prochain client<br />vous cherche en ce moment.<br />
               <span className="squiggle" style={{ color: '#6366f1', display: 'inline-block' }}>Kyrio vous rend</span><br />
               <span className="squiggle" style={{ color: '#6366f1', display: 'inline-block' }}>trouvable.</span>
             </h2>
-            <p style={{ fontSize: 18, color: 'rgba(255,255,255,.45)', marginBottom: 52, lineHeight: 1.65 }}>
+            <p style={{ fontSize: 18, color: 'var(--sf2)', marginBottom: 52, lineHeight: 1.65 }}>
               30 min d&apos;échange, devis sous 24 h, site en ligne en 7 jours.<br />
-              <span style={{ fontSize: 14, color: 'rgba(255,255,255,.25)' }}>On n&apos;est pas des commerciaux en costume trois-pièces — juste une équipe qui aime le travail bien fait (et les croissants).</span>
+              <span style={{ fontSize: 14, color: 'var(--sf3)' }}>On n&apos;est pas des commerciaux en costume trois-pièces — juste une équipe qui aime le travail bien fait (et les croissants).</span>
             </p>
 
             <ContactForm />
@@ -1288,30 +1312,30 @@ export default function KyrioVitrine() {
       </section>
 
       {/* ══ FOOTER ══ */}
-      <footer className="footer-kyrio" style={{ background: '#050505', borderTop: '1px solid rgba(255,255,255,.06)', padding: '48px 40px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 20 }}>
+      <footer className="footer-kyrio" style={{ background: 'var(--sb2)', borderTop: '1px solid var(--sbdr)', padding: '48px 40px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 20, transition: 'background .35s' }}>
         <div>
-          <KyrioMark size={24} dark opacity={0.6} />
-          <div style={{ fontSize: 11, color: 'rgba(255,255,255,.35)', marginTop: 8, letterSpacing: '.04em' }}>
+          <KyrioMark size={24} dark={dark} opacity={0.85} />
+          <div style={{ fontSize: 11, color: 'var(--sf3)', marginTop: 8, letterSpacing: '.04em' }}>
             Agence web · Calvados, Manche, Orne
           </div>
         </div>
         <div style={{ display: 'flex', gap: 28, flexWrap: 'wrap' }}>
           {[['offres', 'Offres'], ['maintenance', 'Maintenance'], ['processus', 'Méthode'], ['contact', 'Contact']].map(([id, label]) => (
-            <button key={id} onClick={() => scrollTo(id)} style={{ background: 'transparent', border: 'none', color: 'rgba(255,255,255,.3)', fontSize: 13, cursor: 'pointer', fontFamily: 'inherit', transition: 'color .2s' }}
-              onMouseEnter={e => e.target.style.color = 'rgba(255,255,255,.7)'}
-              onMouseLeave={e => e.target.style.color = 'rgba(255,255,255,.3)'}>
+            <button key={id} onClick={() => scrollTo(id)} style={{ background: 'transparent', border: 'none', color: 'var(--sf3)', fontSize: 13, cursor: 'pointer', fontFamily: 'inherit', transition: 'color .2s' }}
+              onMouseEnter={e => e.target.style.color = 'var(--sf)'}
+              onMouseLeave={e => e.target.style.color = 'var(--sf3)'}>
               {label}
             </button>
           ))}
           <Link to="/demos">
-            <button type="button" style={{ background: 'transparent', border: 'none', color: 'rgba(255,255,255,.3)', fontSize: 13, cursor: 'pointer', fontFamily: 'inherit', transition: 'color .2s' }}
-              onMouseEnter={e => e.target.style.color = 'rgba(255,255,255,.7)'}
-              onMouseLeave={e => e.target.style.color = 'rgba(255,255,255,.3)'}>
+            <button type="button" style={{ background: 'transparent', border: 'none', color: 'var(--sf3)', fontSize: 13, cursor: 'pointer', fontFamily: 'inherit', transition: 'color .2s' }}
+              onMouseEnter={e => e.target.style.color = 'var(--sf)'}
+              onMouseLeave={e => e.target.style.color = 'var(--sf3)'}>
               Galerie démos
             </button>
           </Link>
         </div>
-        <div style={{ fontSize: 12, color: 'rgba(255,255,255,.2)' }}>© {new Date().getFullYear()} Kyrio — Fait avec soin, un peu d&apos;audace, et trop de café</div>
+        <div style={{ fontSize: 12, color: 'var(--sf3)' }}>© {new Date().getFullYear()} Kyrio — Fait avec soin, un peu d&apos;audace, et trop de café</div>
       </footer>
     </div>
   );
@@ -1358,7 +1382,7 @@ function ContactForm() {
   };
 
   if (status === 'success') return (
-    <div style={{ background: 'rgba(99,102,241,.05)', border: '1px solid rgba(99,102,241,.2)', borderRadius: 20, padding: '56px 40px', textAlign: 'center' }}>
+    <div className="contact-form-success" style={{ background: 'rgba(99,102,241,.05)', border: '1px solid rgba(99,102,241,.2)', borderRadius: 20, padding: '56px 40px', textAlign: 'center' }}>
       <div style={{ width: 72, height: 72, borderRadius: '50%', background: 'rgba(99,102,241,.1)', border: '1.5px solid rgba(99,102,241,.3)', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 24px' }}>
         <KIcon name="check" size={30} color="#6366f1" strokeWidth={2.5} />
       </div>
