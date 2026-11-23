@@ -20,6 +20,8 @@ Sur **https://github.com/kyriostudio/README** → *Settings → Secrets and vari
 
 Si le workflow échoue sur « Test connexion SFTP », rouvrez le secret mot de passe : recopiez-le depuis la fiche IONOS et enregistrez à nouveau.
 
+**Note :** sur un compte IONOS souvent réservé au SFTP, `ssh user@host` peut afficher `PTY allocation request failed` / `shell request failed` **après** le mot de passe — c’est attendu. Testez plutôt avec un client SFTP (FileZilla, WinSCP) ou le workflow GitHub.
+
 ## À faire par vous (IONOS + upload)
 
 ### Étape 1 — Domaine

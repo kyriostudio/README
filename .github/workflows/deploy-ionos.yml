@@ -56,7 +56,7 @@ jobs:
             echo "::warning::IONOS_SFTP_HOST=${HOST} — vérifiez qu'il correspond au contrat Web IONOS actuel."
           fi
 
-      - name: Outils SSH
+      - name: Outils SFTP
         run: sudo apt-get update -qq && sudo apt-get install -y -qq sshpass openssh-client > /dev/null
 
       - name: Empreinte du serveur
@@ -65,25 +65,28 @@ jobs:
           ssh-keyscan -T 15 "$HOST" >> ~/.ssh/known_hosts 2>/dev/null
           test -s ~/.ssh/known_hosts
 
-      - name: Test connexion SFTP (SSH)
+      # Compte IONOS souvent « SFTP only » : ssh interactif échoue (PTY/shell) alors que SFTP fonctionne.
+      - name: Test connexion SFTP
         run: |
           set -euo pipefail
           PASS_TRIMMED="$(printf '%s' "$RAW_PASSWORD" | tr -d '\r\n')"
           export SSHPASS="$PASS_TRIMMED"
-          sshpass -e ssh \
+          BATCH="$(mktemp)"
+          printf '%s\n' 'pwd' 'ls' 'bye' > "$BATCH"
+          sshpass -e sftp \
+            -oBatchMode=no \
             -o StrictHostKeyChecking=yes \
             -o ConnectTimeout=45 \
             -o PreferredAuthentications=password \
             -o PubkeyAuthentication=no \
-            -o NumberOfPasswordPrompts=1 \
-            "${USERNAME}@${HOST}" 'echo "OK — répertoire SFTP :" && pwd && ls -1 | head -15' \
+            -b "$BATCH" \
+            "${USERNAME}@${HOST}" \
           || {
-            echo "::error::Connexion SFTP refusée. Checklist :" >&2
-            echo "  • IONOS_SFTP_USERNAME = su247348 (pas su359443)" >&2
-            echo "  • mot de passe = celui de la fiche SFTP IONOS (sans espace / retour ligne en trop)" >&2
-            echo "  • secrets définis sur kyriostudio/README, pas seulement sur kyrio-crm" >&2
+            echo "::error::SFTP refusé. Vérifiez IONOS_SFTP_USERNAME (su247348) et le mot de passe sur kyriostudio/README." >&2
+            echo "::notice::Si « ssh » affiche PTY/shell failed en local, c'est normal : utilisez SFTP ou ce workflow." >&2
             exit 1
           }
+          rm -f "$BATCH"
 
       # wlixcc : dernier déploiement vert sur ce dépôt (avril 2026)
       - name: Deploy dist to IONOS (SFTP)
